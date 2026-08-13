@@ -20,6 +20,7 @@ The public homepage now presents a historical month wall instead of a reservatio
 - [x] Added a JSON Schema, sample import file, and MongoDB seeder for batch month/event imports.
 - [x] Wired the public wall service to read seeded MongoDB `months` and `events` when available.
 - [x] Wired archive browsing to include seeded MongoDB months and event walls.
+- [x] Converted `/admin` into an editorial operations overview for imported historical months.
 
 ## In Progress
 
@@ -41,7 +42,7 @@ The public homepage now presents a historical month wall instead of a reservatio
 - [x] Event detail pages.
 - [x] Source citation display.
 - [x] Archive page.
-- [ ] Admin review placeholder or protected admin page.
+- [x] Admin review placeholder or protected admin page.
 - [ ] No reservation or payment flow in the primary experience.
 - [x] Batch import path for month/event data.
 - [x] Public wall reads seeded MongoDB month/event data.
@@ -58,6 +59,7 @@ The public homepage now presents a historical month wall instead of a reservatio
 | 2026-08-13 | Read seeded data before static fallback. | Public wall uses the latest published MongoDB month/events when available, then falls back to static June 1984 data. |
 | 2026-08-13 | Use `month-history-museum` as the MongoDB database name. | Avoid reusing the copied source repo database name. |
 | 2026-08-13 | Archive seeded months before snapshot locking. | `/archive` can list published/locked `months` records from the batch importer while legacy snapshots remain supported. |
+| 2026-08-13 | Make `/admin` editorial-first. | Admin landing page tracks imported months, events, sources, and review queues instead of reservation submissions. |
 
 ## Open Questions
 
@@ -87,4 +89,8 @@ The public homepage now presents a historical month wall instead of a reservatio
 | 2026-08-13 | `npm run lint` | Passed | Seeded archive summaries/month walls, archive card copy, and docs passed ESLint. |
 | 2026-08-13 | `npm run test` | Passed | Existing suite plus seeded archive mapping tests passes: 7 files, 22 tests. |
 | 2026-08-13 | `npm run seed:month -- data/imports/1984-06.sample.json --dry-run` | Passed | Import dry-run remains green after archive service changes. |
+| 2026-08-13 | `npm run build` | Passed | Production build passed outside the sandbox after the recurring `spawn EPERM` sandbox failure. |
+| 2026-08-13 | `npm run lint` | Passed | Editorial admin overview and docs passed ESLint. |
+| 2026-08-13 | `npm run test` | Passed | Existing suite remains green: 7 files, 22 tests. |
+| 2026-08-13 | `npm run seed:month -- data/imports/1984-06.sample.json --dry-run` | Passed | Import dry-run remains green after admin overview changes. |
 | 2026-08-13 | `npm run build` | Passed | Production build passed outside the sandbox after the recurring `spawn EPERM` sandbox failure. |

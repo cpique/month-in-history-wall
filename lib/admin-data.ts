@@ -1,86 +1,124 @@
-import type { ReviewStatus } from "./domain-types";
 import { currentExhibition } from "./exhibition-data";
 import { getMongoDb } from "./mongodb";
-import { findReservationsByIds } from "./reservation-repository";
-import { findSubmissionsForReview } from "./submission-repository";
+import type { EventStatus, HistoricalEventDocument, MonthDocument } from "./domain-types";
 
-export type AdminReviewSubmission = {
-  id: string;
-  submissionId: string;
-  reservationId: string;
-  isSample?: boolean;
-  creatorName: string;
-  workTitle: string;
+export type EditorialMonthSummary = {
+  slug: string;
+  title: string;
   description: string;
-  medium: string;
-  reviewStatus: ReviewStatus;
-  size?: string;
-  months?: string[];
-  email?: string;
-  assetKey?: string;
-  originalFilename?: string;
+  status: MonthDocument["status"];
+  eventCount: number;
+  sourceCount: number;
+  needsReviewCount: number;
+  updatedAt: string;
 };
 
-export function getSampleAdminSubmissions(): AdminReviewSubmission[] {
-  return currentExhibition.spaces
-    .filter(
-      (space) =>
-        space.status === "occupied" ||
-        space.status === "featured" ||
-        space.status === "review",
-    )
-    .map((space) => ({
-      id: `sample-submission-${space.id}`,
-      submissionId: `sample-submission-${space.id}`,
-      reservationId: `sample-reservation-${space.id}`,
-      isSample: true,
-      creatorName: space.creator,
-      workTitle: space.title,
-      description: space.description,
-      medium: space.medium,
-      reviewStatus:
-        space.status === "review" ? ("in_review" as ReviewStatus) : "approved",
-      size: space.size,
-      assetKey: undefined,
-      originalFilename: undefined,
-    }));
+export type EditorialOverview = {
+  mongoConfigured: boolean;
+  months: EditorialMonthSummary[];
+  totals: {
+    months: number;
+    events: number;
+    sources: number;
+    needsReview: number;
+  };
+};
+
+function staticOverview(): EditorialOverview {
+  const sourceCount = currentExhibition.spaces.reduce(
+    (total, event) => total + (event.sources?.length ?? 0),
+    0,
+  );
+
+  return {
+    mongoConfigured: false,
+    months: [
+      {
+        slug: currentExhibition.slug,
+        title: currentExhibition.monthLabel,
+        description: currentExhibition.description,
+        status: "published",
+        eventCount: currentExhibition.spaces.length,
+        sourceCount,
+        needsReviewCount: 0,
+        updatedAt: new Date().toISOString(),
+      },
+    ],
+    totals: {
+      months: 1,
+      events: currentExhibition.spaces.length,
+      sources: sourceCount,
+      needsReview: 0,
+    },
+  };
 }
 
-export async function getReviewSubmissions(): Promise<AdminReviewSubmission[]> {
+export async function getEditorialOverview(): Promise<EditorialOverview> {
   if (!process.env.MONGODB_URI) {
-    return getSampleAdminSubmissions();
+    return staticOverview();
   }
 
   const db = await getMongoDb();
-  const submissions = await findSubmissionsForReview(db);
+  const months = await db
+    .collection<MonthDocument>("months")
+    .find({})
+    .sort({ year: -1, month: -1 })
+    .toArray();
 
-  if (submissions.length === 0) {
-    return getSampleAdminSubmissions();
+  if (months.length === 0) {
+    return { ...staticOverview(), mongoConfigured: true };
   }
 
-  const reservationIds = [...new Set(submissions.map((submission) => submission.reservationId))];
-  const reservations = await findReservationsByIds(reservationIds, db);
-  const reservationById = new Map(
-    reservations.map((reservation) => [reservation._id, reservation]),
-  );
+  const events = await db
+    .collection<HistoricalEventDocument>("events")
+    .find({ monthId: { $in: months.map((month) => month._id) } })
+    .toArray();
+  const eventsByMonth = new Map<string, HistoricalEventDocument[]>();
 
-  return submissions.map((submission) => {
-    const reservation = reservationById.get(submission.reservationId);
+  for (const event of events) {
+    const monthEvents = eventsByMonth.get(event.monthId) ?? [];
+    monthEvents.push(event);
+    eventsByMonth.set(event.monthId, monthEvents);
+  }
+
+  const needsReviewStatuses = new Set<EventStatus>([
+    "draft",
+    "needs_review",
+    "needs_correction",
+  ]);
+  const summaries = months.map((month) => {
+    const monthEvents = eventsByMonth.get(month._id) ?? [];
+    const sourceCount = monthEvents.reduce(
+      (total, event) => total + event.sources.length,
+      0,
+    );
+    const needsReviewCount = monthEvents.filter((event) =>
+      needsReviewStatuses.has(event.status),
+    ).length;
 
     return {
-      id: submission._id,
-      submissionId: submission._id,
-      reservationId: submission.reservationId,
-      creatorName: submission.creatorName,
-      workTitle: submission.workTitle,
-      description: submission.description,
-      medium: submission.media.kind,
-      reviewStatus: submission.reviewStatus,
-      size: reservation?.requestedSize,
-      months: reservation?.months,
-      email: reservation?.primaryContactEmail,
-      assetKey: submission.media.assetKey,
-      originalFilename: submission.media.originalFilename,
+      slug: month.slug,
+      title: month.title,
+      description: month.description,
+      status: month.status,
+      eventCount: monthEvents.length,
+      sourceCount,
+      needsReviewCount,
+      updatedAt: month.updatedAt,
     };
   });
+
+  return {
+    mongoConfigured: true,
+    months: summaries,
+    totals: {
+      months: summaries.length,
+      events: events.length,
+      sources: summaries.reduce((total, month) => total + month.sourceCount, 0),
+      needsReview: summaries.reduce(
+        (total, month) => total + month.needsReviewCount,
+        0,
+      ),
+    },
+  };
 }

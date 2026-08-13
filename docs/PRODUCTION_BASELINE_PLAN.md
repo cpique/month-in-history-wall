@@ -19,6 +19,7 @@ Repurpose the copied app into a working historical wall for one sample month.
 - Made wall tile footprint derive from editorial `importanceLevel`.
 - Wired the public wall service to read seeded MongoDB `months` and `events` when available.
 - Wired `/archive` and `/archive/[month]` to include seeded MongoDB months and event walls.
+- Converted `/admin` into an editorial operations overview for imported historical months.
 - Removed reservation links from the primary homepage and footer.
 
 ### Next Product Work
@@ -26,7 +27,7 @@ Repurpose the copied app into a working historical wall for one sample month.
 - Add explicit `context` and `whyItMatters` fields to event data and render them on detail pages.
 - Move event detail routes to read individual seeded events directly instead of only the current wall model.
 - Replace or hide public reservation, Stripe, and creator-submission routes.
-- Convert the admin dashboard into an editorial review placeholder or event review surface.
+- Repurpose or remove inherited `/admin/analytics` reservation analytics.
 - Rename inherited `exhibition`, `space`, `work`, `submission`, and `reservation` internals when each surface is touched.
 
 ## Later Product Work
