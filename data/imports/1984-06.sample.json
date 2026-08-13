@@ -1,0 +1,60 @@
+{
+  "$schema": "../../schemas/history-month.schema.json",
+  "month": 6,
+  "year": 1984,
+  "title": "June 1984",
+  "description": "A sample historical wall import for June 1984.",
+  "status": "published",
+  "layoutSeed": "june-1984-v1",
+  "events": [
+    {
+      "slug": "operation-blue-star",
+      "title": "Operation Blue Star",
+      "summary": "Indian forces entered the Golden Temple complex to remove Sikh militants, a defining crisis with lasting political and communal consequences.",
+      "context": "The operation followed rising tensions in Punjab and became one of the central Indian political crises of 1984.",
+      "whyItMatters": "Its consequences shaped Indian politics, Sikh history, and the violence that followed later in the year.",
+      "category": "Conflict",
+      "dateRange": {
+        "start": "1984-06-01",
+        "end": "1984-06-08"
+      },
+      "location": "Amritsar, India",
+      "countries": ["India"],
+      "relevanceScore": 100,
+      "media": {
+        "kind": "image",
+        "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Golden%20Temple%20India.jpg",
+        "alt": "The Golden Temple in Amritsar reflected in the surrounding water.",
+        "caption": "Golden Temple, Amritsar."
+      },
+      "detailMarkdown": "Operation Blue Star was one of the defining events of June 1984. The event belongs as the anchor tile for this sample wall because its political and social consequences extended far beyond the month itself.",
+      "sources": [
+        {
+          "title": "Operation Blue Star",
+          "url": "https://www.britannica.com/event/Operation-Blue-Star",
+          "publisher": "Encyclopaedia Britannica",
+          "sourceType": "encyclopedia"
+        }
+      ]
+    },
+    {
+      "slug": "tetris-created",
+      "title": "Tetris Is Created In Moscow",
+      "summary": "Alexey Pajitnov created the first version of Tetris on an Electronika 60, beginning one of the most durable global stories in video games.",
+      "category": "Technology",
+      "date": "1984-06",
+      "location": "Moscow, Soviet Union",
+      "countries": ["Soviet Union"],
+      "relevanceScore": 70,
+      "detailMarkdown": "Tetris began as a software experiment and became a global cultural object, crossing platforms, borders, and generations.",
+      "sources": [
+        {
+          "title": "The History of Tetris",
+          "url": "https://tetris.com/news/the-history-of-tetris",
+          "publisher": "Tetris",
+          "sourceType": "official"
+        }
+      ]
+    }
+  ]
+}

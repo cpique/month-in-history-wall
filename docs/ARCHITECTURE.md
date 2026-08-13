@@ -25,6 +25,8 @@ Month in History Wall is a Next.js App Router application for browsing curated h
 - `lib/exhibition-data.ts`: current seeded historical wall data for June 1984, including event dates, locations, importance levels, source records, and the importance-to-tile-footprint mapping.
 - `lib/exhibition-service.ts`: inherited overlay service. It still reads approved reservation/submission data and should become a month/event service.
 - `lib/domain-types.ts`: inherited persistence contracts. These should be migrated from exhibitions/spaces/submissions/reservations toward months/events/sources/archive snapshots.
+- `scripts/seed-history-month.mjs`: batch importer for JSON month files into MongoDB `months` and `events` collections.
+- `schemas/history-month.schema.json`: import schema for month/event/source/media data.
 
 ## Target Data Model
 

@@ -17,6 +17,7 @@ The public homepage now presents a historical month wall instead of a reservatio
 - [x] Added public event detail pages at `/events/[eventId]` with event metadata and source citations.
 - [x] Redirected inherited `/works/[spaceId]` detail URLs to the new event detail route.
 - [x] Made public wall tile footprint derive from editorial importance.
+- [x] Added a JSON Schema, sample import file, and MongoDB seeder for batch month/event imports.
 
 ## In Progress
 
@@ -40,6 +41,7 @@ The public homepage now presents a historical month wall instead of a reservatio
 - [ ] Archive page.
 - [ ] Admin review placeholder or protected admin page.
 - [ ] No reservation or payment flow in the primary experience.
+- [x] Batch import path for month/event data.
 
 ## Decisions
 
@@ -49,6 +51,7 @@ The public homepage now presents a historical month wall instead of a reservatio
 | 2026-08-13 | Use June 1984 as the first sample month. | Matches the README recommendation and gives a broad mix of politics, culture, sport, technology, and conflict. |
 | 2026-08-13 | Keep some inherited internals temporarily. | `ExhibitionSpace` and repository names remain inherited; the public event detail route is now `/events/[eventId]`. |
 | 2026-08-13 | Derive tile footprint from importance. | Editors set `importanceLevel`; code maps that to the public grid footprint. |
+| 2026-08-13 | Use batch imports for month data. | Month/event data comes from JSON files and a seeder script rather than public forms. |
 
 ## Open Questions
 
@@ -66,4 +69,8 @@ The public homepage now presents a historical month wall instead of a reservatio
 | 2026-08-13 | `npm run build` | Passed | Production build passed outside the sandbox after the recurring `spawn EPERM` sandbox failure. |
 | 2026-08-13 | `npm run lint` | Passed | Importance-derived tile sizing and docs passed ESLint. |
 | 2026-08-13 | `npm run test` | Passed | Existing Vitest suite plus importance sizing checks passes: 5 files, 19 tests. |
+| 2026-08-13 | `npm run build` | Passed | Production build passed outside the sandbox after the recurring `spawn EPERM` sandbox failure. |
+| 2026-08-13 | `npm run seed:month -- data/imports/1984-06.sample.json --dry-run` | Passed | Import validation, ranking, tile-size assignment, and deterministic layout preview completed without MongoDB. |
+| 2026-08-13 | `npm run lint` | Passed | Batch import schema, seeder, docs, and persistence types passed ESLint. |
+| 2026-08-13 | `npm run test` | Passed | Existing Vitest suite remains green: 5 files, 19 tests. |
 | 2026-08-13 | `npm run build` | Passed | Production build passed outside the sandbox after the recurring `spawn EPERM` sandbox failure. |

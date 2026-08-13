@@ -23,6 +23,7 @@ One document per month wall.
 - `title`
 - `description`
 - `status`: `draft`, `published`, or `locked`
+- `layoutSeed`
 - `createdAt`, `updatedAt`, and optional `lockedAt`
 
 Useful indexes:
@@ -45,18 +46,32 @@ One document per historical event.
 - `location`
 - `countries`
 - `category`
+- `relevanceScore`: `0` to `100`, relative to other events in the month
 - `importanceLevel`: `featured`, `major`, `notable`, or `signal`
-- `importanceScore`
 - `tileSize`
 - `status`: `draft`, `needs_review`, `published`, `needs_correction`, or `archived`
 - `sources`
 - `media`
+- `detailMarkdown`
+- `layout.order`
 - `createdAt` and `updatedAt`
 
 Useful indexes:
 
-- Compound index on `monthId`, `status`, and `importanceScore`
+- Compound index on `monthId`, `status`, and `relevanceScore`
+- Unique compound index on `monthSlug` and `slug`
 - Text index on `title`, `summary`, `location`, `countries`, and `category`
+
+## Batch Import
+
+Month data should be imported as a batch file, not entered through a public form.
+
+- JSON Schema: `schemas/history-month.schema.json`
+- Seeder: `scripts/seed-history-month.mjs`
+- Sample import: `data/imports/1984-06.sample.json`
+- Usage guide: `docs/HISTORY_MONTH_IMPORT.md`
+
+The seeder validates required month/event fields, requires at least one source per event, ranks `relevanceScore` values within the month, assigns `importanceLevel` and `tileSize`, and stores deterministic randomized layout order from `layoutSeed`.
 
 ### `sources`
 
