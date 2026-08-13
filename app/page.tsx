@@ -25,7 +25,6 @@ export default async function Home({ searchParams }: PageProps<"/">) {
             </h1>
           </div>
           <nav className="flex flex-wrap gap-4 text-sm uppercase tracking-wide underline underline-offset-4">
-            <Link href="/reserve">Reserve a space</Link>
             <Link href="/archive">Archive</Link>
           </nav>
         </header>

@@ -17,8 +17,8 @@ describe("current exhibition wall states", () => {
   });
 
   it("matches the current sample counts shown by the wall", () => {
-    expect(getPublishedSpaces()).toHaveLength(6);
-    expect(getReservableSpaces()).toHaveLength(3);
-    expect(getStatusSpaces()).toHaveLength(4);
+    expect(getPublishedSpaces()).toHaveLength(12);
+    expect(getReservableSpaces()).toHaveLength(0);
+    expect(getStatusSpaces()).toHaveLength(0);
   });
 });

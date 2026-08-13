@@ -1,179 +1,126 @@
 # Data Model
 
-This document defines the persistence contract for One Month Museum. It mirrors the lightweight TypeScript contract in `lib/domain-types.ts`; the lazy connection boundary lives in `lib/mongodb.ts`.
+This document defines the target persistence contract for Month in History Wall. The current TypeScript files still carry inherited `exhibition`, `space`, `submission`, and `reservation` names; migrate those contracts gradually as feature slices are repurposed.
 
 ## Goals
 
-- Keep the public exhibition, reservation, review, payment, and archive concepts separate.
-- Store reservations as temporary claims, not ownership of permanent positions.
-- Preserve approved work in immutable archive snapshots after a month closes.
-- Support Stripe, uploads, and admin review through the persistence layer.
+- Store each month as a curated historical wall.
+- Keep editorial status separate from public visibility.
+- Require source citations for published event content.
+- Preserve locked months as immutable archive snapshots.
+- Keep sponsorship or future paid placement separate from editorial importance.
 
 ## Collections
 
-### `exhibitions`
+### `months`
 
-One document per monthly exhibition.
-
-Core fields:
+One document per month wall.
 
 - `_id`
-- `slug`, such as `2026-08`
+- `slug`, such as `1984-06`
+- `month`
+- `year`
 - `title`
-- `theme`
-- `status`: `draft`, `open`, `closed`, or `archived`
-- `opensAt` and `closesAt`
-- `layoutTemplateId`
-- `createdAt` and `updatedAt`
+- `description`
+- `status`: `draft`, `published`, or `locked`
+- `createdAt`, `updatedAt`, and optional `lockedAt`
 
 Useful indexes:
 
 - Unique index on `slug`
-- Compound index on `status` and `opensAt`
+- Compound index on `status`, `year`, and `month`
 
-### `spaces`
+### `events`
 
-One document per reservable slot in an exhibition layout.
-
-Core fields:
+One document per historical event.
 
 - `_id`
-- `exhibitionId`
-- `slotId`, such as `01`
-- `size`: `tiny`, `small`, `medium`, `large`, or `featured`
-- `status`: `available`, `review`, `occupied`, or `featured`
-- `priceCents` and `currency`
-- `visibilityTier`
-- `reservationId`
-- `layout`: `colSpan`, `rowSpan`, and `order`
+- `monthId`
+- `slug`
+- `title`
+- `summary`
+- `context`
+- `whyItMatters`
+- `date` or `dateRange`
+- `location`
+- `countries`
+- `category`
+- `importanceLevel`: `featured`, `major`, `notable`, or `signal`
+- `importanceScore`
+- `tileSize`
+- `status`: `draft`, `needs_review`, `published`, `needs_correction`, or `archived`
+- `sources`
+- `media`
 - `createdAt` and `updatedAt`
 
 Useful indexes:
 
-- Unique compound index on `exhibitionId` and `slotId`
-- Compound index on `exhibitionId`, `status`, and `size`
+- Compound index on `monthId`, `status`, and `importanceScore`
+- Text index on `title`, `summary`, `location`, `countries`, and `category`
 
-### `reservations`
+### `sources`
 
-One document per attempted or completed space reservation.
+Source records attached to events.
 
-Core fields:
+- `title`
+- `url`
+- `publisher`
+- `author`
+- `publishedAt`
+- `accessedAt`
+- `sourceType`
+- `notes`
 
-- `_id`
-- `status`: `draft`, `held`, `submitted`, `approved`, `cancelled`, or `expired`
-- `primaryContactEmail`
-- `months`
-- `requestedSize`
-- `assignedSpaceIds`
-- `totalAmountCents` and `currency`
-- `paymentStatus`
-- `stripePaymentIntentId`
-- `createdAt`, `updatedAt`, and optional `expiresAt`
-
-Useful indexes:
-
-- Index on `primaryContactEmail`
-- Compound index on `status` and `expiresAt`
-- Index on `stripePaymentIntentId`
-
-The repository boundary is `lib/reservation-repository.ts`. It validates one- or three-month draft input, applies draft/payment defaults, inserts drafts, reads by id, and exposes the documented indexes. It does not hold spaces or authorize payment directly.
-
-### `submissions`
-
-One document per creator work attached to a reservation.
-
-Core fields:
-
-- `_id`
-- `reservationId`
-- `creatorName`
-- `workTitle`
-- `description`
-- `externalUrl`
-- `media.kind`
-- `media.assetKey`
-- `media.originalFilename`
-- `media.altText`
-- `policyAcknowledgedAt`
-- `reviewStatus`
-- `reviewerNotes`
-- `createdAt` and `updatedAt`
-
-Useful indexes:
-
-- Index on `reservationId`
-- Compound index on `reviewStatus` and `updatedAt`
-
-The submission boundary is `lib/submission-repository.ts`. It validates required creator/work fields, media-aware alt text, policy acknowledgement, and safe external URLs before building or persisting a draft. It does not transition a submission into review directly.
+Sources may be embedded on events for the first implementation, then normalized if citation reuse and verification workflows justify it.
 
 ### `archiveSnapshots`
 
-Immutable public snapshot created when an exhibition is locked.
-
-Core fields:
+Immutable locked monthly wall.
 
 - `_id`
-- `exhibitionId`
 - `slug`
 - `lockedAt`
 - `title`
-- `theme`
 - `description`
-- `monthLabel`
-- `spaces` (slotId, size, status, creatorName, workTitle, description, mediaKind, externalUrl, className, mediaAssetKey, altText)
+- `events`
+- `layout`
+- `sources`
 
 Useful indexes:
 
 - Unique index on `slug`
 - Index on `lockedAt`
 
-The snapshot stores enough layout and media metadata to render the archived wall without depending on the original template or upload session.
+### `correctionRequests`
 
-### `participantEvents`
-
-Append-only event log for participant and admin interactions.
-
-Core fields:
+Visitor or editor correction reports.
 
 - `_id`
-- `type`: `page_view`, `space_selected`, `reservation_started`, `reservation_submitted`, `payment_authorized`, `payment_completed`, `submission_approved`, or `submission_rejected`
-- `participantEmail`
-- `spaceId`
-- `reservationId`
-- `submissionId`
-- `exhibitionSlug`
-- `metadata` (flexible key-value for future extension)
+- `eventId`
+- `monthSlug`
+- `message`
+- `sourceUrl`
+- `contactEmail`
+- `status`: `open`, `reviewing`, `accepted`, `rejected`, or `closed`
+- `createdAt` and `updatedAt`
+
+### `editorialEvents`
+
+Append-only audit trail for admin/editorial actions.
+
+- `_id`
+- `type`: `event_created`, `event_updated`, `source_verified`, `event_published`, `event_unpublished`, `month_locked`, or `correction_reviewed`
+- `actorId`
+- `monthSlug`
+- `eventId`
+- `metadata`
 - `createdAt`
-
-Useful indexes:
-
-- Compound index on `type` and `createdAt`
-- Compound index on `exhibitionSlug` and `type`
-- Compound index on `spaceId` and `type`
-- Index on `reservationId`
-- Index on `submissionId`
-
-Events are emitted from server actions and API routes: `app/actions.ts` emits `reservation_submitted`, the Stripe webhook emits `payment_authorized`, and admin actions emit `submission_approved` or `submission_rejected`. The repository boundary is `lib/analytics-repository.ts` and the service layer is `lib/analytics-service.ts`.
-
-## Reservation State Flow
-
-1. `draft`: the participant has started choosing a space.
-2. `held`: a space is temporarily held while submission and payment authorization are prepared.
-3. `submitted`: the participant has provided required submission fields and acknowledged policy.
-4. `approved`: the submission has passed manual review and can be published.
-5. `cancelled`: the reservation was cancelled by the participant, admin, or payment outcome.
-6. `expired`: a temporary hold passed its deadline.
-
-Payment state remains separate because publication depends on manual approval. A reservation can be submitted with an authorized payment and still become rejected, cancelled, or refunded later.
-
-The allowed status transitions are mirrored in `lib/reservation-state.ts`. Persistence code validates a transition through that contract rather than changing reservation status directly.
 
 ## Constraints
 
 - MongoDB is the primary database for dynamic data.
-- Keep MongoDB connection creation lazy so the static public app can build and run without database credentials.
-- Read `MONGODB_URI` and optional `MONGODB_DB` from the environment; never hard-code credentials or commit local environment files.
-- For a local Docker MongoDB container, copy `.env.example` to `.env.local`, set `MONGODB_URI=mongodb://localhost:27017`, keep `MONGODB_DB=one-month-museum`, and restart the Next.js dev server.
-- Do not add Redis for these core reads until there is a measured cache need.
-- Clerk is integrated for admin authentication; participant account flows remain deferred.
-- Stripe is integrated for reservation payment authorization and capture.
+- Keep MongoDB connection creation lazy so the public app can build and run without database credentials.
+- Read `MONGODB_URI` and optional `MONGODB_DB` from the environment.
+- Do not add Redis until there is a measured cache need.
+- Clerk protects admin/editorial workflows.
+- Stripe reservation/payment data is inherited and should not drive the historical wall model.

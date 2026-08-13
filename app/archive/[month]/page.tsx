@@ -16,12 +16,12 @@ export async function generateMetadata({
 
   if (!exhibition) {
     return {
-      title: "Archive month not found | One Month Museum",
+      title: "Archive month not found | Month in History Wall",
     };
   }
 
   return {
-    title: `${exhibition.monthLabel} Archive | One Month Museum`,
+    title: `${exhibition.monthLabel} Archive | Month in History Wall`,
     description: exhibition.description,
   };
 }

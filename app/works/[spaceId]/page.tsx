@@ -35,7 +35,7 @@ function WorkBrowseCard({
 
   return (
     <Link
-      aria-label={`${label}: ${space.title} by ${space.creator}`}
+      aria-label={`${label}: ${space.title}`}
       className={`group grid min-h-36 overflow-hidden border border-[var(--border-primary)] ${
         align === "right" ? "text-right" : ""
       }`}
@@ -72,7 +72,7 @@ function WorkBrowseCard({
       <span className="grid gap-1 bg-[var(--bg-card)] px-3 py-3 text-sm leading-5">
         <span>{space.creator}</span>
         <span className="text-xs uppercase tracking-wide text-[var(--text-muted)]">
-          Space {space.id} / {space.medium}
+          Tile {space.id} / {space.medium}
         </span>
       </span>
     </Link>
@@ -88,12 +88,12 @@ export async function generateMetadata({
 
   if (!space) {
     return {
-      title: "Work not found | One Month Museum",
+      title: "Event not found | Month in History Wall",
     };
   }
 
   return {
-    title: `${space.title} by ${space.creator} | One Month Museum`,
+    title: `${space.title} | Month in History Wall`,
     description: space.description,
   };
 }
@@ -123,13 +123,13 @@ export default async function WorkDetailPage({
         <aside className="flex flex-col justify-between border border-[var(--border-primary)] bg-[var(--bg-card)] p-5 sm:p-7">
           <div className="space-y-8">
             <nav className="flex items-center justify-between gap-4 text-sm uppercase tracking-wide">
-              <Link href="/">One Month Museum</Link>
+              <Link href="/">Month in History Wall</Link>
               <span>{exhibition.monthLabel}</span>
             </nav>
 
             <div className="space-y-4">
               <p className="text-sm uppercase tracking-wide text-[var(--text-muted)]">
-                Work {currentPosition} of {publishedSpaces.length} / Space {space.id}
+                Event {currentPosition} of {publishedSpaces.length} / Tile {space.id}
               </p>
               <h1 className="text-5xl font-semibold leading-none sm:text-6xl">
                 {space.title}
@@ -145,14 +145,14 @@ export default async function WorkDetailPage({
             >
               Back to published wall
             </Link>
-            <nav aria-label="Browse published works" className="grid grid-cols-2 gap-2">
+            <nav aria-label="Browse published events" className="grid grid-cols-2 gap-2">
               <WorkBrowseCard
-                label={previousSpace ? "Previous work" : "First published work"}
+                label={previousSpace ? "Previous event" : "First published event"}
                 space={previousSpace}
               />
               <WorkBrowseCard
                 align="right"
-                label={nextSpace ? "Next work" : "Last published work"}
+                label={nextSpace ? "Next event" : "Last published event"}
                 space={nextSpace}
               />
             </nav>
@@ -197,7 +197,7 @@ export default async function WorkDetailPage({
                 rel="noreferrer"
                 target="_blank"
               >
-                Visit creator link
+                Open source
               </a>
             ) : null}
           </div>

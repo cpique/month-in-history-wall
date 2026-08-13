@@ -2,9 +2,9 @@ import Link from "next/link";
 import type { ExhibitionSpace } from "@/lib/exhibition-data";
 
 const statusLabel: Record<ExhibitionSpace["status"], string> = {
-  available: "Available",
+  available: "Candidate",
   featured: "Featured",
-  occupied: "Occupied",
+  occupied: "Published",
   review: "In review",
 };
 
@@ -20,8 +20,8 @@ function SpaceContent({
   const isTiny = space.size === "tiny";
   const isReview = space.status === "review";
   const title = isReview ? "In review" : space.title;
-  const creator = isReview ? "Pending approval" : space.creator;
-  const medium = isReview ? "Held space" : space.medium;
+  const creator = isReview ? "Pending review" : space.creator;
+  const medium = isReview ? "Editorial draft" : space.medium;
 
   return (
     <div
@@ -74,9 +74,9 @@ export function SpaceTile({
   const isPublished = space.status === "occupied" || space.status === "featured";
   const actionLabel =
     isPublished && publishedHref
-      ? "Open work"
+      ? "Open event"
       : space.status === "available" && availableHref
-        ? "Reserve slot"
+        ? "View candidate"
         : space.status === "review" && statusHref
           ? "View status"
           : "Locked snapshot";
@@ -104,7 +104,7 @@ export function SpaceTile({
   if (isPublished && publishedHref) {
     return (
       <Link
-        aria-label={`Open ${space.title} by ${space.creator}`}
+        aria-label={`Open event ${space.title}`}
         className={baseClass}
         href={publishedHref}
       >
@@ -116,7 +116,7 @@ export function SpaceTile({
   if (space.status === "available" && availableHref) {
     return (
       <Link
-        aria-label={`Reserve ${space.title}`}
+        aria-label={`View candidate event ${space.title}`}
         className={baseClass}
         href={availableHref}
       >

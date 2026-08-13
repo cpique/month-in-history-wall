@@ -5,15 +5,15 @@ import { SpaceTile } from "./space-tile";
 export type ExhibitionWallFilter = "all" | "published" | "available" | "review";
 
 const statusKey = [
-  ["Occupied", "Published work"],
-  ["Available", "Open for reservation"],
-  ["In review", "Awaiting approval"],
+  ["Featured", "Defining event"],
+  ["Published", "Reviewed event"],
+  ["In review", "Editorial draft"],
 ] as const;
 
 const filterOptions: Array<{ value: ExhibitionWallFilter; label: string }> = [
-  { value: "all", label: "All spaces" },
-  { value: "published", label: "Published work" },
-  { value: "available", label: "Available" },
+  { value: "all", label: "All events" },
+  { value: "published", label: "Published" },
+  { value: "available", label: "Candidates" },
   { value: "review", label: "In review" },
 ];
 
@@ -106,14 +106,14 @@ export function ExhibitionWall({
           <form action="/" className="flex gap-2" method="get">
             {filter !== "all" ? <input name="view" type="hidden" value={filter} /> : null}
             <label className="sr-only" htmlFor="wall-search">
-              Search exhibition spaces
+              Search historical events
             </label>
             <input
               className="min-w-0 flex-1 border border-[var(--border-wall)] bg-[var(--bg-wall-panel)] px-3 py-2 text-sm text-[var(--text-on-wall)] placeholder:text-[var(--border-placeholder)]"
               defaultValue={query}
               id="wall-search"
               name="q"
-              placeholder="Search title, creator, or medium"
+              placeholder="Search title, place, category, or date"
             />
             <button
               className="border border-[var(--border-placeholder)] px-3 py-2 text-xs uppercase tracking-wide text-[var(--text-on-wall)]"
@@ -150,9 +150,8 @@ export function ExhibitionWall({
 
       {filterable && !wallOnly ? (
         <p className="mb-3 px-1 text-xs leading-5 text-[var(--border-placeholder)]">
-          This wall shows {exhibition.spaces.length} tiles from the current{" "}
-          {exhibition.stats.find((stat) => stat.label === "spaces")?.value ?? ""}-space inventory.
-          In-review spaces are separate from published work.
+          This wall shows {exhibition.spaces.length} historical event tiles.
+          Tile size reflects editorial importance; drafts stay out of the public wall.
         </p>
       ) : null}
 
@@ -170,7 +169,7 @@ export function ExhibitionWall({
         </div>
       ) : (
         <div className="flex min-h-80 items-center justify-center border border-dashed border-[var(--border-placeholder)] px-6 text-center text-sm uppercase tracking-wide text-[var(--text-on-wall-muted)]">
-          No spaces match this search.
+          No events match this search.
         </div>
       )}
     </div>
