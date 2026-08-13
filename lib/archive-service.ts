@@ -5,6 +5,7 @@ import {
   type Exhibition,
   type ExhibitionSpace,
 } from "./exhibition-data";
+import { monthEventsToExhibition } from "./exhibition-service";
 import {
   findArchiveSnapshotBySlug,
   findArchiveSnapshotSummaries,
@@ -12,7 +13,11 @@ import {
 } from "./archive-repository";
 import { getMediaUrl } from "./media-storage";
 import { getMongoDb } from "./mongodb";
-import type { ArchiveSnapshotDocument } from "./domain-types";
+import type {
+  ArchiveSnapshotDocument,
+  HistoricalEventDocument,
+  MonthDocument,
+} from "./domain-types";
 
 export type ArchiveSummary = {
   slug: string;
@@ -23,13 +28,13 @@ export type ArchiveSummary = {
   publishedCount: number;
 };
 
-const DEFAULT_TOTAL_SPACES = "48";
+const DEFAULT_TOTAL_EVENTS = "0";
 
 function snapshotToExhibition(snapshot: ArchiveSnapshotDocument): Exhibition {
   const publishedCount = snapshot.spaces.filter(
     (space) => space.status === "occupied" || space.status === "featured",
   ).length;
-  const totalSpaces = snapshot.spaces.length || Number(DEFAULT_TOTAL_SPACES);
+  const totalSpaces = snapshot.spaces.length || Number(DEFAULT_TOTAL_EVENTS);
 
   return {
     slug: snapshot.slug,
@@ -42,9 +47,9 @@ function snapshotToExhibition(snapshot: ArchiveSnapshotDocument): Exhibition {
     status: "archived",
     theme: snapshot.theme,
     stats: [
-      { value: String(totalSpaces), label: "spaces" },
+      { value: String(totalSpaces), label: "events" },
       { value: String(publishedCount), label: "published" },
-      { value: "0", label: "invited" },
+      { value: "0", label: "sources" },
       { value: "1", label: "snapshot" },
     ],
     spaces: snapshot.spaces.map(snapshotSpaceToExhibitionSpace),
@@ -93,9 +98,51 @@ function snapshotToSummary(snapshot: ArchiveSnapshotSummaryRecord): ArchiveSumma
     theme: snapshot.theme,
     description: snapshot.description,
     stats: [
-      { value: String(snapshot.spaces.length || DEFAULT_TOTAL_SPACES), label: "spaces" },
+      { value: String(snapshot.spaces.length || DEFAULT_TOTAL_EVENTS), label: "events" },
     ],
     publishedCount,
+  };
+}
+
+export function monthEventsToArchiveSummary(
+  month: MonthDocument,
+  events: HistoricalEventDocument[],
+): ArchiveSummary {
+  const publishedEvents = events.filter(
+    (event) => event.status === "published" || event.status === "archived",
+  );
+  const sourceCount = publishedEvents.reduce(
+    (total, event) => total + event.sources.length,
+    0,
+  );
+
+  return {
+    slug: month.slug,
+    monthLabel: monthEventsToExhibition(month, publishedEvents).monthLabel,
+    theme: month.title,
+    description: month.description,
+    stats: [
+      { value: String(publishedEvents.length), label: "events" },
+      { value: String(sourceCount), label: "sources" },
+    ],
+    publishedCount: publishedEvents.length,
+  };
+}
+
+export function monthEventsToArchivedExhibition(
+  month: MonthDocument,
+  events: HistoricalEventDocument[],
+): Exhibition {
+  const exhibition = monthEventsToExhibition(month, events);
+
+  return {
+    ...exhibition,
+    status: "archived",
+    templateLabel: `Historical wall ${month.slug}`,
+    reviewNote:
+      month.status === "locked"
+        ? "Locked historical snapshot"
+        : "Published historical month",
   };
 }
 
@@ -107,7 +154,26 @@ export const getArchiveSummaries = cache(async (): Promise<ArchiveSummary[]> => 
   }
 
   const db = await getMongoDb();
-  const snapshots = await findArchiveSnapshotSummaries(db);
+  const [snapshots, months] = await Promise.all([
+    findArchiveSnapshotSummaries(db),
+    db
+      .collection<MonthDocument>("months")
+      .find({ status: { $in: ["published", "locked"] } })
+      .sort({ year: -1, month: -1 })
+      .toArray(),
+  ]);
+  const eventGroups = await Promise.all(
+    months.map((month) =>
+      db
+        .collection<HistoricalEventDocument>("events")
+        .find({ monthId: month._id, status: { $in: ["published", "archived"] } })
+        .sort({ "layout.order": 1 })
+        .toArray(),
+    ),
+  );
+  const monthSummaries = months.map((month, index) =>
+    monthEventsToArchiveSummary(month, eventGroups[index] ?? []),
+  );
   const snapshotSummaries = snapshots.map(snapshotToSummary);
   const bySlug = new Map<string, ArchiveSummary>();
 
@@ -116,6 +182,10 @@ export const getArchiveSummaries = cache(async (): Promise<ArchiveSummary[]> => 
   }
 
   for (const summary of snapshotSummaries) {
+    bySlug.set(summary.slug, summary);
+  }
+
+  for (const summary of monthSummaries) {
     bySlug.set(summary.slug, summary);
   }
 
@@ -131,6 +201,25 @@ export const getArchivedExhibitionBySlug = cache(async function getArchivedExhib
 
     if (snapshot) {
       return snapshotToExhibition(snapshot);
+    }
+
+    const month = await db
+      .collection<MonthDocument>("months")
+      .findOne({ slug, status: { $in: ["published", "locked"] } });
+
+    if (month) {
+      const events = await db
+        .collection<HistoricalEventDocument>("events")
+        .find({
+          monthId: month._id,
+          status: { $in: ["published", "archived"] },
+        })
+        .sort({ "layout.order": 1 })
+        .toArray();
+
+      if (events.length > 0) {
+        return monthEventsToArchivedExhibition(month, events);
+      }
     }
   }
 

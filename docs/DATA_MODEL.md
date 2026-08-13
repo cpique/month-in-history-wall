@@ -75,6 +75,8 @@ The seeder validates required month/event fields, requires at least one source p
 
 The public wall service reads the latest `published` month from `months`, loads its `published` events from `events`, sorts by `layout.order`, and maps them into the current wall component model. If MongoDB is not configured, or no published month/events exist, the app falls back to static June 1984 seed data.
 
+The archive service also reads `published` and `locked` month records from `months`, counts their published/archived events and sources, and serves `/archive/[month]` from the same event data. Legacy `archiveSnapshots` remain supported during the transition.
+
 ### `sources`
 
 Source records attached to events.

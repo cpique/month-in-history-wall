@@ -23,13 +23,15 @@ export function ArchiveMonthCard({ month }: { month: ArchiveSummary }) {
         <div className="border-r border-[var(--border-primary)] p-3">
           <p className="text-2xl font-semibold">{month.publishedCount}</p>
           <p className="text-xs uppercase tracking-wide text-[var(--text-muted)]">
-            published
+            events
           </p>
         </div>
         <div className="p-3">
-          <p className="text-2xl font-semibold">{month.stats[0]?.value}</p>
+          <p className="text-2xl font-semibold">
+            {month.stats.find((stat) => stat.label === "sources")?.value ?? month.stats[0]?.value}
+          </p>
           <p className="text-xs uppercase tracking-wide text-[var(--text-muted)]">
-            spaces
+            {month.stats.find((stat) => stat.label === "sources") ? "sources" : "events"}
           </p>
         </div>
       </div>
