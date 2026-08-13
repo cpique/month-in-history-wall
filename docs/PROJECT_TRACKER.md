@@ -55,7 +55,7 @@ The public homepage now presents a historical month wall instead of a reservatio
 | 2026-08-13 | Derive tile footprint from importance. | Editors set `importanceLevel`; code maps that to the public grid footprint. |
 | 2026-08-13 | Use batch imports for month data. | Month/event data comes from JSON files and a seeder script rather than public forms. |
 | 2026-08-13 | Read seeded data before static fallback. | Public wall uses the latest published MongoDB month/events when available, then falls back to static June 1984 data. |
-| 2026-08-13 | Use `month-history-museum` as the MongoDB database name. | Avoid reusing `one-month-museum`, which belongs to the copied source repo. |
+| 2026-08-13 | Use `month-history-museum` as the MongoDB database name. | Avoid reusing the copied source repo database name. |
 
 ## Open Questions
 
