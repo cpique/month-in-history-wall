@@ -1,5 +1,10 @@
 import Link from "next/link";
-import type { ExhibitionSpace } from "@/lib/exhibition-data";
+import {
+  getEditorialTileSize,
+  getTileLayoutClass,
+  getTileVisualClass,
+  type ExhibitionSpace,
+} from "@/lib/exhibition-data";
 
 const statusLabel: Record<ExhibitionSpace["status"], string> = {
   available: "Candidate",
@@ -17,7 +22,8 @@ function SpaceContent({
   hasMedia: boolean;
   space: ExhibitionSpace;
 }) {
-  const isTiny = space.size === "tiny";
+  const editorialSize = getEditorialTileSize(space);
+  const isTiny = editorialSize === "tiny" || editorialSize === "small";
   const isReview = space.status === "review";
   const title = isReview ? "In review" : space.title;
   const creator = isReview ? "Pending review" : space.creator;
@@ -70,7 +76,8 @@ export function SpaceTile({
 }) {
   const isReview = space.status === "review";
   const hasMedia = Boolean(space.mediaPreview?.mediaUrl) && !isReview;
-  const baseClass = `${space.className} group relative flex min-h-0 flex-col justify-between overflow-hidden border border-current/45 transition-transform duration-200 hover:-translate-y-1 ${space.size === "tiny" ? "p-2" : "p-3"}`;
+  const editorialSize = getEditorialTileSize(space);
+  const baseClass = `${getTileLayoutClass(space)} ${getTileVisualClass(space)} group relative flex min-h-0 flex-col justify-between overflow-hidden border border-current/45 transition-transform duration-200 hover:-translate-y-1 ${editorialSize === "small" || editorialSize === "tiny" ? "p-2" : "p-3"}`;
   const isPublished = space.status === "occupied" || space.status === "featured";
   const actionLabel =
     isPublished && publishedHref

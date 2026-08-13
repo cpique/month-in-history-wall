@@ -22,7 +22,7 @@ Month in History Wall is a Next.js App Router application for browsing curated h
 - `app/admin/page.tsx`: inherited admin review dashboard; target role is editorial review.
 - `proxy.ts`: protects `/admin` routes with Clerk middleware when Clerk keys are configured.
 - `components/exhibition/`: shared wall, tile, media, and wall-only viewing components. Naming is still inherited and should be gradually repurposed.
-- `lib/exhibition-data.ts`: current seeded historical wall data for June 1984, including event dates, locations, importance levels, and source records.
+- `lib/exhibition-data.ts`: current seeded historical wall data for June 1984, including event dates, locations, importance levels, source records, and the importance-to-tile-footprint mapping.
 - `lib/exhibition-service.ts`: inherited overlay service. It still reads approved reservation/submission data and should become a month/event service.
 - `lib/domain-types.ts`: inherited persistence contracts. These should be migrated from exhibitions/spaces/submissions/reservations toward months/events/sources/archive snapshots.
 
@@ -44,6 +44,7 @@ See `docs/DATA_MODEL.md` for field-level notes. The product model should center 
 - Draft, generated, in-review, and correction-needed content belongs behind admin/editorial routes.
 - Locked archive pages should render immutable snapshots rather than querying mutable draft records.
 - Event detail pages explain what happened and show source citations. Context and why-it-matters fields are next-detail-model work.
+- Public tile footprint is derived from editorial importance, while color/media presentation can remain event-specific.
 
 ## Integration Timing
 

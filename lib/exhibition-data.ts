@@ -31,6 +31,8 @@ export type EventSource = {
   sourceType: "encyclopedia" | "archive" | "official" | "news" | "reference";
 };
 
+export type EventImportanceLevel = "featured" | "major" | "notable" | "signal";
+
 export type ExhibitionSpace = {
   id: string;
   title: string;
@@ -46,7 +48,7 @@ export type ExhibitionSpace = {
   reservation?: ReservationDetails;
   date?: string;
   location?: string;
-  importanceLevel?: "featured" | "major" | "notable" | "signal";
+  importanceLevel?: EventImportanceLevel;
   sources?: EventSource[];
 };
 
@@ -68,6 +70,40 @@ export type Exhibition = {
   status: "current" | "archived";
   theme?: string;
 };
+
+export const tileLayoutClassByImportance: Record<EventImportanceLevel, string> = {
+  featured: "col-span-4 row-span-4 lg:col-span-6",
+  major: "col-span-3 row-span-3 lg:col-span-4",
+  notable: "col-span-2 row-span-2 lg:col-span-3",
+  signal: "col-span-1 row-span-1 sm:col-span-2",
+};
+
+const tileSizeByImportance: Record<EventImportanceLevel, SpaceSize> = {
+  featured: "featured",
+  major: "large",
+  notable: "medium",
+  signal: "small",
+};
+
+export function getTileLayoutClass(space: ExhibitionSpace) {
+  return space.importanceLevel
+    ? tileLayoutClassByImportance[space.importanceLevel]
+    : space.className
+        .split(" ")
+        .filter((className) => className.startsWith("col-") || className.startsWith("row-") || className.includes(":col-") || className.includes(":row-"))
+        .join(" ");
+}
+
+export function getTileVisualClass(space: ExhibitionSpace) {
+  return space.className
+    .split(" ")
+    .filter((className) => !className.startsWith("col-") && !className.startsWith("row-") && !className.includes(":col-") && !className.includes(":row-"))
+    .join(" ");
+}
+
+export function getEditorialTileSize(space: ExhibitionSpace) {
+  return space.importanceLevel ? tileSizeByImportance[space.importanceLevel] : space.size;
+}
 
 export const currentExhibition: Exhibition = {
   slug: "1984-06",

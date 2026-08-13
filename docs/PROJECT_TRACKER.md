@@ -16,6 +16,7 @@ The public homepage now presents a historical month wall instead of a reservatio
 - [x] Updated wall and tile copy from creator-space language toward historical event language.
 - [x] Added public event detail pages at `/events/[eventId]` with event metadata and source citations.
 - [x] Redirected inherited `/works/[spaceId]` detail URLs to the new event detail route.
+- [x] Made public wall tile footprint derive from editorial importance.
 
 ## In Progress
 
@@ -32,8 +33,8 @@ The public homepage now presents a historical month wall instead of a reservatio
 ## First Milestone Checklist
 
 - [x] Static or seeded event data.
-- [ ] One monthly wall.
-- [ ] Tile sizes based on importance.
+- [x] One monthly wall.
+- [x] Tile sizes based on importance.
 - [x] Event detail pages.
 - [x] Source citation display.
 - [ ] Archive page.
@@ -47,6 +48,7 @@ The public homepage now presents a historical month wall instead of a reservatio
 | 2026-08-13 | Repurpose incrementally. | Keep stable components working while replacing copied product behavior slice by slice. |
 | 2026-08-13 | Use June 1984 as the first sample month. | Matches the README recommendation and gives a broad mix of politics, culture, sport, technology, and conflict. |
 | 2026-08-13 | Keep some inherited internals temporarily. | `ExhibitionSpace` and repository names remain inherited; the public event detail route is now `/events/[eventId]`. |
+| 2026-08-13 | Derive tile footprint from importance. | Editors set `importanceLevel`; code maps that to the public grid footprint. |
 
 ## Open Questions
 
@@ -61,4 +63,7 @@ The public homepage now presents a historical month wall instead of a reservatio
 | 2026-08-13 | Historical seed accuracy spot-check | Passed with correction | Replaced an incorrect Sally Ride June 1984 tile with Tetris after verifying NASA/Tetris references. |
 | 2026-08-13 | `npm run lint` | Passed | Event detail route, citation display, docs, and compatibility redirect passed ESLint. |
 | 2026-08-13 | `npm run test` | Passed | Existing Vitest suite plus citation guard passes: 5 files, 17 tests. |
+| 2026-08-13 | `npm run build` | Passed | Production build passed outside the sandbox after the recurring `spawn EPERM` sandbox failure. |
+| 2026-08-13 | `npm run lint` | Passed | Importance-derived tile sizing and docs passed ESLint. |
+| 2026-08-13 | `npm run test` | Passed | Existing Vitest suite plus importance sizing checks passes: 5 files, 19 tests. |
 | 2026-08-13 | `npm run build` | Passed | Production build passed outside the sandbox after the recurring `spawn EPERM` sandbox failure. |

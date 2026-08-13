@@ -16,12 +16,12 @@ Repurpose the copied app into a working historical wall for one sample month.
 - Added `/events/[eventId]` as the public event detail route.
 - Displayed event metadata and source citations on detail pages.
 - Kept `/works/[spaceId]` as a compatibility redirect to event detail pages.
+- Made wall tile footprint derive from editorial `importanceLevel`.
 - Kept `/archive` and `/archive/[month]` available for archive browsing.
 - Removed reservation links from the primary homepage and footer.
 
 ### Next Product Work
 
-- Make tile size derive from `importanceLevel` instead of hand-coded layout classes.
 - Add explicit `context` and `whyItMatters` fields to event data and render them on detail pages.
 - Repurpose `/archive` copy and archived seed data into historical month archive cards.
 - Replace or hide public reservation, Stripe, and creator-submission routes.

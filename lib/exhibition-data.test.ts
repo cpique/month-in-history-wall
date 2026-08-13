@@ -1,9 +1,12 @@
 import { describe, expect, it } from "vitest";
 import {
   currentExhibition,
+  getEditorialTileSize,
   getPublishedSpaces,
   getReservableSpaces,
   getStatusSpaces,
+  getTileLayoutClass,
+  tileLayoutClassByImportance,
 } from "./exhibition-data";
 
 describe("current exhibition wall states", () => {
@@ -26,5 +29,23 @@ describe("current exhibition wall states", () => {
     expect(
       getPublishedSpaces().every((space) => space.sources && space.sources.length > 0),
     ).toBe(true);
+  });
+
+  it("derives tile footprint from editorial importance", () => {
+    for (const space of getPublishedSpaces()) {
+      expect(space.importanceLevel).toBeDefined();
+      expect(getTileLayoutClass(space)).toBe(
+        tileLayoutClassByImportance[space.importanceLevel!],
+      );
+    }
+  });
+
+  it("promotes major events to large editorial tiles", () => {
+    const majorEvents = getPublishedSpaces().filter(
+      (space) => space.importanceLevel === "major",
+    );
+
+    expect(majorEvents).not.toHaveLength(0);
+    expect(majorEvents.every((space) => getEditorialTileSize(space) === "large")).toBe(true);
   });
 });
