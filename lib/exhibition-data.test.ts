@@ -21,4 +21,10 @@ describe("current exhibition wall states", () => {
     expect(getReservableSpaces()).toHaveLength(0);
     expect(getStatusSpaces()).toHaveLength(0);
   });
+
+  it("attaches at least one source to every published historical event", () => {
+    expect(
+      getPublishedSpaces().every((space) => space.sources && space.sources.length > 0),
+    ).toBe(true);
+  });
 });

@@ -51,7 +51,7 @@ export function ExhibitionWall({
   exhibition,
   getAvailableHref = (space) => `/reserve/${space.id}`,
   getStatusHref = (space) => `/spaces/${space.id}`,
-  getPublishedHref = (space) => `/works/${space.id}`,
+  getPublishedHref = (space) => `/events/${space.id}`,
   filter = "all",
   filterable = true,
   wallOnly = false,

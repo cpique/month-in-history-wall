@@ -14,6 +14,8 @@ The public homepage now presents a historical month wall instead of a reservatio
 - [x] Added seeded June 1984 historical event data with dates, locations, importance levels, media previews, and source records.
 - [x] Removed the reservation link from the primary homepage navigation.
 - [x] Updated wall and tile copy from creator-space language toward historical event language.
+- [x] Added public event detail pages at `/events/[eventId]` with event metadata and source citations.
+- [x] Redirected inherited `/works/[spaceId]` detail URLs to the new event detail route.
 
 ## In Progress
 
@@ -32,8 +34,8 @@ The public homepage now presents a historical month wall instead of a reservatio
 - [x] Static or seeded event data.
 - [ ] One monthly wall.
 - [ ] Tile sizes based on importance.
-- [ ] Event detail pages.
-- [ ] Source citation display.
+- [x] Event detail pages.
+- [x] Source citation display.
 - [ ] Archive page.
 - [ ] Admin review placeholder or protected admin page.
 - [ ] No reservation or payment flow in the primary experience.
@@ -44,7 +46,7 @@ The public homepage now presents a historical month wall instead of a reservatio
 |---|---|---|
 | 2026-08-13 | Repurpose incrementally. | Keep stable components working while replacing copied product behavior slice by slice. |
 | 2026-08-13 | Use June 1984 as the first sample month. | Matches the README recommendation and gives a broad mix of politics, culture, sport, technology, and conflict. |
-| 2026-08-13 | Keep inherited names temporarily. | Routes and types like `/works/[spaceId]` and `ExhibitionSpace` will be renamed when their feature loop is reached. |
+| 2026-08-13 | Keep some inherited internals temporarily. | `ExhibitionSpace` and repository names remain inherited; the public event detail route is now `/events/[eventId]`. |
 
 ## Open Questions
 
@@ -57,3 +59,6 @@ The public homepage now presents a historical month wall instead of a reservatio
 | Date | Check | Result | Notes |
 |---|---|---|---|
 | 2026-08-13 | Historical seed accuracy spot-check | Passed with correction | Replaced an incorrect Sally Ride June 1984 tile with Tetris after verifying NASA/Tetris references. |
+| 2026-08-13 | `npm run lint` | Passed | Event detail route, citation display, docs, and compatibility redirect passed ESLint. |
+| 2026-08-13 | `npm run test` | Passed | Existing Vitest suite plus citation guard passes: 5 files, 17 tests. |
+| 2026-08-13 | `npm run build` | Passed | Production build passed outside the sandbox after the recurring `spawn EPERM` sandbox failure. |

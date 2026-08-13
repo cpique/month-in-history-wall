@@ -16,7 +16,8 @@ Month in History Wall is a Next.js App Router application for browsing curated h
 ## Current Code Shape
 
 - `app/page.tsx`: public June 1984 historical wall route, using seeded event data.
-- `app/works/[spaceId]/page.tsx`: inherited detail route currently used as event detail pages for published tiles.
+- `app/events/[eventId]/page.tsx`: public event detail route with historical metadata and source citations.
+- `app/works/[spaceId]/page.tsx`: inherited compatibility redirect to `/events/[eventId]`.
 - `app/archive/page.tsx` and `app/archive/[month]/page.tsx`: archive index and locked month snapshot routes.
 - `app/admin/page.tsx`: inherited admin review dashboard; target role is editorial review.
 - `proxy.ts`: protects `/admin` routes with Clerk middleware when Clerk keys are configured.
@@ -42,7 +43,7 @@ See `docs/DATA_MODEL.md` for field-level notes. The product model should center 
 - Public walls should only render published or locked event content.
 - Draft, generated, in-review, and correction-needed content belongs behind admin/editorial routes.
 - Locked archive pages should render immutable snapshots rather than querying mutable draft records.
-- Event detail pages should explain what happened, why it mattered, and which sources support it.
+- Event detail pages explain what happened and show source citations. Context and why-it-matters fields are next-detail-model work.
 
 ## Integration Timing
 
