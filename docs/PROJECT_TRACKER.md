@@ -18,6 +18,7 @@ The public homepage now presents a historical month wall instead of a reservatio
 - [x] Redirected inherited `/works/[spaceId]` detail URLs to the new event detail route.
 - [x] Made public wall tile footprint derive from editorial importance.
 - [x] Added a JSON Schema, sample import file, and MongoDB seeder for batch month/event imports.
+- [x] Wired the public wall service to read seeded MongoDB `months` and `events` when available.
 
 ## In Progress
 
@@ -42,6 +43,7 @@ The public homepage now presents a historical month wall instead of a reservatio
 - [ ] Admin review placeholder or protected admin page.
 - [ ] No reservation or payment flow in the primary experience.
 - [x] Batch import path for month/event data.
+- [x] Public wall reads seeded MongoDB month/event data.
 
 ## Decisions
 
@@ -52,6 +54,8 @@ The public homepage now presents a historical month wall instead of a reservatio
 | 2026-08-13 | Keep some inherited internals temporarily. | `ExhibitionSpace` and repository names remain inherited; the public event detail route is now `/events/[eventId]`. |
 | 2026-08-13 | Derive tile footprint from importance. | Editors set `importanceLevel`; code maps that to the public grid footprint. |
 | 2026-08-13 | Use batch imports for month data. | Month/event data comes from JSON files and a seeder script rather than public forms. |
+| 2026-08-13 | Read seeded data before static fallback. | Public wall uses the latest published MongoDB month/events when available, then falls back to static June 1984 data. |
+| 2026-08-13 | Use `month-history-museum` as the MongoDB database name. | Avoid reusing `one-month-museum`, which belongs to the copied source repo. |
 
 ## Open Questions
 
@@ -73,4 +77,8 @@ The public homepage now presents a historical month wall instead of a reservatio
 | 2026-08-13 | `npm run seed:month -- data/imports/1984-06.sample.json --dry-run` | Passed | Import validation, ranking, tile-size assignment, and deterministic layout preview completed without MongoDB. |
 | 2026-08-13 | `npm run lint` | Passed | Batch import schema, seeder, docs, and persistence types passed ESLint. |
 | 2026-08-13 | `npm run test` | Passed | Existing Vitest suite remains green: 5 files, 19 tests. |
+| 2026-08-13 | `npm run build` | Passed | Production build passed outside the sandbox after the recurring `spawn EPERM` sandbox failure. |
+| 2026-08-13 | `npm run lint` | Passed | Seeded MongoDB month/event read service, event detail additions, and docs passed ESLint. |
+| 2026-08-13 | `npm run test` | Passed | Existing suite plus month/event mapper test passes: 6 files, 20 tests. |
+| 2026-08-13 | `npm run seed:month -- data/imports/1984-06.sample.json --dry-run` | Passed | Import dry-run remains green after wiring public reads. |
 | 2026-08-13 | `npm run build` | Passed | Production build passed outside the sandbox after the recurring `spawn EPERM` sandbox failure. |

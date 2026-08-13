@@ -1,14 +1,14 @@
 import { MongoClient, type Db } from "mongodb";
 
 type MongoGlobal = typeof globalThis & {
-  __monthInHistoryWallMongo?: {
+  __monthHistoryMuseumMongo?: {
     clientPromise: Promise<MongoClient>;
   };
 };
 
 const globalForMongo = globalThis as MongoGlobal;
 const uri = process.env.MONGODB_URI;
-let clientPromise = globalForMongo.__monthInHistoryWallMongo?.clientPromise;
+let clientPromise = globalForMongo.__monthHistoryMuseumMongo?.clientPromise;
 
 export function getMongoClient(): Promise<MongoClient> {
   if (!uri) {
@@ -19,7 +19,7 @@ export function getMongoClient(): Promise<MongoClient> {
     clientPromise = new MongoClient(uri).connect();
 
     if (process.env.NODE_ENV !== "production") {
-      globalForMongo.__monthInHistoryWallMongo = { clientPromise };
+      globalForMongo.__monthHistoryMuseumMongo = { clientPromise };
     }
   }
 
@@ -28,5 +28,5 @@ export function getMongoClient(): Promise<MongoClient> {
 
 export async function getMongoDb(): Promise<Db> {
   const client = await getMongoClient();
-  return client.db(process.env.MONGODB_DB ?? "month-in-history-wall");
+  return client.db(process.env.MONGODB_DB ?? "month-history-museum");
 }

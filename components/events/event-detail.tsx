@@ -168,6 +168,39 @@ export function EventDetail({
                 </p>
               </div>
 
+              {event.context ? (
+                <div className="space-y-3">
+                  <p className="text-xs uppercase tracking-wide text-[var(--text-muted)]">
+                    Context
+                  </p>
+                  <p className="text-base leading-7 text-[var(--text-secondary)]">
+                    {event.context}
+                  </p>
+                </div>
+              ) : null}
+
+              {event.whyItMatters ? (
+                <div className="space-y-3">
+                  <p className="text-xs uppercase tracking-wide text-[var(--text-muted)]">
+                    Why it matters
+                  </p>
+                  <p className="text-base leading-7 text-[var(--text-secondary)]">
+                    {event.whyItMatters}
+                  </p>
+                </div>
+              ) : null}
+
+              {event.detailMarkdown ? (
+                <div className="space-y-3">
+                  <p className="text-xs uppercase tracking-wide text-[var(--text-muted)]">
+                    Detail
+                  </p>
+                  <div className="whitespace-pre-wrap text-base leading-7 text-[var(--text-secondary)]">
+                    {event.detailMarkdown}
+                  </div>
+                </div>
+              ) : null}
+
               <div className="space-y-3">
                 <p className="text-xs uppercase tracking-wide text-[var(--text-muted)]">
                   Sources
@@ -188,7 +221,7 @@ export function EventDetail({
                           {source.title}
                         </a>
                         <p className="mt-2 text-sm leading-6 text-[var(--text-muted)]">
-                          {source.publisher} / {source.sourceType}
+                          {source.publisher ?? "Source"} / {source.sourceType}
                         </p>
                       </li>
                     ))}

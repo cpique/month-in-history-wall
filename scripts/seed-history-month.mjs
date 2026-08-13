@@ -21,7 +21,7 @@ function usage() {
     "",
     "Environment:",
     "  MONGODB_URI is required unless --dry-run is used.",
-    "  MONGODB_DB defaults to month-in-history-wall.",
+    "  MONGODB_DB defaults to month-history-museum.",
   ].join("\n");
 }
 
@@ -240,7 +240,7 @@ async function main() {
   await client.connect();
 
   try {
-    const db = client.db(process.env.MONGODB_DB ?? "month-in-history-wall");
+    const db = client.db(process.env.MONGODB_DB ?? "month-history-museum");
     await db.collection("months").createIndex({ slug: 1 }, { unique: true });
     await db.collection("months").createIndex({ status: 1, year: 1, month: 1 });
     await db.collection("events").createIndex({ monthId: 1, status: 1, relevanceScore: -1 });

@@ -73,6 +73,8 @@ Month data should be imported as a batch file, not entered through a public form
 
 The seeder validates required month/event fields, requires at least one source per event, ranks `relevanceScore` values within the month, assigns `importanceLevel` and `tileSize`, and stores deterministic randomized layout order from `layoutSeed`.
 
+The public wall service reads the latest `published` month from `months`, loads its `published` events from `events`, sorts by `layout.order`, and maps them into the current wall component model. If MongoDB is not configured, or no published month/events exist, the app falls back to static June 1984 seed data.
+
 ### `sources`
 
 Source records attached to events.
@@ -136,6 +138,7 @@ Append-only audit trail for admin/editorial actions.
 - MongoDB is the primary database for dynamic data.
 - Keep MongoDB connection creation lazy so the public app can build and run without database credentials.
 - Read `MONGODB_URI` and optional `MONGODB_DB` from the environment.
+- Default `MONGODB_DB` to `month-history-museum`; `one-month-museum` belongs to the copied source repo and should not be reused.
 - Do not add Redis until there is a measured cache need.
 - Clerk protects admin/editorial workflows.
 - Stripe reservation/payment data is inherited and should not drive the historical wall model.

@@ -76,4 +76,4 @@ Replace all existing events for that month before inserting:
 npm run seed:month -- data/imports/1984-06.sample.json --replace
 ```
 
-`MONGODB_URI` is required unless `--dry-run` is used. `MONGODB_DB` defaults to `month-in-history-wall`.
+`MONGODB_URI` is required unless `--dry-run` is used. `MONGODB_DB` defaults to `month-history-museum`.

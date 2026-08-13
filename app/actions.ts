@@ -13,7 +13,7 @@ import { isMediaKind, saveMediaFile } from "@/lib/media-storage";
 import { insertParticipantEvent } from "@/lib/analytics-repository";
 
 const mongoSetupMessage =
-  "Reservations need MongoDB before drafts can be saved. For local Docker, add MONGODB_URI=mongodb://localhost:27017 and MONGODB_DB=one-month-museum to .env.local, then restart the dev server.";
+  "Reservations need MongoDB before drafts can be saved. For local Docker, add MONGODB_URI=mongodb://localhost:27017 and MONGODB_DB=month-history-museum to .env.local, then restart the dev server.";
 
 export type CreateReservationResult =
   | { success: true; reservationId: string; submissionId: string }

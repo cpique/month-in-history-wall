@@ -15,7 +15,7 @@ type ThemeContextType = {
 };
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
-const THEME_CHANGE_EVENT = "one-month-museum-theme-change";
+const THEME_CHANGE_EVENT = "month-history-museum-theme-change";
 
 function getSystemTheme(): Theme {
   if (typeof window === "undefined") return "light";

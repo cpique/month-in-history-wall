@@ -27,8 +27,15 @@ export type ReservationDetails = {
 export type EventSource = {
   title: string;
   url: string;
-  publisher: string;
-  sourceType: "encyclopedia" | "archive" | "official" | "news" | "reference";
+  publisher?: string;
+  sourceType:
+    | "encyclopedia"
+    | "archive"
+    | "official"
+    | "news"
+    | "academic"
+    | "reference"
+    | "other";
 };
 
 export type EventImportanceLevel = "featured" | "major" | "notable" | "signal";
@@ -47,8 +54,16 @@ export type ExhibitionSpace = {
   mediaPreview?: WorkMediaPreview;
   reservation?: ReservationDetails;
   date?: string;
+  dateRange?: {
+    start: string;
+    end: string;
+  };
   location?: string;
+  countries?: string[];
   importanceLevel?: EventImportanceLevel;
+  context?: string;
+  whyItMatters?: string;
+  detailMarkdown?: string;
   sources?: EventSource[];
 };
 
