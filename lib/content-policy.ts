@@ -4,39 +4,39 @@ export type PolicySection = {
 };
 
 export const contentPolicySummary =
-  "One Month Museum accepts original, permissioned creative work that can be safely reviewed, exhibited, archived, and understood by visitors.";
+  "Month in History Wall publishes sourced historical event records, reviewed media, and correction-ready editorial context.";
 
 export const contentPolicySections: PolicySection[] = [
   {
     title: "Allowed formats",
     items: [
-      "Images, GIFs, short text, muted video previews, and approved external links are suitable for the first public reservation flow.",
-      "Every visual submission should include alt text before it can be published.",
-      "Text work should stay readable, honest, and compatible with the selected space size.",
+      "Images, GIFs, video references, and approved external links are suitable when they help visitors understand a historical event.",
+      "Every visual media item should include alt text before it can be published.",
+      "Event summaries, context, and why-it-matters text should stay factual, sourced, and readable at the selected tile size.",
     ],
   },
   {
     title: "Not accepted",
     items: [
       "Explicit sexual content, graphic violence, hate speech, harassment, extremist propaganda, threats, scams, malware, phishing, or deceptive links.",
-      "Stolen artwork, copyright-infringing material, impersonation, doxxing, hidden tracking, unrestricted embedded code, or rapidly flashing media.",
-      "Political advertising, illegal products or services, or submissions that are technically safe but misleading, very low quality, or incompatible with the exhibition.",
+      "Copyright-infringing media, impersonation, doxxing, hidden tracking, unrestricted embedded code, or rapidly flashing media.",
+      "Political advertising, unsourced claims, fabricated citations, or event records that are technically safe but misleading, very low quality, or incompatible with the historical wall.",
     ],
   },
   {
     title: "Review outcome",
     items: [
-      "Payment should reserve a space, but manual approval decides whether the work is exhibited.",
-      "If a submission is rejected before publication, the payment authorization should be cancelled or refunded when payments are introduced.",
-      "Approved work can be displayed during the purchased month and preserved in the permanent archive snapshot.",
+      "Generated or imported event data is a draft until an editor reviews the claims and citations.",
+      "Published event records can be corrected, unpublished, or marked needs correction when source quality changes.",
+      "Locked months preserve the reviewed wall snapshot and citation set.",
     ],
   },
   {
-    title: "Creator responsibility",
+    title: "Editorial responsibility",
     items: [
-      "Creators must own the submitted work or have permission to exhibit and archive it.",
-      "Creators grant the museum a limited license to display, archive, thumbnail, promote, and show screenshots of accepted work.",
-      "Copyright complaints and takedown requests need a documented review path before the paid launch.",
+      "Editors must verify that media is public-domain, properly licensed, permissioned, or used under a documented policy.",
+      "Every factual claim should be traceable to at least one source before publication.",
+      "Copyright complaints, factual corrections, and takedown requests need a documented review path before launch.",
     ],
   },
 ];

@@ -21,6 +21,7 @@ Month in History Wall is a Next.js App Router application for browsing curated h
 - `app/archive/page.tsx` and `app/archive/[month]/page.tsx`: archive index and month wall routes backed by seeded `months`/`events` plus legacy locked snapshots.
 - `app/admin/page.tsx`: protected editorial operations overview for imported months, event counts, source coverage, and review queues.
 - `proxy.ts`: protects `/admin` routes with Clerk middleware when Clerk keys are configured.
+- Public reservation and status routes from the copied app have been removed from the App Router.
 - `components/exhibition/`: shared wall, tile, media, and wall-only viewing components. Naming is still inherited and should be gradually repurposed.
 - `lib/exhibition-data.ts`: current seeded historical wall data for June 1984, including event dates, locations, importance levels, source records, and the importance-to-tile-footprint mapping.
 - `lib/exhibition-service.ts`: public wall service. It reads the latest published MongoDB month/events from the batch seeder when configured, with the static June 1984 wall as fallback.

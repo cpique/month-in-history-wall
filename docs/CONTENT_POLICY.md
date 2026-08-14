@@ -1,35 +1,34 @@
 # Content Policy
 
-One Month Museum accepts original, permissioned creative work that can be safely reviewed, exhibited, archived, and understood by visitors.
+Month in History Wall publishes sourced historical event records, reviewed media, and correction-ready editorial context.
 
-This document is the source-facing companion to the public `/policy` page. It should stay aligned with reservation form copy, review dashboard decisions, and payment authorization rules.
+This document is the source-facing companion to the public `/policy` page. It should stay aligned with import schema requirements, source citation rules, editorial review decisions, and correction handling.
 
 ## Allowed Formats
 
-- Images, GIFs, short text, muted video previews, and approved external links are suitable for the public reservation flow.
-- Every visual submission should include alt text before it can be published.
-- Text work should stay readable, honest, and compatible with the selected space size.
+- Images, GIFs, video references, and approved external links are suitable when they help visitors understand a historical event.
+- Every visual media item should include alt text before it can be published.
+- Event summaries, context, and why-it-matters text should stay factual, sourced, and readable at the selected tile size.
 
 ## Not Accepted
 
 - Explicit sexual content, graphic violence, hate speech, harassment, extremist propaganda, threats, scams, malware, phishing, or deceptive links.
-- Stolen artwork, copyright-infringing material, impersonation, doxxing, hidden tracking, unrestricted embedded code, or rapidly flashing media.
-- Political advertising, illegal products or services, or submissions that are technically safe but misleading, very low quality, or incompatible with the exhibition.
+- Copyright-infringing media, impersonation, doxxing, hidden tracking, unrestricted embedded code, or rapidly flashing media.
+- Political advertising, unsourced claims, fabricated citations, or event records that are technically safe but misleading, very low quality, or incompatible with the historical wall.
 
 ## Review Outcome
 
-- Payment reserves a space, but manual approval decides whether the work is exhibited.
-- If a submission is rejected before publication, the payment authorization is cancelled or refunded.
-- Approved work is displayed during the purchased month and preserved in the permanent archive snapshot.
+- Generated or imported event data is a draft until an editor reviews the claims and citations.
+- Published event records can be corrected, unpublished, or marked needs correction when source quality changes.
+- Locked months preserve the reviewed wall snapshot and citation set.
 
-## Creator Responsibility
+## Editorial Responsibility
 
-- Creators must own the submitted work or have permission to exhibit and archive it.
-- Creators grant the museum a limited license to display, archive, thumbnail, promote, and show screenshots of accepted work.
-- Copyright complaints and takedown requests need a documented review path before the paid launch.
+- Editors must verify that media is public-domain, properly licensed, permissioned, or used under a documented policy.
+- Every factual claim should be traceable to at least one source before publication.
+- Copyright complaints, factual corrections, and takedown requests need a documented review path before launch.
 
 ## Implementation Notes
 
 - The `/policy` route is public and informational.
-- The reservation checkbox links to `/policy` and is enforced by server-side validation.
-- Admin review tooling references these same categories when approving, rejecting, or requesting changes.
+- Import validation and editorial review tooling reference these same categories when publishing, correcting, or locking events.

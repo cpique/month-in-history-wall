@@ -5,9 +5,9 @@ import {
 } from "@/lib/content-policy";
 
 export const metadata = {
-  title: "Content Policy | One Month Museum",
+  title: "Content Policy | Month in History Wall",
   description:
-    "Submission rules and review expectations for One Month Museum reservations.",
+    "Source, media, and editorial review expectations for Month in History Wall.",
 };
 
 export default function PolicyPage() {
@@ -15,8 +15,8 @@ export default function PolicyPage() {
     <main className="min-h-screen bg-[var(--bg-primary)] px-5 py-5 text-[var(--text-primary)] lg:px-8">
       <section className="border border-[var(--border-primary)] bg-[var(--bg-card)] p-5 sm:p-7">
         <nav className="flex items-center justify-between gap-4 text-sm uppercase tracking-wide">
-          <Link href="/">One Month Museum</Link>
-          <Link href="/reserve">Reserve</Link>
+          <Link href="/">Month in History Wall</Link>
+          <Link href="/archive">Archive</Link>
         </nav>
 
         <div className="mt-20 grid gap-6 lg:grid-cols-[minmax(280px,0.7fr)_minmax(520px,1.3fr)]">
@@ -29,9 +29,9 @@ export default function PolicyPage() {
             </h1>
           </div>
           <p className="max-w-2xl text-lg leading-8 text-[var(--text-secondary)]">
-            {contentPolicySummary} This page is the public policy reference and
-            is enforced through server-side validation, the admin review
-            dashboard, and the Stripe payment workflow.
+            {contentPolicySummary} This page is the public policy reference for
+            event media, citation expectations, editorial review, and correction
+            handling.
           </p>
         </div>
       </section>

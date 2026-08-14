@@ -49,8 +49,8 @@ function matchesSearch(space: ExhibitionSpace, query: string) {
 
 export function ExhibitionWall({
   exhibition,
-  getAvailableHref = (space) => `/reserve/${space.id}`,
-  getStatusHref = (space) => `/spaces/${space.id}`,
+  getAvailableHref = () => null,
+  getStatusHref = () => null,
   getPublishedHref = (space) => `/events/${space.id}`,
   filter = "all",
   filterable = true,

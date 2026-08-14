@@ -9,7 +9,6 @@ export function ExhibitionIntro({ exhibition }: { exhibition: Exhibition }) {
           <span>{exhibition.title}</span>
             <div className="flex items-center gap-4 underline underline-offset-4">
               <Link href="/archive">Archive</Link>
-              <Link href="/reserve">Reserve</Link>
             </div>
         </nav>
 
