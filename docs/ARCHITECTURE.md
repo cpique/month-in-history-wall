@@ -20,6 +20,7 @@ Month in History Wall is a Next.js App Router application for browsing curated h
 - `app/works/[spaceId]/page.tsx`: inherited compatibility redirect to `/events/[eventId]`.
 - `app/archive/page.tsx` and `app/archive/[month]/page.tsx`: archive index and month wall routes backed by seeded `months`/`events` plus legacy locked snapshots.
 - `app/admin/page.tsx`: protected editorial operations overview for imported months, event counts, source coverage, and review queues.
+- `app/admin/analytics/page.tsx`: protected editorial analytics dashboard for coverage health, category spread, citation density, media coverage, and review queues.
 - `proxy.ts`: protects `/admin` routes with Clerk middleware when Clerk keys are configured.
 - Public reservation and status routes from the copied app have been removed from the App Router.
 - `components/exhibition/`: shared wall, tile, media, and wall-only viewing components. Naming is still inherited and should be gradually repurposed.
@@ -56,4 +57,4 @@ See `docs/DATA_MODEL.md` for field-level notes. The product model should center 
 - Archive reads merge seeded published/locked months with legacy `archiveSnapshots`, so imported months appear in archive navigation before snapshot locking is fully repurposed.
 - Clerk remains the admin/editorial auth target.
 - Redis is deferred.
-- Stripe and reservation flows are not visible in the primary public experience; remaining reservation repository types are inherited cleanup debt.
+- Stripe and reservation flows are not visible in the primary public experience; remaining reservation/submission repository types are inherited cleanup debt.

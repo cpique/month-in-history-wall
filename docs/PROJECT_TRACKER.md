@@ -22,6 +22,7 @@ The public homepage now presents a historical month wall instead of a reservatio
 - [x] Wired the public wall service to read seeded MongoDB `months` and `events` when available.
 - [x] Wired archive browsing to include seeded MongoDB months and event walls.
 - [x] Converted `/admin` into an editorial operations overview for imported historical months.
+- [x] Repurposed `/admin/analytics` into an editorial coverage dashboard for month/event health.
 - [x] Removed inherited public reservation, checkout return, and space-status routes from the primary app surface.
 - [x] Removed inherited Stripe runtime code, webhook route, checkout actions, reservation form components, and dependency.
 
@@ -64,6 +65,7 @@ The public homepage now presents a historical month wall instead of a reservatio
 | 2026-08-13 | Use `month-history-museum` as the MongoDB database name. | Avoid reusing the copied source repo database name. |
 | 2026-08-13 | Archive seeded months before snapshot locking. | `/archive` can list published/locked `months` records from the batch importer while legacy snapshots remain supported. |
 | 2026-08-13 | Make `/admin` editorial-first. | Admin landing page tracks imported months, events, sources, and review queues instead of reservation submissions. |
+| 2026-08-14 | Make `/admin/analytics` editorial-first. | Analytics now tracks coverage health, category spread, sources, media coverage, and event review queues. |
 | 2026-08-13 | Remove reservation routes from public app. | Keep deeper inherited payment/action modules for a later cleanup pass, but remove public pages from the primary route table. |
 | 2026-08-14 | Remove Stripe runtime path. | Public routes no longer depend on checkout, so Stripe code and dependency were removed before deeper reservation repository cleanup. |
 
@@ -108,3 +110,7 @@ The public homepage now presents a historical month wall instead of a reservatio
 | 2026-08-14 | `npm run test` | Passed | Existing suite remains green: 7 files, 22 tests. |
 | 2026-08-14 | `npm run seed:month -- data/imports/1984-06.sample.json --dry-run` | Passed | Import dry-run remains green after Stripe runtime removal. |
 | 2026-08-14 | `npm run build` | Passed | Production route table no longer includes the Stripe webhook route; build passed outside the sandbox after recurring `spawn EPERM`. |
+| 2026-08-14 | `npm run lint` | Passed | Editorial analytics dashboard and stale participant analytics cleanup passed ESLint. |
+| 2026-08-14 | `npm run test` | Passed | Existing suite plus editorial analytics summary test passes: 8 files, 23 tests. |
+| 2026-08-14 | `npm run seed:month -- data/imports/1984-06.sample.json --dry-run` | Passed | Import dry-run remains green after analytics repurpose. |
+| 2026-08-14 | `npm run build` | Passed | Production route table includes `/admin/analytics`; build passed outside the sandbox after recurring `spawn EPERM`. |

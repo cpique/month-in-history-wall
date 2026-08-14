@@ -20,6 +20,7 @@ Repurpose the copied app into a working historical wall for one sample month.
 - Wired the public wall service to read seeded MongoDB `months` and `events` when available.
 - Wired `/archive` and `/archive/[month]` to include seeded MongoDB months and event walls.
 - Converted `/admin` into an editorial operations overview for imported historical months.
+- Repurposed `/admin/analytics` into an editorial coverage dashboard.
 - Removed inherited public reservation, checkout return, and space-status pages from the App Router.
 - Removed inherited Stripe webhook/actions/payment modules and the Stripe dependency.
 - Removed reservation links from the primary homepage and footer.
@@ -29,7 +30,6 @@ Repurpose the copied app into a working historical wall for one sample month.
 - Add explicit `context` and `whyItMatters` fields to event data and render them on detail pages.
 - Move event detail routes to read individual seeded events directly instead of only the current wall model.
 - Remove inherited reservation/submission repositories, tests, and domain types once no historical workflow depends on them.
-- Repurpose or remove inherited `/admin/analytics` reservation analytics.
 - Rename inherited `exhibition`, `space`, `work`, `submission`, and `reservation` internals when each surface is touched.
 
 ## Later Product Work

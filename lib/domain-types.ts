@@ -204,25 +204,3 @@ export type ArchiveSnapshotDocument = {
     altText?: string;
   }>;
 };
-
-export type ParticipantEventType =
-  | "page_view"
-  | "space_selected"
-  | "reservation_started"
-  | "reservation_submitted"
-  | "payment_authorized"
-  | "payment_completed"
-  | "submission_approved"
-  | "submission_rejected";
-
-export type ParticipantEventDocument = {
-  _id: MongoId;
-  type: ParticipantEventType;
-  participantEmail?: string;
-  spaceId?: string;
-  reservationId?: MongoId;
-  submissionId?: MongoId;
-  exhibitionSlug?: string;
-  metadata?: Record<string, string | number | boolean>;
-  createdAt: string;
-};

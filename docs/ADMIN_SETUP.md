@@ -5,7 +5,7 @@ Editorial operations live at `/admin`.
 ## Local Routes
 
 - `/admin`: review imported months, event counts, source coverage, and review queues.
-- `/admin/analytics`: inherited reservation analytics route; not part of the primary historical workflow.
+- `/admin/analytics`: inspect editorial coverage across imported months, including category spread, citation density, media coverage, and review queues.
 - `/admin/sign-in`: Clerk sign-in page.
 - `/admin/sign-up`: Clerk sign-up page.
 
@@ -23,7 +23,7 @@ NEXT_PUBLIC_CLERK_SIGN_IN_URL=/admin/sign-in
 NEXT_PUBLIC_CLERK_SIGN_UP_URL=/admin/sign-up
 ```
 
-MongoDB enables real month/event import overview data. Without `MONGODB_URI`, the admin page shows static fallback data.
+MongoDB enables real month/event overview and analytics data. Without `MONGODB_URI`, the admin pages show static fallback data.
 
 Clerk protects admin routes only when both `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY` and `CLERK_SECRET_KEY` are set. The sign-in and sign-up pages remain public so admins can reach them.
 
