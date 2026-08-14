@@ -22,6 +22,7 @@ Month in History Wall is a Next.js App Router application for browsing curated h
 - `app/archive/page.tsx` and `app/archive/[month]/page.tsx`: archive index and month wall routes backed by seeded `months`/`events` plus legacy locked snapshots.
 - `app/admin/page.tsx`: protected editorial operations overview for imported months, event counts, source coverage, and review queues.
 - `app/admin/analytics/page.tsx`: protected editorial analytics dashboard for coverage health, category spread, citation density, media coverage, and review queues.
+- `app/admin/corrections/page.tsx`: protected correction review queue for public correction requests.
 - `proxy.ts`: protects `/admin` routes with Clerk middleware when Clerk keys are configured.
 - Public reservation and status routes from the copied app have been removed from the App Router.
 - `components/exhibition/`: shared wall, tile, media, and wall-only viewing components. Naming is still inherited and should be gradually repurposed.
@@ -50,6 +51,7 @@ See `docs/DATA_MODEL.md` for field-level notes. The product model should center 
 - Locked archive pages should render immutable snapshots rather than querying mutable draft records.
 - Event detail pages explain what happened, show context and why-it-matters text, and list source citations.
 - Public correction requests can be submitted from event detail pages and are stored in MongoDB as `correctionRequests` when configured.
+- Admins can triage correction requests by status; applying accepted corrections to event content remains an editorial data update.
 - Public tile footprint is derived from editorial importance, while color/media presentation can remain event-specific.
 
 ## Integration Timing

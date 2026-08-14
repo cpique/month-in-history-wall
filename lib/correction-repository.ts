@@ -1,9 +1,19 @@
 import { ObjectId, type Db } from "mongodb";
-import type { CorrectionRequestDocument } from "./domain-types";
+import type {
+  CorrectionRequestDocument,
+  CorrectionRequestStatus,
+} from "./domain-types";
 import { getMongoDb } from "./mongodb";
 
 const COLLECTION = "correctionRequests";
 const MAX_MESSAGE_LENGTH = 2000;
+const VALID_STATUSES = new Set<CorrectionRequestStatus>([
+  "open",
+  "reviewing",
+  "accepted",
+  "rejected",
+  "closed",
+]);
 
 export type CorrectionRequestInput = {
   eventId: string;
@@ -98,4 +108,71 @@ export async function insertCorrectionRequest(
   await database.collection<CorrectionRequestDocument>(COLLECTION).insertOne(correction);
 
   return correction;
+}
+
+export async function getCorrectionRequestCounts(
+  db?: Db,
+): Promise<Record<CorrectionRequestStatus, number>> {
+  const database = db ?? (await getMongoDb());
+  const results = await database
+    .collection<CorrectionRequestDocument>(COLLECTION)
+    .aggregate([
+      { $group: { _id: "$status", count: { $sum: 1 } } },
+      { $sort: { _id: 1 } },
+    ])
+    .toArray();
+  const counts: Record<CorrectionRequestStatus, number> = {
+    open: 0,
+    reviewing: 0,
+    accepted: 0,
+    rejected: 0,
+    closed: 0,
+  };
+
+  for (const result of results) {
+    if (VALID_STATUSES.has(result._id as CorrectionRequestStatus)) {
+      counts[result._id as CorrectionRequestStatus] = result.count as number;
+    }
+  }
+
+  return counts;
+}
+
+export async function getRecentCorrectionRequests(
+  limit: number = 50,
+  db?: Db,
+): Promise<CorrectionRequestDocument[]> {
+  const database = db ?? (await getMongoDb());
+
+  return database
+    .collection<CorrectionRequestDocument>(COLLECTION)
+    .find({})
+    .sort({ createdAt: -1 })
+    .limit(limit)
+    .toArray();
+}
+
+export async function updateCorrectionRequestStatus(
+  id: string,
+  status: CorrectionRequestStatus,
+  db?: Db,
+): Promise<CorrectionRequestDocument | null> {
+  if (!VALID_STATUSES.has(status)) {
+    throw new Error("Invalid correction request status.");
+  }
+
+  const database = db ?? (await getMongoDb());
+  const now = new Date().toISOString();
+
+  await database.collection<CorrectionRequestDocument>(COLLECTION).updateOne(
+    { _id: id },
+    {
+      $set: {
+        status,
+        updatedAt: now,
+      },
+    },
+  );
+
+  return database.collection<CorrectionRequestDocument>(COLLECTION).findOne({ _id: id });
 }
