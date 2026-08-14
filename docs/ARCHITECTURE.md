@@ -10,7 +10,7 @@ Month in History Wall is a Next.js App Router application for browsing curated h
 - Cache: Redis is deferred until month reads, source lookups, or archive rollups show a real need.
 - Auth: Clerk remains the intended admin/editorial authentication layer.
 - Component kit: keep the current Tailwind wall language; add shadcn/ui only if admin/editorial controls become repetitive.
-- Payments: inherited Stripe reservation code is not part of the primary historical wall experience and should be removed or isolated before launch.
+- Payments: Stripe has been removed from runtime dependencies and public routes. Future monetization should return as a deliberately designed sponsorship, poster, education, or data-access feature.
 - Theme: dark/light mode uses CSS custom properties mapped to `data-theme` on `<html>`.
 
 ## Current Code Shape
@@ -56,4 +56,4 @@ See `docs/DATA_MODEL.md` for field-level notes. The product model should center 
 - Archive reads merge seeded published/locked months with legacy `archiveSnapshots`, so imported months appear in archive navigation before snapshot locking is fully repurposed.
 - Clerk remains the admin/editorial auth target.
 - Redis is deferred.
-- Stripe and reservation flows should not be visible in the primary public experience.
+- Stripe and reservation flows are not visible in the primary public experience; remaining reservation repository types are inherited cleanup debt.

@@ -143,4 +143,4 @@ Append-only audit trail for admin/editorial actions.
 - Default `MONGODB_DB` to `month-history-museum`; the copied source repo database name should not be reused.
 - Do not add Redis until there is a measured cache need.
 - Clerk protects admin/editorial workflows.
-- Stripe reservation/payment data is inherited and should not drive the historical wall model.
+- Reservation/payment repository remnants are inherited cleanup debt and should not drive the historical wall model.

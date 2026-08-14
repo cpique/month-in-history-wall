@@ -6,6 +6,8 @@ Use batch imports for editorial month data. Public forms do not fit the workflow
 
 Create a JSON file matching `schemas/history-month.schema.json`.
 
+If you want an LLM to draft the file, start from `docs/LLM_MONTH_IMPORT_PROMPT.md`, then manually verify sources and media before seeding.
+
 Minimum shape:
 
 ```json

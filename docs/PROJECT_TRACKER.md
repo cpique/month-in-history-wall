@@ -18,10 +18,12 @@ The public homepage now presents a historical month wall instead of a reservatio
 - [x] Redirected inherited `/works/[spaceId]` detail URLs to the new event detail route.
 - [x] Made public wall tile footprint derive from editorial importance.
 - [x] Added a JSON Schema, sample import file, and MongoDB seeder for batch month/event imports.
+- [x] Added an LLM prompt template for generating month import JSON drafts.
 - [x] Wired the public wall service to read seeded MongoDB `months` and `events` when available.
 - [x] Wired archive browsing to include seeded MongoDB months and event walls.
 - [x] Converted `/admin` into an editorial operations overview for imported historical months.
 - [x] Removed inherited public reservation, checkout return, and space-status routes from the primary app surface.
+- [x] Removed inherited Stripe runtime code, webhook route, checkout actions, reservation form components, and dependency.
 
 ## In Progress
 
@@ -57,11 +59,13 @@ The public homepage now presents a historical month wall instead of a reservatio
 | 2026-08-13 | Keep some inherited internals temporarily. | `ExhibitionSpace` and repository names remain inherited; the public event detail route is now `/events/[eventId]`. |
 | 2026-08-13 | Derive tile footprint from importance. | Editors set `importanceLevel`; code maps that to the public grid footprint. |
 | 2026-08-13 | Use batch imports for month data. | Month/event data comes from JSON files and a seeder script rather than public forms. |
+| 2026-08-14 | Draft imports with a reusable LLM prompt. | Prompt requires valid JSON, real source URLs, uneven relevance scores, and media placeholders unless images are verified. |
 | 2026-08-13 | Read seeded data before static fallback. | Public wall uses the latest published MongoDB month/events when available, then falls back to static June 1984 data. |
 | 2026-08-13 | Use `month-history-museum` as the MongoDB database name. | Avoid reusing the copied source repo database name. |
 | 2026-08-13 | Archive seeded months before snapshot locking. | `/archive` can list published/locked `months` records from the batch importer while legacy snapshots remain supported. |
 | 2026-08-13 | Make `/admin` editorial-first. | Admin landing page tracks imported months, events, sources, and review queues instead of reservation submissions. |
 | 2026-08-13 | Remove reservation routes from public app. | Keep deeper inherited payment/action modules for a later cleanup pass, but remove public pages from the primary route table. |
+| 2026-08-14 | Remove Stripe runtime path. | Public routes no longer depend on checkout, so Stripe code and dependency were removed before deeper reservation repository cleanup. |
 
 ## Open Questions
 
@@ -100,3 +104,7 @@ The public homepage now presents a historical month wall instead of a reservatio
 | 2026-08-13 | `npm run test` | Passed | Existing suite remains green: 7 files, 22 tests. |
 | 2026-08-13 | `npm run seed:month -- data/imports/1984-06.sample.json --dry-run` | Passed | Import dry-run remains green after public route removal. |
 | 2026-08-13 | `npm run build` | Passed | Production route table no longer includes `/reserve`, checkout return pages, or `/spaces/[spaceId]`; build passed outside the sandbox after recurring `spawn EPERM`. |
+| 2026-08-14 | `npm run lint` | Passed | Stripe runtime removal, admin action cleanup, package update, and docs passed ESLint. |
+| 2026-08-14 | `npm run test` | Passed | Existing suite remains green: 7 files, 22 tests. |
+| 2026-08-14 | `npm run seed:month -- data/imports/1984-06.sample.json --dry-run` | Passed | Import dry-run remains green after Stripe runtime removal. |
+| 2026-08-14 | `npm run build` | Passed | Production route table no longer includes the Stripe webhook route; build passed outside the sandbox after recurring `spawn EPERM`. |
