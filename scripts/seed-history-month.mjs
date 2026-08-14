@@ -3,6 +3,9 @@ import { createHash } from "node:crypto";
 import { fileURLToPath } from "node:url";
 import process from "node:process";
 import { MongoClient } from "mongodb";
+import { loadEnvLocal } from "./load-env-local.mjs";
+
+loadEnvLocal();
 
 const VALID_MONTH_STATUSES = new Set(["draft", "published"]);
 const VALID_MEDIA_KINDS = new Set(["image", "gif", "video"]);

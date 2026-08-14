@@ -2,7 +2,10 @@ import { readdir, readFile } from "node:fs/promises";
 import path from "node:path";
 import process from "node:process";
 import { MongoClient } from "mongodb";
+import { loadEnvLocal } from "./load-env-local.mjs";
 import { prepareDocuments, seedPreparedDocuments } from "./seed-history-month.mjs";
+
+loadEnvLocal();
 
 const DEFAULT_IMPORT_DIR = "data/imports";
 

@@ -92,6 +92,6 @@ Recreate the `months` and `events` collections from all import files:
 npm run seed:db -- --reset
 ```
 
-`MONGODB_URI` is required unless `--dry-run` is used. `MONGODB_DB` defaults to `month-history-museum`.
+`MONGODB_URI` is required unless `--dry-run` is used. The seed scripts load `.env.local` automatically, and `MONGODB_DB` defaults to `month-history-museum`.
 
 Media URLs are stored as strings. Use local URLs such as `/media/placeholders/history-event.svg` for now; later the same field can point to CDN-hosted images, GIFs, or video previews.
