@@ -1,0 +1,10 @@
+{
+  "$schema": "../../schemas/history-month.schema.json",
+  "month": 9,
+  "year": 2026,
+  "title": "September 2026",
+  "description": "Future-month draft scaffold for a curated Month in History Wall import for September 2026.",
+  "status": "draft",
+  "layoutSeed": "2026-09-v1",
+  "events": []
+}

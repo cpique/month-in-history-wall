@@ -1,0 +1,74 @@
+{
+  "$schema": "../../schemas/history-month.schema.json",
+  "month": 5,
+  "year": 2026,
+  "title": "May 2026",
+  "description": "Draft scaffold for a curated Month in History Wall import for May 2026.",
+  "status": "draft",
+  "layoutSeed": "2026-05-v1",
+  "events": [
+    {
+      "slug": "eurovision-song-contest-vienna-2026",
+      "title": "Vienna Hosts The 70th Eurovision Song Contest",
+      "summary": "The 70th Eurovision Song Contest was held in Vienna, with the Grand Final on May 16, 2026.",
+      "context": "Vienna hosted Eurovision for the third time, staging the contest at the Wiener Stadthalle.",
+      "whyItMatters": "Eurovision is one of Europe's largest shared cultural broadcasts and a recurring marker of music, television, identity, and soft power.",
+      "category": "Music",
+      "date": "2026-05-16",
+      "location": "Vienna, Austria",
+      "countries": ["Austria"],
+      "relevanceScore": 82,
+      "media": {
+        "kind": "image",
+        "url": "/media/placeholders/history-event.svg",
+        "alt": "Suggested image: Eurovision 2026 stage, trophy, or Vienna venue imagery.",
+        "caption": "Vienna hosted the 70th Eurovision Song Contest.",
+        "credit": "LOCAL_PLACEHOLDER",
+        "license": "LOCAL_PLACEHOLDER"
+      },
+      "detailMarkdown": "The 70th Eurovision Song Contest was held in Vienna in May 2026, with the Grand Final on May 16.\n\nAs a mass live broadcast and cultural event, Eurovision shaped the month across music, television, fan culture, and national representation.",
+      "sources": [
+        {
+          "title": "Vienna 2026",
+          "url": "https://www.eurovision.com/eurovision-song-contest/vienna-2026/",
+          "publisher": "Eurovision Song Contest",
+          "sourceType": "official",
+          "notes": "Confirms venue, host city, dates, and contest framing."
+        }
+      ]
+    },
+    {
+      "slug": "cannes-film-festival-2026",
+      "title": "The 79th Festival De Cannes Takes Place",
+      "summary": "The 79th Festival de Cannes took place from May 12 to 23, 2026.",
+      "context": "Cannes is one of the central annual institutions of international cinema, film markets, and festival culture.",
+      "whyItMatters": "The festival shapes film distribution, critical attention, awards momentum, and global cinema discourse.",
+      "category": "Film",
+      "dateRange": {
+        "start": "2026-05-12",
+        "end": "2026-05-23"
+      },
+      "location": "Cannes, France",
+      "countries": ["France"],
+      "relevanceScore": 68,
+      "media": {
+        "kind": "image",
+        "url": "/media/placeholders/history-event.svg",
+        "alt": "Suggested image: Cannes red carpet, festival palace, or official festival imagery.",
+        "caption": "The 79th Cannes Film Festival ran from May 12 to 23.",
+        "credit": "LOCAL_PLACEHOLDER",
+        "license": "LOCAL_PLACEHOLDER"
+      },
+      "detailMarkdown": "The 79th edition of the Festival de Cannes took place from May 12 to 23, 2026.\n\nThe festival is a key international cinema platform, combining artistic selection, public attention, and industry market activity.",
+      "sources": [
+        {
+          "title": "FAQ",
+          "url": "https://www.festival-cannes.com/en/faq/",
+          "publisher": "Festival de Cannes",
+          "sourceType": "official",
+          "notes": "Confirms the 79th edition dates."
+        }
+      ]
+    }
+  ]
+}

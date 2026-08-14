@@ -45,11 +45,11 @@ Output schema:
       "relevanceScore": number from 0 to 100,
       "media": {
         "kind": "image",
-        "url": "PHOTO_PLACEHOLDER",
+        "url": "/media/placeholders/history-event.svg",
         "alt": "Plain-language description of the desired image.",
         "caption": "Suggested caption.",
-        "credit": "UNKNOWN",
-        "license": "UNKNOWN"
+        "credit": "LOCAL_PLACEHOLDER",
+        "license": "LOCAL_PLACEHOLDER"
       },
       "detailMarkdown": "A concise markdown detail body, 2-5 short paragraphs. Include no footnote syntax unless source URLs are also present in sources.",
       "sources": [
@@ -77,7 +77,7 @@ Rules:
 - Set "layoutSeed" to a stable value like "{{YEAR}}-{{TWO_DIGIT_MONTH}}-v1".
 - "relevanceScore" is relative inside this month: 100 is the defining event, 70-95 major events, 35-69 notable events, 0-34 contextual signals.
 - Do not make every event highly relevant. The wall needs uneven importance.
-- For media, use "PHOTO_PLACEHOLDER" when you do not have a verified image URL. Do not invent Wikimedia filenames or media URLs.
+- For media, use "/media/placeholders/history-event.svg" when you do not have a verified image URL. Do not invent Wikimedia filenames or media URLs.
 - Still provide useful media alt/caption text describing the kind of image an editor should find manually.
 - Do not include unsourced claims in "summary", "context", "whyItMatters", or "detailMarkdown".
 
@@ -105,7 +105,7 @@ Check:
 - Every event belongs to that month.
 - Every event has at least one real source URL.
 - No source URL, publisher, date, or media URL is fabricated.
-- Media URLs are PHOTO_PLACEHOLDER unless verified.
+- Media URLs use "/media/placeholders/history-event.svg" unless verified.
 - relevanceScore values are meaningfully distributed from defining events down to smaller signals.
 - Slugs are unique and URL-safe.
 - The JSON contains no comments, markdown fences, or trailing commas.
@@ -113,4 +113,4 @@ Check:
 
 ## Manual Media Pass
 
-After the JSON draft is sourced, replace `PHOTO_PLACEHOLDER` values manually with verified media URLs. Keep `credit` and `license` accurate. If a media URL cannot be verified, leave the placeholder or remove the `media` object before seeding.
+After the JSON draft is sourced, replace `/media/placeholders/history-event.svg` values manually with verified media URLs. Keep `credit` and `license` accurate. For now, local URLs under `/media/...` are fine; later the same field can point at CDN assets. If a media URL cannot be verified, leave the local placeholder or remove the `media` object before seeding.

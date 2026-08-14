@@ -1,0 +1,44 @@
+{
+  "$schema": "../../schemas/history-month.schema.json",
+  "month": 3,
+  "year": 2026,
+  "title": "March 2026",
+  "description": "Draft scaffold for a curated Month in History Wall import for March 2026.",
+  "status": "draft",
+  "layoutSeed": "2026-03-v1",
+  "events": [
+    {
+      "slug": "milano-cortina-paralympic-winter-games-open",
+      "title": "Milano Cortina 2026 Paralympic Winter Games Open",
+      "summary": "The Milano Cortina 2026 Paralympic Winter Games opened on March 6, 2026.",
+      "context": "The Games followed the Winter Olympics and brought Para alpine skiing, Para biathlon, Para cross-country skiing, Para ice hockey, Para snowboard, and wheelchair curling to Italian venues.",
+      "whyItMatters": "The Paralympics are a defining international sports event and a major public stage for disability sport, accessibility, and elite competition.",
+      "category": "Sports",
+      "dateRange": {
+        "start": "2026-03-06",
+        "end": "2026-03-15"
+      },
+      "location": "Milan, Cortina d'Ampezzo, and Verona, Italy",
+      "countries": ["Italy"],
+      "relevanceScore": 86,
+      "media": {
+        "kind": "image",
+        "url": "/media/placeholders/history-event.svg",
+        "alt": "Suggested image: Milano Cortina 2026 Paralympic ceremony or competition imagery.",
+        "caption": "The 2026 Paralympic Winter Games ran from March 6 to 15.",
+        "credit": "LOCAL_PLACEHOLDER",
+        "license": "LOCAL_PLACEHOLDER"
+      },
+      "detailMarkdown": "The Milano Cortina 2026 Paralympic Winter Games opened on March 6 and ran through March 15.\n\nThe International Paralympic Committee described a programme of six winter Para sports and about 665 athletes, making it one of March 2026's central international sporting events.",
+      "sources": [
+        {
+          "title": "Milano Cortina 2026 Paralympic Winter Games",
+          "url": "https://www.paralympic.org/milano-cortina-2026?pag=5&page=339&title=",
+          "publisher": "International Paralympic Committee",
+          "sourceType": "official",
+          "notes": "Confirms dates, sports, ceremony details, and scale."
+        }
+      ]
+    }
+  ]
+}

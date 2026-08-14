@@ -1,0 +1,41 @@
+{
+  "$schema": "../../schemas/history-month.schema.json",
+  "month": 8,
+  "year": 2026,
+  "title": "August 2026",
+  "description": "Draft scaffold for a curated Month in History Wall import for August 2026. Only include events that occurred on or before August 14, 2026 until the month is complete.",
+  "status": "draft",
+  "layoutSeed": "2026-08-v1",
+  "events": [
+    {
+      "slug": "western-europe-heatwave-and-wildfires",
+      "title": "Western Europe Heatwave And Wildfires Intensify",
+      "summary": "By mid-August 2026, extreme heat and wildfires affected parts of Western Europe, including the United Kingdom, France, Greece, Croatia, and Germany.",
+      "context": "The event came amid a severe summer heatwave, drought conditions, and repeated wildfire emergencies across Europe.",
+      "whyItMatters": "The heatwave and fires highlighted the human, infrastructure, and climate-adaptation risks of increasingly severe European summer extremes.",
+      "category": "Disaster",
+      "date": "2026-08-13",
+      "location": "Western Europe",
+      "countries": ["United Kingdom", "France", "Greece", "Croatia", "Germany"],
+      "relevanceScore": 78,
+      "media": {
+        "kind": "image",
+        "url": "/media/placeholders/history-event.svg",
+        "alt": "Suggested image: wildfire response, heat warning map, or affected European landscape.",
+        "caption": "Extreme heat and wildfires affected parts of Europe in August 2026.",
+        "credit": "LOCAL_PLACEHOLDER",
+        "license": "LOCAL_PLACEHOLDER"
+      },
+      "detailMarkdown": "By August 13, 2026, parts of Western Europe were experiencing dangerous heat and wildfire conditions.\n\nReports described high temperatures, evacuations, fire damage, and pressure on emergency services, making the episode a significant climate and disaster story for the month to date.",
+      "sources": [
+        {
+          "title": "France and England battle multiple wildfires as record heat grips Europe",
+          "url": "https://apnews.com/article/bb9926465acf98a7790a7bf01294f604",
+          "publisher": "Associated Press",
+          "sourceType": "news",
+          "notes": "Reports heatwave and wildfire impacts across several European countries."
+        }
+      ]
+    }
+  ]
+}

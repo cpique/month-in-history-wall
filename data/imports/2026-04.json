@@ -1,0 +1,51 @@
+{
+  "$schema": "../../schemas/history-month.schema.json",
+  "month": 4,
+  "year": 2026,
+  "title": "April 2026",
+  "description": "Draft scaffold for a curated Month in History Wall import for April 2026.",
+  "status": "draft",
+  "layoutSeed": "2026-04-v1",
+  "events": [
+    {
+      "slug": "imf-world-bank-spring-meetings-2026",
+      "title": "IMF And World Bank Hold 2026 Spring Meetings",
+      "summary": "The 2026 Spring Meetings of the International Monetary Fund and World Bank Group took place in Washington, D.C., from April 13 to 18.",
+      "context": "The meetings gather central bankers, finance ministers, development officials, civil society, academics, and private-sector leaders around global economic policy.",
+      "whyItMatters": "The meetings are a major venue for international economic coordination, development finance, and debate over the state of the global economy.",
+      "category": "Business",
+      "dateRange": {
+        "start": "2026-04-13",
+        "end": "2026-04-18"
+      },
+      "location": "Washington, D.C., United States",
+      "countries": ["United States"],
+      "relevanceScore": 72,
+      "media": {
+        "kind": "image",
+        "url": "/media/placeholders/history-event.svg",
+        "alt": "Suggested image: IMF or World Bank Spring Meetings venue or official event imagery.",
+        "caption": "The IMF and World Bank Spring Meetings took place in Washington, D.C.",
+        "credit": "LOCAL_PLACEHOLDER",
+        "license": "LOCAL_PLACEHOLDER"
+      },
+      "detailMarkdown": "The IMF and World Bank Group held their 2026 Spring Meetings from April 13 to 18 in Washington, D.C.\n\nThe meetings are one of the year's recurring focal points for global economic governance, bringing together policymakers and institutions around growth, financial stability, development, and poverty reduction.",
+      "sources": [
+        {
+          "title": "2026 Spring Meetings",
+          "url": "https://www.worldbank.org/en/meetings/splash/spring?source=email",
+          "publisher": "World Bank Group",
+          "sourceType": "official",
+          "notes": "Confirms dates, location, and meeting purpose."
+        },
+        {
+          "title": "2026 Spring Meetings of the IMF and World Bank Group",
+          "url": "https://meetings.imf.org/en/2026/spring?cid=ba-com-sina-finance-sm26-desktop-1000x90-zh-apr2026",
+          "publisher": "International Monetary Fund",
+          "sourceType": "official",
+          "notes": "Confirms dates and institutional framing."
+        }
+      ]
+    }
+  ]
+}

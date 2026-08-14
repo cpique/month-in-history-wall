@@ -8,6 +8,8 @@ Create a JSON file matching `schemas/history-month.schema.json`.
 
 If you want an LLM to draft the file, start from `docs/LLM_MONTH_IMPORT_PROMPT.md`, then manually verify sources and media before seeding.
 
+Draft month scaffolds may have an empty `events` array. Published or launch-ready month imports should contain sourced events.
+
 Minimum shape:
 
 ```json
@@ -28,7 +30,7 @@ Minimum shape:
       "relevanceScore": 85,
       "media": {
         "kind": "image",
-        "url": "https://example.com/image.jpg",
+        "url": "/media/placeholders/history-event.svg",
         "alt": "Accessible image description."
       },
       "detailMarkdown": "Longer markdown body for the detail page.",
@@ -78,4 +80,18 @@ Replace all existing events for that month before inserting:
 npm run seed:month -- data/imports/1984-06.sample.json --replace
 ```
 
+Validate every JSON import under `data/imports`:
+
+```bash
+npm run seed:db -- --dry-run
+```
+
+Recreate the `months` and `events` collections from all import files:
+
+```bash
+npm run seed:db -- --reset
+```
+
 `MONGODB_URI` is required unless `--dry-run` is used. `MONGODB_DB` defaults to `month-history-museum`.
+
+Media URLs are stored as strings. Use local URLs such as `/media/placeholders/history-event.svg` for now; later the same field can point to CDN-hosted images, GIFs, or video previews.

@@ -1,5 +1,6 @@
 import { readFile } from "node:fs/promises";
 import { createHash } from "node:crypto";
+import { fileURLToPath } from "node:url";
 import process from "node:process";
 import { MongoClient } from "mongodb";
 
@@ -25,7 +26,7 @@ function usage() {
   ].join("\n");
 }
 
-function slugify(value) {
+export function slugify(value) {
   return value
     .toLowerCase()
     .normalize("NFKD")
@@ -35,7 +36,7 @@ function slugify(value) {
     .replace(/-{2,}/g, "-");
 }
 
-function monthSlug(year, month) {
+export function monthSlug(year, month) {
   return `${String(year).padStart(4, "0")}-${String(month).padStart(2, "0")}`;
 }
 
@@ -49,12 +50,12 @@ function assert(condition, message) {
   }
 }
 
-function validateImport(input) {
+export function validateImport(input) {
   assert(input && typeof input === "object" && !Array.isArray(input), "Import must be an object.");
   assert(Number.isInteger(input.month) && input.month >= 1 && input.month <= 12, "month must be an integer from 1 to 12.");
   assert(Number.isInteger(input.year), "year must be an integer.");
   assert(!input.status || VALID_MONTH_STATUSES.has(input.status), "status must be draft or published.");
-  assert(Array.isArray(input.events) && input.events.length > 0, "events must contain at least one event.");
+  assert(Array.isArray(input.events), "events must be an array.");
 
   const seenSlugs = new Set();
 
@@ -111,7 +112,7 @@ const tileSizeByImportance = {
   signal: "small",
 };
 
-function prepareDocuments(input) {
+export function prepareDocuments(input) {
   validateImport(input);
 
   const slug = monthSlug(input.year, input.month);
@@ -196,6 +197,48 @@ function withoutCreatedAt(document) {
   return copy;
 }
 
+export async function seedPreparedDocuments({ month, events }, { replace = false, db } = {}) {
+  await db.collection("months").createIndex({ slug: 1 }, { unique: true });
+  await db.collection("months").createIndex({ status: 1, year: 1, month: 1 });
+  await db.collection("events").createIndex({ monthId: 1, status: 1, relevanceScore: -1 });
+  await db.collection("events").createIndex({ monthSlug: 1, slug: 1 }, { unique: true });
+  await db.collection("events").createIndex({
+    title: "text",
+    summary: "text",
+    location: "text",
+    countries: "text",
+    category: "text",
+  });
+
+  if (replace) {
+    await db.collection("events").deleteMany({ monthId: month._id });
+  }
+
+  await db.collection("months").updateOne(
+    { _id: month._id },
+    {
+      $set: withoutCreatedAt(month),
+      $setOnInsert: { createdAt: month.createdAt },
+    },
+    { upsert: true },
+  );
+
+  const operations = events.map((event) => ({
+    updateOne: {
+      filter: { _id: event._id },
+      update: {
+        $set: withoutCreatedAt(event),
+        $setOnInsert: { createdAt: event.createdAt },
+      },
+      upsert: true,
+    },
+  }));
+
+  if (operations.length > 0) {
+    await db.collection("events").bulkWrite(operations, { ordered: true });
+  }
+}
+
 async function main() {
   const args = process.argv.slice(2);
   const filePath = args.find((arg) => !arg.startsWith("--"));
@@ -241,45 +284,7 @@ async function main() {
 
   try {
     const db = client.db(process.env.MONGODB_DB ?? "month-history-museum");
-    await db.collection("months").createIndex({ slug: 1 }, { unique: true });
-    await db.collection("months").createIndex({ status: 1, year: 1, month: 1 });
-    await db.collection("events").createIndex({ monthId: 1, status: 1, relevanceScore: -1 });
-    await db.collection("events").createIndex({ monthSlug: 1, slug: 1 }, { unique: true });
-    await db.collection("events").createIndex({
-      title: "text",
-      summary: "text",
-      location: "text",
-      countries: "text",
-      category: "text",
-    });
-
-    if (replace) {
-      await db.collection("events").deleteMany({ monthId: month._id });
-    }
-
-    await db.collection("months").updateOne(
-      { _id: month._id },
-      {
-        $set: withoutCreatedAt(month),
-        $setOnInsert: { createdAt: month.createdAt },
-      },
-      { upsert: true },
-    );
-
-    const operations = events.map((event) => ({
-      updateOne: {
-        filter: { _id: event._id },
-        update: {
-          $set: withoutCreatedAt(event),
-          $setOnInsert: { createdAt: event.createdAt },
-        },
-        upsert: true,
-      },
-    }));
-
-    if (operations.length > 0) {
-      await db.collection("events").bulkWrite(operations, { ordered: true });
-    }
+    await seedPreparedDocuments({ month, events }, { replace, db });
 
     console.log(
       `Seeded ${events.length} events for ${month.slug} into ${db.databaseName}.${replace ? " Replaced existing month events." : ""}`,
@@ -289,7 +294,11 @@ async function main() {
   }
 }
 
-main().catch((error) => {
-  console.error(error.message);
-  process.exit(1);
-});
+const isCli = process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1];
+
+if (isCli) {
+  main().catch((error) => {
+    console.error(error.message);
+    process.exit(1);
+  });
+}

@@ -1,0 +1,71 @@
+{
+  "$schema": "../../schemas/history-month.schema.json",
+  "month": 7,
+  "year": 2026,
+  "title": "July 2026",
+  "description": "Draft scaffold for a curated Month in History Wall import for July 2026.",
+  "status": "draft",
+  "layoutSeed": "2026-07-v1",
+  "events": [
+    {
+      "slug": "united-states-semiquincentennial",
+      "title": "United States Marks 250 Years Since The Declaration Of Independence",
+      "summary": "July 4, 2026, marked the 250th anniversary of the United States Declaration of Independence.",
+      "context": "The National Archives framed the semiquincentennial around the Declaration of Independence and the country's long civic memory.",
+      "whyItMatters": "The anniversary was a major national commemoration and a broad public-history moment in the United States.",
+      "category": "Politics",
+      "date": "2026-07-04",
+      "location": "United States",
+      "countries": ["United States"],
+      "relevanceScore": 90,
+      "media": {
+        "kind": "image",
+        "url": "/media/placeholders/history-event.svg",
+        "alt": "Suggested image: Declaration of Independence, National Archives, or America 250 commemoration imagery.",
+        "caption": "The United States marked its semiquincentennial on July 4, 2026.",
+        "credit": "LOCAL_PLACEHOLDER",
+        "license": "LOCAL_PLACEHOLDER"
+      },
+      "detailMarkdown": "July 4, 2026, marked 250 years since the Declaration of Independence.\n\nThe anniversary gave July 2026 a major public-history frame in the United States, connecting civic ritual, archival memory, commemoration, and contemporary debate over the country's founding ideals.",
+      "sources": [
+        {
+          "title": "Declaration250",
+          "url": "https://www.declaration250.gov/",
+          "publisher": "National Archives",
+          "sourceType": "official",
+          "notes": "Confirms the July 4, 2026 semiquincentennial framing."
+        }
+      ]
+    },
+    {
+      "slug": "fifa-world-cup-2026-final",
+      "title": "FIFA World Cup 2026 Final Held In New York New Jersey",
+      "summary": "The FIFA World Cup 2026 final was scheduled for July 19, 2026, in New York New Jersey.",
+      "context": "The final concluded a tournament played across Canada, Mexico, and the United States.",
+      "whyItMatters": "The final was the closing focal point of one of the world's largest sports tournaments.",
+      "category": "Sports",
+      "date": "2026-07-19",
+      "location": "New York New Jersey, United States",
+      "countries": ["United States", "Canada", "Mexico"],
+      "relevanceScore": 85,
+      "media": {
+        "kind": "image",
+        "url": "/media/placeholders/history-event.svg",
+        "alt": "Suggested image: FIFA World Cup 2026 final venue or official final imagery.",
+        "caption": "The World Cup final closed the 2026 tournament in July.",
+        "credit": "LOCAL_PLACEHOLDER",
+        "license": "LOCAL_PLACEHOLDER"
+      },
+      "detailMarkdown": "The FIFA World Cup 2026 final was set for July 19 in New York New Jersey.\n\nThe final closed a tournament whose schedule spanned North America and dominated global football attention through June and July.",
+      "sources": [
+        {
+          "title": "FIFA World Cup 26 match schedule revealed",
+          "url": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/fifa-world-cup-26-match-schedule-revealed",
+          "publisher": "FIFA",
+          "sourceType": "official",
+          "notes": "Confirms the final date and location."
+        }
+      ]
+    }
+  ]
+}

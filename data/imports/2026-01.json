@@ -1,0 +1,74 @@
+{
+  "$schema": "../../schemas/history-month.schema.json",
+  "month": 1,
+  "year": 2026,
+  "title": "January 2026",
+  "description": "Draft scaffold for a curated Month in History Wall import for January 2026.",
+  "status": "draft",
+  "layoutSeed": "2026-01-v1",
+  "events": [
+    {
+      "slug": "bulgaria-adopts-the-euro",
+      "title": "Bulgaria Adopts The Euro",
+      "summary": "Bulgaria adopted the euro on January 1, 2026, becoming the 21st member of the euro area.",
+      "context": "The change followed the Council of the European Union's 2025 approval of Bulgaria's accession to the euro area and fixed the conversion from the Bulgarian lev to the euro.",
+      "whyItMatters": "The adoption expanded the eurozone and marked a major monetary integration step for Bulgaria and the European Union.",
+      "category": "Business",
+      "date": "2026-01-01",
+      "location": "Bulgaria",
+      "countries": ["Bulgaria"],
+      "relevanceScore": 88,
+      "media": {
+        "kind": "image",
+        "url": "/media/placeholders/history-event.svg",
+        "alt": "Suggested image: euro banknotes or Bulgarian central bank/euro changeover imagery.",
+        "caption": "Bulgaria entered the euro area at the start of 2026.",
+        "credit": "LOCAL_PLACEHOLDER",
+        "license": "LOCAL_PLACEHOLDER"
+      },
+      "detailMarkdown": "On January 1, 2026, the euro entered circulation in Bulgaria. The European Central Bank described the change as bringing the number of euro-area member states to 21.\n\nThe event matters as a monetary and institutional milestone: Bulgaria's central bank joined the Eurosystem, and the country moved from the lev to the shared European currency.",
+      "sources": [
+        {
+          "title": "Bulgaria introduces the euro",
+          "url": "https://www.ecb.europa.eu/press/pr/date/2026/html/ecb.pr260101~c830245e42.en.html",
+          "publisher": "European Central Bank",
+          "sourceType": "official",
+          "notes": "Confirms the January 1, 2026 adoption and euro-area membership."
+        }
+      ]
+    },
+    {
+      "slug": "cyprus-presidency-council-eu-begins",
+      "title": "Cyprus Begins Presidency Of The Council Of The European Union",
+      "summary": "Cyprus assumed the Presidency of the Council of the European Union for the first half of 2026.",
+      "context": "The rotating presidency gives an EU member state a central role in chairing Council work and brokering legislative priorities.",
+      "whyItMatters": "The presidency placed Cyprus in a visible coordinating role during debates over EU autonomy, enlargement, competitiveness, and the next long-term EU budget.",
+      "category": "Politics",
+      "dateRange": {
+        "start": "2026-01-01",
+        "end": "2026-06-30"
+      },
+      "location": "European Union",
+      "countries": ["Cyprus"],
+      "relevanceScore": 62,
+      "media": {
+        "kind": "image",
+        "url": "/media/placeholders/history-event.svg",
+        "alt": "Suggested image: Cyprus Presidency or Council of the European Union visual identity.",
+        "caption": "Cyprus chaired Council work during the first half of 2026.",
+        "credit": "LOCAL_PLACEHOLDER",
+        "license": "LOCAL_PLACEHOLDER"
+      },
+      "detailMarkdown": "Cyprus held the rotating Presidency of the Council of the European Union from January 1 to June 30, 2026.\n\nThe presidency programme framed the period around a more autonomous European Union, open to the world, and emphasized issues including competitiveness, rule of law, enlargement, and long-term budget negotiations.",
+      "sources": [
+        {
+          "title": "Programme of the Cyprus Presidency",
+          "url": "https://cyprus-presidency.consilium.europa.eu/en/programme/programme-of-the-cyprus-presidency/",
+          "publisher": "Cyprus Presidency of the Council of the European Union",
+          "sourceType": "official",
+          "notes": "Confirms the presidency dates and programme priorities."
+        }
+      ]
+    }
+  ]
+}

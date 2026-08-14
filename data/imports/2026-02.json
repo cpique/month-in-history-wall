@@ -1,0 +1,44 @@
+{
+  "$schema": "../../schemas/history-month.schema.json",
+  "month": 2,
+  "year": 2026,
+  "title": "February 2026",
+  "description": "Draft scaffold for a curated Month in History Wall import for February 2026.",
+  "status": "draft",
+  "layoutSeed": "2026-02-v1",
+  "events": [
+    {
+      "slug": "milano-cortina-winter-olympics-open",
+      "title": "Milano Cortina 2026 Winter Olympics Open",
+      "summary": "The Olympic Winter Games Milano Cortina 2026 began on February 6, 2026, in northern Italy.",
+      "context": "The Games brought the Winter Olympics back to Italy, with events spread across Milan, Cortina d'Ampezzo, and alpine venues.",
+      "whyItMatters": "The Games were a major global sports and cultural event, shaping February 2026's international public calendar.",
+      "category": "Sports",
+      "dateRange": {
+        "start": "2026-02-06",
+        "end": "2026-02-22"
+      },
+      "location": "Milan and Cortina d'Ampezzo, Italy",
+      "countries": ["Italy"],
+      "relevanceScore": 95,
+      "media": {
+        "kind": "image",
+        "url": "/media/placeholders/history-event.svg",
+        "alt": "Suggested image: Milano Cortina 2026 Olympic venue, ceremony, or official Games imagery.",
+        "caption": "The 2026 Olympic Winter Games ran from February 6 to 22.",
+        "credit": "LOCAL_PLACEHOLDER",
+        "license": "LOCAL_PLACEHOLDER"
+      },
+      "detailMarkdown": "The Milano Cortina 2026 Olympic Winter Games took place from February 6 to 22, 2026.\n\nAs one of the world's largest recurring sporting events, the Games anchored the month across sport, media, diplomacy, tourism, and national representation.",
+      "sources": [
+        {
+          "title": "Where and when will the 2026 Olympic Winter Games take place?",
+          "url": "https://support.olympics.com/hc/en-gb/articles/43002165477267-Where-and-when-will-the-2026-Olympic-Winter-Games-take-place",
+          "publisher": "Olympics",
+          "sourceType": "official",
+          "notes": "Confirms the February 6-22, 2026 dates."
+        }
+      ]
+    }
+  ]
+}
