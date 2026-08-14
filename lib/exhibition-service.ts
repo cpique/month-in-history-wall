@@ -141,6 +141,34 @@ export function monthEventsToExhibition(
   };
 }
 
+export type PublishedEventDetail = {
+  exhibition: Exhibition;
+  event: ExhibitionSpace;
+  publishedEvents: ExhibitionSpace[];
+  currentIndex: number;
+};
+
+export function monthEventsToPublishedEventDetail(
+  month: MonthDocument,
+  events: HistoricalEventDocument[],
+  eventId: string,
+): PublishedEventDetail | null {
+  const exhibition = monthEventsToExhibition(month, events);
+  const publishedEvents = getPublishedSpaces(exhibition);
+  const currentIndex = publishedEvents.findIndex((event) => event.id === eventId);
+
+  if (currentIndex < 0) {
+    return null;
+  }
+
+  return {
+    exhibition,
+    event: publishedEvents[currentIndex],
+    publishedEvents,
+    currentIndex,
+  };
+}
+
 export async function getCurrentExhibition(): Promise<Exhibition> {
   if (!process.env.MONGODB_URI) {
     return currentExhibition;
@@ -169,6 +197,60 @@ export async function getCurrentExhibition(): Promise<Exhibition> {
   }
 
   return monthEventsToExhibition(month, events);
+}
+
+export async function getPublishedEventDetailById(
+  eventId: string,
+): Promise<PublishedEventDetail | null> {
+  if (process.env.MONGODB_URI) {
+    const db = await getMongoDb();
+    const event = await db.collection<HistoricalEventDocument>("events").findOne({
+      _id: eventId,
+      status: { $in: ["published", "archived"] },
+    });
+
+    if (event) {
+      const month = await db.collection<MonthDocument>("months").findOne({
+        _id: event.monthId,
+        status: { $in: ["published", "locked"] },
+      });
+
+      if (month) {
+        const events = await db
+          .collection<HistoricalEventDocument>("events")
+          .find({
+            monthId: month._id,
+            status: { $in: ["published", "archived"] },
+          })
+          .sort({ "layout.order": 1 })
+          .toArray();
+
+        const detail = monthEventsToPublishedEventDetail(month, events, eventId);
+
+        if (detail) {
+          return detail;
+        }
+      }
+    }
+  }
+
+  return getStaticEventDetail(eventId);
+}
+
+function getStaticEventDetail(eventId: string): PublishedEventDetail | null {
+  const publishedEvents = getPublishedSpaces(currentExhibition);
+  const currentIndex = publishedEvents.findIndex((event) => event.id === eventId);
+
+  if (currentIndex < 0) {
+    return null;
+  }
+
+  return {
+    exhibition: currentExhibition,
+    event: publishedEvents[currentIndex],
+    publishedEvents,
+    currentIndex,
+  };
 }
 
 export function getPublishedSpaces(exhibition: Exhibition) {

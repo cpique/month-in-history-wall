@@ -1,5 +1,8 @@
 import { describe, expect, it } from "vitest";
-import { monthEventsToExhibition } from "./exhibition-service";
+import {
+  monthEventsToExhibition,
+  monthEventsToPublishedEventDetail,
+} from "./exhibition-service";
 import type { HistoricalEventDocument, MonthDocument } from "./domain-types";
 
 const month: MonthDocument = {
@@ -99,5 +102,41 @@ describe("month event exhibition mapping", () => {
     expect(exhibition.spaces[1]?.status).toBe("occupied");
     expect(exhibition.spaces[1]?.context).toBe("Context");
     expect(exhibition.stats).toContainEqual({ value: "2", label: "events" });
+  });
+
+  it("builds event detail context from any published month event", () => {
+    const detail = monthEventsToPublishedEventDetail(
+      month,
+      events,
+      "1984-06:later",
+    );
+
+    expect(detail?.event.title).toBe("Later event");
+    expect(detail?.exhibition.slug).toBe("1984-06");
+    expect(detail?.currentIndex).toBe(1);
+    expect(detail?.publishedEvents.map((event) => event.id)).toEqual([
+      "1984-06:first",
+      "1984-06:later",
+    ]);
+  });
+
+  it("does not expose draft events in public event detail context", () => {
+    const detail = monthEventsToPublishedEventDetail(
+      month,
+      [
+        ...events,
+        {
+          ...events[0],
+          _id: "1984-06:draft",
+          slug: "draft",
+          title: "Draft event",
+          status: "draft",
+          layout: { order: 0 },
+        },
+      ],
+      "1984-06:draft",
+    );
+
+    expect(detail).toBeNull();
   });
 });

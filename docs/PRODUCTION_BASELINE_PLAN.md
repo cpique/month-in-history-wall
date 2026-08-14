@@ -15,6 +15,7 @@ Repurpose the copied app into a working historical wall for one sample month.
 - Mapped public tile copy toward historical events instead of creator reservations.
 - Added `/events/[eventId]` as the public event detail route.
 - Displayed event metadata and source citations on detail pages.
+- Moved event detail routes to read individual published/archived seeded events directly from MongoDB.
 - Kept `/works/[spaceId]` as a compatibility redirect to event detail pages.
 - Made wall tile footprint derive from editorial `importanceLevel`.
 - Wired the public wall service to read seeded MongoDB `months` and `events` when available.
@@ -28,7 +29,6 @@ Repurpose the copied app into a working historical wall for one sample month.
 ### Next Product Work
 
 - Add explicit `context` and `whyItMatters` fields to event data and render them on detail pages.
-- Move event detail routes to read individual seeded events directly instead of only the current wall model.
 - Remove inherited reservation/submission repositories, tests, and domain types once no historical workflow depends on them.
 - Rename inherited `exhibition`, `space`, `work`, `submission`, and `reservation` internals when each surface is touched.
 

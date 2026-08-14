@@ -15,6 +15,7 @@ The public homepage now presents a historical month wall instead of a reservatio
 - [x] Removed the reservation link from the primary homepage navigation.
 - [x] Updated wall and tile copy from creator-space language toward historical event language.
 - [x] Added public event detail pages at `/events/[eventId]` with event metadata and source citations.
+- [x] Made event detail pages read individual published/archived MongoDB events instead of only the current wall.
 - [x] Redirected inherited `/works/[spaceId]` detail URLs to the new event detail route.
 - [x] Made public wall tile footprint derive from editorial importance.
 - [x] Added a JSON Schema, sample import file, and MongoDB seeder for batch month/event imports.
@@ -59,6 +60,7 @@ The public homepage now presents a historical month wall instead of a reservatio
 | 2026-08-13 | Repurpose incrementally. | Keep stable components working while replacing copied product behavior slice by slice. |
 | 2026-08-13 | Use June 1984 as the first sample month. | Matches the README recommendation and gives a broad mix of politics, culture, sport, technology, and conflict. |
 | 2026-08-13 | Keep some inherited internals temporarily. | `ExhibitionSpace` and repository names remain inherited; the public event detail route is now `/events/[eventId]`. |
+| 2026-08-14 | Resolve event detail pages by event id. | Public detail pages can now load any published/archived seeded event, while draft events remain hidden. |
 | 2026-08-13 | Derive tile footprint from importance. | Editors set `importanceLevel`; code maps that to the public grid footprint. |
 | 2026-08-13 | Use batch imports for month data. | Month/event data comes from JSON files and a seeder script rather than public forms. |
 | 2026-08-14 | Draft imports with a reusable LLM prompt. | Prompt requires valid JSON, real source URLs, uneven relevance scores, and media placeholders unless images are verified. |
@@ -122,4 +124,8 @@ The public homepage now presents a historical month wall instead of a reservatio
 | 2026-08-14 | `npm run lint` | Passed | Full database seeder, 2026 import scaffolds, docs, and local media placeholder passed ESLint. |
 | 2026-08-14 | `npm run test` | Passed | Existing suite remains green: 8 files, 23 tests. |
 | 2026-08-14 | `npm run seed:month -- data/imports/1984-06.sample.json --dry-run` | Passed | Populated month import still validates after allowing empty draft months. |
+| 2026-08-14 | `npm run build` | Passed | Production build passed outside the sandbox after recurring `spawn EPERM`. |
+| 2026-08-14 | `npm run lint` | Passed | Event detail route now resolves individual seeded events and passed ESLint. |
+| 2026-08-14 | `npm run test` | Passed | Existing suite plus public event detail lookup tests passes: 8 files, 25 tests. |
+| 2026-08-14 | `npm run seed:db -- --dry-run` | Passed | Full import preview remains green after event detail lookup changes. |
 | 2026-08-14 | `npm run build` | Passed | Production build passed outside the sandbox after recurring `spawn EPERM`. |
