@@ -28,6 +28,7 @@ export async function insertArchiveSnapshot(
     _id: new ObjectId().toHexString(),
   };
 
+  await ensureArchiveIndexes(database);
   await database.collection<ArchiveSnapshotDocument>("archiveSnapshots").insertOne(doc);
   return doc;
 }

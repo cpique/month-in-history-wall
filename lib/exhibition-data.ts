@@ -17,13 +17,6 @@ export type WorkMediaPreview = {
   mediaAlt?: string;
 };
 
-export type ReservationDetails = {
-  priceLabel: string;
-  priceCents: number;
-  availableMonths: string[];
-  mediaRules: string[];
-};
-
 export type EventSource = {
   title: string;
   url: string;
@@ -52,7 +45,6 @@ export type ExhibitionSpace = {
   description: string;
   externalUrl?: string;
   mediaPreview?: WorkMediaPreview;
-  reservation?: ReservationDetails;
   date?: string;
   dateRange?: {
     start: string;
@@ -603,26 +595,6 @@ export function getPublishedSpaces() {
   return currentExhibition.spaces.filter(
     (space) => space.status === "occupied" || space.status === "featured",
   );
-}
-
-export function getReservableSpaces() {
-  return currentExhibition.spaces.filter(
-    (space) => space.status === "available" && space.reservation,
-  );
-}
-
-export function getStatusSpaces() {
-  return currentExhibition.spaces.filter(
-    (space) => space.status === "available" || space.status === "review",
-  );
-}
-
-export function getStatusSpaceById(spaceId: string) {
-  return getStatusSpaces().find((space) => space.id === spaceId);
-}
-
-export function getReservableSpaceById(spaceId: string) {
-  return getReservableSpaces().find((space) => space.id === spaceId);
 }
 
 export function getArchivedExhibitionBySlug(slug: string) {

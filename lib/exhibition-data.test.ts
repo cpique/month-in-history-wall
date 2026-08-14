@@ -3,8 +3,6 @@ import {
   currentExhibition,
   getEditorialTileSize,
   getPublishedSpaces,
-  getReservableSpaces,
-  getStatusSpaces,
   getTileLayoutClass,
   tileLayoutClassByImportance,
 } from "./exhibition-data";
@@ -12,8 +10,7 @@ import {
 describe("current exhibition wall states", () => {
   it("partitions every sample tile into one public state", () => {
     const published = getPublishedSpaces();
-    const status = getStatusSpaces();
-    const ids = [...published, ...status].map((space) => space.id);
+    const ids = published.map((space) => space.id);
 
     expect(ids).toHaveLength(currentExhibition.spaces.length);
     expect(new Set(ids).size).toBe(currentExhibition.spaces.length);
@@ -21,8 +18,6 @@ describe("current exhibition wall states", () => {
 
   it("matches the current sample counts shown by the wall", () => {
     expect(getPublishedSpaces()).toHaveLength(12);
-    expect(getReservableSpaces()).toHaveLength(0);
-    expect(getStatusSpaces()).toHaveLength(0);
   });
 
   it("attaches at least one source to every published historical event", () => {

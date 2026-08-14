@@ -1,30 +1,31 @@
 # Privacy Policy
 
-This is the working privacy policy for One Month Museum. It is product and engineering guidance, not legal advice, and should be reviewed for the launch jurisdiction before paid reservations or analytics are enabled.
+This is the working privacy policy for Month in History Wall. It is product and engineering guidance, not legal advice, and should be reviewed before production launch.
 
 ## Information We Collect
 
-- Creator name or organization, email address, work title, description, external link, media metadata, and policy acknowledgement when a reservation or submission is created.
-- Reservation months, selected size category, payment status, review status, and operational notes needed to run the exhibition.
-- Limited technical information needed for security, reliability, and abuse prevention.
+- Correction request details such as message text, optional source URL, optional contact email, event id, month slug, status, and timestamps.
+- Admin/editorial account information handled through Clerk when admin authentication is enabled.
+- Limited technical information needed for security, reliability, debugging, and abuse prevention.
 
 ## How We Use Information
 
-- Review, publish, archive, or remove submitted work.
-- Communicate about reservations, review outcomes, payments, changes, and takedown requests.
-- Operate the exhibition, prevent abuse, maintain security, and understand aggregate usage when analytics are introduced.
+- Review correction requests and improve sourced historical event records.
+- Communicate about correction or privacy requests when contact information is provided.
+- Protect admin routes, operate the archive, and maintain service reliability.
+- Understand aggregate usage only after analytics purpose, retention, opt-out, and consent requirements are defined.
 
 ## Public Information
 
-Approved creator names, work titles, descriptions, media, external links, and archived exhibition placement may be public. Private contact information and internal review notes should not be published.
+Published event titles, summaries, context, media URLs, source citations, and locked month arrangements may remain public in the archive. Contact emails, internal review notes, and correction request metadata should not be published.
 
 ## Sharing And Providers
 
-The production service uses infrastructure, database, authentication, payment, storage, email, and analytics providers. Each provider must be documented before being enabled, limited to the necessary purpose, and covered by appropriate agreements where required.
+The production service may use infrastructure, database, authentication, storage, email, and analytics providers. Each provider must be documented before being enabled, limited to the necessary purpose, and covered by appropriate agreements where required.
 
 ## Retention And Requests
 
-Approved exhibition records may remain in the permanent public archive. Reservation, payment, moderation, and support records should be retained only as long as operational, legal, accounting, or safety needs require. The production policy must provide a contact path for access, correction, deletion, and privacy questions.
+Published event and locked month records may remain in the permanent public archive. Correction requests, admin logs, and support records should be retained only as long as operational, legal, safety, or editorial needs require. The production policy must provide a contact path for access, correction, deletion, and privacy questions.
 
 ## Changes
 

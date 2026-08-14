@@ -4,9 +4,9 @@ This is the living status file for Month in History Wall.
 
 ## Current Status
 
-The repo has been copied from One Month Museum and is being repurposed feature by feature. The README defines the new product direction. The first implementation loop has begun with seeded historical event data for June 1984.
+The repo has been copied from One Month Museum and is being repurposed feature by feature. The README defines the new product direction. The first implementation loops have produced a working historical wall baseline with seeded data, MongoDB imports, archive browsing, admin review surfaces, and correction handling.
 
-The public homepage now presents a historical month wall instead of a reservation-first creator wall. Some inherited routes, type names, and repositories still use `exhibition`, `space`, `work`, `reservation`, and `submission`; those are implementation debt to migrate in later loops.
+The public homepage now presents a historical month wall instead of a reservation-first creator wall. Some rendering components still use inherited `exhibition`, `space`, and `work` naming; the old reservation, submission, payment, and participant analytics runtime paths have been removed.
 
 ## Done
 
@@ -30,6 +30,7 @@ The public homepage now presents a historical month wall instead of a reservatio
 - [x] Removed inherited public reservation, checkout return, and space-status routes from the primary app surface.
 - [x] Removed inherited Stripe runtime code, webhook route, checkout actions, reservation form components, and dependency.
 - [x] Removed inherited reservation/submission repositories, tests, and domain types.
+- [x] Completed a repository quality pass for stale docs, dead helpers, dependency patches, and source-control risk.
 
 ## In Progress
 
@@ -64,7 +65,7 @@ The public homepage now presents a historical month wall instead of a reservatio
 | 2026-08-13 | Use June 1984 as the first sample month. | Matches the README recommendation and gives a broad mix of politics, culture, sport, technology, and conflict. |
 | 2026-08-13 | Keep some inherited internals temporarily. | `ExhibitionSpace` and repository names remain inherited; the public event detail route is now `/events/[eventId]`. |
 | 2026-08-14 | Resolve event detail pages by event id. | Public detail pages can now load any published/archived seeded event, while draft events remain hidden. |
-| 2026-08-14 | Accept public correction requests. | Public event pages can submit correction reports into MongoDB; admin review remains future work. |
+| 2026-08-14 | Accept public correction requests. | Public event pages can submit correction reports into MongoDB. |
 | 2026-08-14 | Triage correction requests in admin. | Admins can review submitted corrections and move them through open, reviewing, accepted, rejected, or closed states. |
 | 2026-08-13 | Derive tile footprint from importance. | Editors set `importanceLevel`; code maps that to the public grid footprint. |
 | 2026-08-13 | Use batch imports for month data. | Month/event data comes from JSON files and a seeder script rather than public forms. |
@@ -79,6 +80,7 @@ The public homepage now presents a historical month wall instead of a reservatio
 | 2026-08-13 | Remove reservation routes from public app. | Keep deeper inherited payment/action modules for a later cleanup pass, but remove public pages from the primary route table. |
 | 2026-08-14 | Remove Stripe runtime path. | Public routes no longer depend on checkout, so Stripe code and dependency were removed before deeper reservation repository cleanup. |
 | 2026-08-14 | Remove reservation/submission repositories. | No active historical workflow imports them, so the runtime model now centers on months, events, sources, and legacy snapshots. |
+| 2026-08-14 | Keep legal docs aligned with the history product. | Privacy and cookie copy now describe correction requests, admin Clerk auth, sourced event records, and no public tracking/payment cookies. |
 
 ## Open Questions
 
@@ -147,3 +149,9 @@ The public homepage now presents a historical month wall instead of a reservatio
 | 2026-08-14 | `npm run test` | Passed | Existing suite plus correction status update test passes: 5 files, 14 tests. |
 | 2026-08-14 | `npm run seed:db -- --dry-run` | Passed | Full import preview remains green after admin correction review changes. |
 | 2026-08-14 | `npm run build` | Passed | Production route table now includes `/admin/corrections`; build passed outside the sandbox after recurring `spawn EPERM`. |
+| 2026-08-14 | Repository sensitive-file scan | Passed | No tracked env/private/generated/large artifact files found; `.env.local`, `.next`, `node_modules`, generated typings, and uploads are ignored. |
+| 2026-08-14 | `npm outdated --json` | Reviewed | Applied safe patch updates for Clerk, Next, React, React DOM, and eslint-config-next; left major tooling upgrades for a dedicated pass. |
+| 2026-08-14 | `npm run lint` | Passed | Quality pass cleanup, legal docs, and dependency patch updates passed ESLint. |
+| 2026-08-14 | `npm run test` | Passed | Active suite remains green: 5 files, 14 tests. |
+| 2026-08-14 | `npm run seed:db -- --dry-run` | Passed | Full import preview remains green after quality pass changes. |
+| 2026-08-14 | `npm run build` | Passed | Production build passed on Next 16.3.1 outside the sandbox after recurring `spawn EPERM`. |

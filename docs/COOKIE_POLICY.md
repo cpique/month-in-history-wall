@@ -1,10 +1,10 @@
 # Cookie Policy
 
-This is the working cookie policy for One Month Museum. It should be reviewed before production launch and updated when authentication, payments, analytics, or consent management are added.
+This is the working cookie policy for Month in History Wall. It should be reviewed before production launch and updated when authentication, analytics, or consent management changes.
 
 ## Current Product
 
-The current application does not intentionally set analytics, advertising, authentication, or payment cookies. Browser and hosting infrastructure may still use strictly necessary technical mechanisms outside the application code.
+The current public application does not intentionally set analytics, advertising, or payment cookies. Admin authentication may use Clerk cookies when Clerk is configured. Browser and hosting infrastructure may still use strictly necessary technical mechanisms outside the application code.
 
 ## Future Categories
 

@@ -1,38 +1,38 @@
 import { LegalPage } from "@/components/legal/legal-page";
 
 export const metadata = {
-  title: "Privacy Policy | One Month Museum",
-  description: "Working privacy policy for One Month Museum.",
+  title: "Privacy Policy | Month in History Wall",
+  description: "Working privacy policy for Month in History Wall.",
 };
 
 const sections = [
   {
     title: "Information we may collect",
     items: [
-      "Creator and reservation details such as name, email, work metadata, selected months, and policy acknowledgement.",
-      "Operational information such as review, payment, and support status.",
+      "Correction request details such as message text, optional source URL, optional contact email, event id, and month slug.",
+      "Admin/editorial account information provided through Clerk when admin authentication is enabled.",
       "Limited technical information needed for security, reliability, and abuse prevention.",
     ],
   },
   {
     title: "How we use it",
     items: [
-      "To review, publish, archive, or remove submitted work.",
-      "To communicate about reservations, review outcomes, payments, and support.",
-      "To operate the museum and understand aggregate usage after analytics are introduced.",
+      "To review correction requests and improve sourced historical event records.",
+      "To communicate about correction or privacy requests when contact information is provided.",
+      "To operate the archive, protect admin routes, and understand aggregate usage only after analytics rules are defined.",
     ],
   },
   {
     title: "Public archive",
     items: [
-      "Approved creator names, work titles, descriptions, media, links, and placement may remain public in the permanent archive.",
+      "Published event titles, summaries, context, media URLs, and source citations may remain public in the permanent archive.",
       "Private contact information and internal review notes should not be published.",
     ],
   },
   {
     title: "Retention and requests",
     items: [
-      "Approved exhibition records may remain in the public archive; other records should be retained only as long as operational, legal, accounting, or safety needs require.",
+      "Published event and locked month records may remain in the public archive; correction requests and operational records should be retained only as long as needed.",
       "The production policy must provide a contact path for access, correction, deletion, and privacy questions.",
     ],
   },
@@ -41,7 +41,7 @@ const sections = [
 export default function PrivacyPage() {
   return (
     <LegalPage
-      description="This working policy explains the information the museum may need to operate reservations, review submissions, publish work, and preserve the archive. It requires legal review before production launch."
+      description="This working policy explains the information Month in History Wall may need to operate a sourced historical archive, review corrections, and protect admin workflows. It requires legal review before production launch."
       sections={sections}
       title="Privacy policy."
     />

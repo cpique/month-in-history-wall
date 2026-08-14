@@ -1,15 +1,16 @@
 import { LegalPage } from "@/components/legal/legal-page";
 
 export const metadata = {
-  title: "Cookie Policy | One Month Museum",
-  description: "Working cookie policy for One Month Museum.",
+  title: "Cookie Policy | Month in History Wall",
+  description: "Working cookie policy for Month in History Wall.",
 };
 
 const sections = [
   {
     title: "Current product",
     items: [
-      "The current application does not intentionally set analytics, advertising, authentication, or payment cookies.",
+      "The current public application does not intentionally set analytics, advertising, or payment cookies.",
+      "Admin authentication may use Clerk cookies when Clerk is configured.",
       "Browser and hosting infrastructure may still use strictly necessary technical mechanisms outside the application code.",
     ],
   },
@@ -34,7 +35,7 @@ const sections = [
 export default function CookiesPage() {
   return (
     <LegalPage
-      description="This working policy documents the current no-tracking application and the consent decisions required before analytics, authentication, payments, or theme preferences are added."
+      description="This working policy documents the current public no-tracking application and the consent decisions required before analytics, broader authentication, or theme preferences are added."
       sections={sections}
       title="Cookie policy."
     />

@@ -13,7 +13,7 @@ export function LegalPage({
     <main className="min-h-screen bg-[var(--bg-primary)] px-5 py-5 text-[var(--text-primary)] lg:px-8">
       <section className="border border-[var(--border-primary)] bg-[var(--bg-card)] p-5 sm:p-7">
         <nav className="flex items-center justify-between gap-4 text-sm uppercase tracking-wide">
-          <Link href="/">One Month Museum</Link>
+          <Link href="/">Month in History Wall</Link>
           <Link href="/archive">Archive</Link>
         </nav>
         <div className="mt-20 grid gap-6 lg:grid-cols-[minmax(280px,0.7fr)_minmax(520px,1.3fr)]">
