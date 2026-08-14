@@ -1,6 +1,6 @@
 # Data Model
 
-This document defines the target persistence contract for Month in History Wall. The current TypeScript files still carry inherited `exhibition`, `space`, `submission`, and `reservation` names; migrate those contracts gradually as feature slices are repurposed.
+This document defines the target persistence contract for Month in History Wall. Some rendering components still carry inherited `exhibition` and `space` names; migrate those contracts gradually as feature slices are repurposed.
 
 ## Goals
 
@@ -143,4 +143,4 @@ Append-only audit trail for admin/editorial actions.
 - Default `MONGODB_DB` to `month-history-museum`; the copied source repo database name should not be reused.
 - Do not add Redis until there is a measured cache need.
 - Clerk protects admin/editorial workflows.
-- Reservation/payment repository remnants are inherited cleanup debt and should not drive the historical wall model.
+- Reservation/payment/submission repository remnants have been removed from the runtime data model.

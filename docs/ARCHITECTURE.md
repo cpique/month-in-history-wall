@@ -26,7 +26,7 @@ Month in History Wall is a Next.js App Router application for browsing curated h
 - `components/exhibition/`: shared wall, tile, media, and wall-only viewing components. Naming is still inherited and should be gradually repurposed.
 - `lib/exhibition-data.ts`: current seeded historical wall data for June 1984, including event dates, locations, importance levels, source records, and the importance-to-tile-footprint mapping.
 - `lib/exhibition-service.ts`: public wall service. It reads the latest published MongoDB month/events from the batch seeder when configured, with the static June 1984 wall as fallback.
-- `lib/domain-types.ts`: inherited persistence contracts. These should be migrated from exhibitions/spaces/submissions/reservations toward months/events/sources/archive snapshots.
+- `lib/domain-types.ts`: persistence contracts for months, events, sources, and legacy archive snapshots.
 - `scripts/seed-history-month.mjs`: batch importer for JSON month files into MongoDB `months` and `events` collections.
 - `schemas/history-month.schema.json`: import schema for month/event/source/media data.
 
@@ -57,4 +57,4 @@ See `docs/DATA_MODEL.md` for field-level notes. The product model should center 
 - Archive reads merge seeded published/locked months with legacy `archiveSnapshots`, so imported months appear in archive navigation before snapshot locking is fully repurposed.
 - Clerk remains the admin/editorial auth target.
 - Redis is deferred.
-- Stripe and reservation flows are not visible in the primary public experience; remaining reservation/submission repository types are inherited cleanup debt.
+- Stripe, reservation, and creator-submission runtime flows have been removed from the primary application.

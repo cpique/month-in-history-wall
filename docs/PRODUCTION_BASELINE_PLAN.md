@@ -24,12 +24,11 @@ Repurpose the copied app into a working historical wall for one sample month.
 - Repurposed `/admin/analytics` into an editorial coverage dashboard.
 - Removed inherited public reservation, checkout return, and space-status pages from the App Router.
 - Removed inherited Stripe webhook/actions/payment modules and the Stripe dependency.
+- Removed inherited reservation/submission repositories, tests, and domain types.
 - Removed reservation links from the primary homepage and footer.
 
 ### Next Product Work
 
-- Add explicit `context` and `whyItMatters` fields to event data and render them on detail pages.
-- Remove inherited reservation/submission repositories, tests, and domain types once no historical workflow depends on them.
 - Rename inherited `exhibition`, `space`, `work`, `submission`, and `reservation` internals when each surface is touched.
 
 ## Later Product Work

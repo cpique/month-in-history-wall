@@ -27,6 +27,7 @@ The public homepage now presents a historical month wall instead of a reservatio
 - [x] Repurposed `/admin/analytics` into an editorial coverage dashboard for month/event health.
 - [x] Removed inherited public reservation, checkout return, and space-status routes from the primary app surface.
 - [x] Removed inherited Stripe runtime code, webhook route, checkout actions, reservation form components, and dependency.
+- [x] Removed inherited reservation/submission repositories, tests, and domain types.
 
 ## In Progress
 
@@ -73,6 +74,7 @@ The public homepage now presents a historical month wall instead of a reservatio
 | 2026-08-14 | Make `/admin/analytics` editorial-first. | Analytics now tracks coverage health, category spread, sources, media coverage, and event review queues. |
 | 2026-08-13 | Remove reservation routes from public app. | Keep deeper inherited payment/action modules for a later cleanup pass, but remove public pages from the primary route table. |
 | 2026-08-14 | Remove Stripe runtime path. | Public routes no longer depend on checkout, so Stripe code and dependency were removed before deeper reservation repository cleanup. |
+| 2026-08-14 | Remove reservation/submission repositories. | No active historical workflow imports them, so the runtime model now centers on months, events, sources, and legacy snapshots. |
 
 ## Open Questions
 
@@ -128,4 +130,8 @@ The public homepage now presents a historical month wall instead of a reservatio
 | 2026-08-14 | `npm run lint` | Passed | Event detail route now resolves individual seeded events and passed ESLint. |
 | 2026-08-14 | `npm run test` | Passed | Existing suite plus public event detail lookup tests passes: 8 files, 25 tests. |
 | 2026-08-14 | `npm run seed:db -- --dry-run` | Passed | Full import preview remains green after event detail lookup changes. |
+| 2026-08-14 | `npm run build` | Passed | Production build passed outside the sandbox after recurring `spawn EPERM`. |
+| 2026-08-14 | `npm run lint` | Passed | Reservation/submission repository cleanup and docs passed ESLint. |
+| 2026-08-14 | `npm run test` | Passed | Suite now reflects active historical code: 4 files, 11 tests. |
+| 2026-08-14 | `npm run seed:db -- --dry-run` | Passed | Full import preview remains green after removing copied repository code. |
 | 2026-08-14 | `npm run build` | Passed | Production build passed outside the sandbox after recurring `spawn EPERM`. |
