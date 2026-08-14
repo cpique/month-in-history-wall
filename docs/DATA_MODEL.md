@@ -123,6 +123,14 @@ Visitor or editor correction reports.
 - `status`: `open`, `reviewing`, `accepted`, `rejected`, or `closed`
 - `createdAt` and `updatedAt`
 
+Useful indexes:
+
+- Compound index on `status` and `createdAt`
+- Compound index on `eventId` and `createdAt`
+- Compound index on `monthSlug` and `status`
+
+Public event detail pages post to `/api/corrections`, which validates the event is public, stores an `open` request when MongoDB is configured, and redirects back to the event page with a submission status.
+
 ### `editorialEvents`
 
 Append-only audit trail for admin/editorial actions.

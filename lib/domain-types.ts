@@ -89,6 +89,25 @@ export type HistoricalEventDocument = {
   updatedAt: string;
 };
 
+export type CorrectionRequestStatus =
+  | "open"
+  | "reviewing"
+  | "accepted"
+  | "rejected"
+  | "closed";
+
+export type CorrectionRequestDocument = {
+  _id: MongoId;
+  eventId: MongoId;
+  monthSlug: string;
+  message: string;
+  sourceUrl?: string;
+  contactEmail?: string;
+  status: CorrectionRequestStatus;
+  createdAt: string;
+  updatedAt: string;
+};
+
 export type ArchiveSnapshotDocument = {
   _id: MongoId;
   exhibitionId: MongoId;

@@ -16,6 +16,7 @@ Repurpose the copied app into a working historical wall for one sample month.
 - Added `/events/[eventId]` as the public event detail route.
 - Displayed event metadata and source citations on detail pages.
 - Moved event detail routes to read individual published/archived seeded events directly from MongoDB.
+- Added public correction request intake from event detail pages.
 - Kept `/works/[spaceId]` as a compatibility redirect to event detail pages.
 - Made wall tile footprint derive from editorial `importanceLevel`.
 - Wired the public wall service to read seeded MongoDB `months` and `events` when available.
@@ -35,7 +36,7 @@ Repurpose the copied app into a working historical wall for one sample month.
 
 - MongoDB-backed `months`, `events`, `sources`, `archiveSnapshots`, `correctionRequests`, and `editorialEvents`.
 - Event search by month, year, category, person, country, or topic.
-- Correction request workflow.
+- Admin correction review workflow.
 - Locked month snapshot automation.
 - Clerk-backed editorial roles.
 - Redis only after a measured cache need.

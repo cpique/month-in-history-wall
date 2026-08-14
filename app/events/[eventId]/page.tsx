@@ -24,8 +24,10 @@ export async function generateMetadata({
 
 export default async function EventDetailPage({
   params,
+  searchParams,
 }: PageProps<"/events/[eventId]">) {
   const { eventId } = await params;
+  const { correction } = await searchParams;
   const detail = await getPublishedEventDetailById(eventId);
 
   if (!detail) {
@@ -34,6 +36,7 @@ export default async function EventDetailPage({
 
   return (
     <EventDetail
+      correctionStatus={typeof correction === "string" ? correction : undefined}
       currentPosition={detail.currentIndex + 1}
       event={detail.event}
       exhibition={detail.exhibition}

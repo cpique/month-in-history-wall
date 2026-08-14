@@ -72,6 +72,7 @@ function EventBrowseCard({
 }
 
 export function EventDetail({
+  correctionStatus,
   currentPosition,
   event,
   exhibition,
@@ -79,6 +80,7 @@ export function EventDetail({
   previousEvent,
   totalEvents,
 }: {
+  correctionStatus?: string;
   currentPosition: number;
   event: ExhibitionSpace;
   exhibition: Exhibition;
@@ -87,6 +89,14 @@ export function EventDetail({
   totalEvents: number;
 }) {
   const sources = event.sources ?? [];
+  const correctionMessage =
+    correctionStatus === "received"
+      ? "Correction request received for editorial review."
+      : correctionStatus === "unavailable"
+        ? "Correction requests need MongoDB locally. Try again after the database is configured."
+        : correctionStatus === "invalid"
+          ? "The correction request could not be submitted. Check the message and optional URL/email."
+          : undefined;
 
   return (
     <main className="min-h-screen bg-[var(--bg-primary)] px-5 py-5 text-[var(--text-primary)] lg:px-8">
@@ -231,6 +241,67 @@ export function EventDetail({
                     No public source citation has been attached yet.
                   </p>
                 )}
+              </div>
+
+              <div className="space-y-3 border-t border-[var(--border-tertiary)] pt-5">
+                <p className="text-xs uppercase tracking-wide text-[var(--text-muted)]">
+                  Request a correction
+                </p>
+                {correctionMessage ? (
+                  <p className="border border-[var(--border-secondary)] bg-[var(--bg-warning)] p-3 text-sm leading-6 text-[var(--text-secondary)]">
+                    {correctionMessage}
+                  </p>
+                ) : null}
+                <form action="/api/corrections" className="grid gap-3" method="post">
+                  <input name="eventId" type="hidden" value={event.id} />
+                  <input
+                    aria-hidden="true"
+                    autoComplete="off"
+                    className="hidden"
+                    name="website"
+                    tabIndex={-1}
+                    type="text"
+                  />
+                  <label className="grid gap-2 text-sm">
+                    <span className="text-xs uppercase tracking-wide text-[var(--text-muted)]">
+                      What should be corrected?
+                    </span>
+                    <textarea
+                      className="min-h-28 border border-[var(--border-primary)] bg-[var(--bg-primary)] p-3 text-[var(--text-primary)] outline-none focus:border-[var(--text-primary)]"
+                      maxLength={2000}
+                      minLength={10}
+                      name="message"
+                      required
+                    />
+                  </label>
+                  <label className="grid gap-2 text-sm">
+                    <span className="text-xs uppercase tracking-wide text-[var(--text-muted)]">
+                      Supporting source URL
+                    </span>
+                    <input
+                      className="border border-[var(--border-primary)] bg-[var(--bg-primary)] p-3 text-[var(--text-primary)] outline-none focus:border-[var(--text-primary)]"
+                      name="sourceUrl"
+                      placeholder="https://"
+                      type="url"
+                    />
+                  </label>
+                  <label className="grid gap-2 text-sm">
+                    <span className="text-xs uppercase tracking-wide text-[var(--text-muted)]">
+                      Contact email
+                    </span>
+                    <input
+                      className="border border-[var(--border-primary)] bg-[var(--bg-primary)] p-3 text-[var(--text-primary)] outline-none focus:border-[var(--text-primary)]"
+                      name="contactEmail"
+                      type="email"
+                    />
+                  </label>
+                  <button
+                    className="w-fit border border-[var(--border-primary)] px-4 py-3 text-sm uppercase tracking-wide"
+                    type="submit"
+                  >
+                    Submit correction
+                  </button>
+                </form>
               </div>
             </div>
           </div>
