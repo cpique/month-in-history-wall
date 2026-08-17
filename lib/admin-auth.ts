@@ -8,12 +8,12 @@ import { auth } from "@clerk/nextjs/server";
  * In production, missing keys mean the check is skipped — ensure Clerk is
  * configured before deploying admin features publicly.
  */
-export async function requireAdminAuth() {
+export async function requireAdminAuth(): Promise<string | undefined> {
   if (
     !process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY ||
     !process.env.CLERK_SECRET_KEY
   ) {
-    return;
+    return undefined;
   }
 
   const { userId } = await auth();
@@ -21,4 +21,6 @@ export async function requireAdminAuth() {
   if (!userId) {
     throw new Error("Unauthorized");
   }
+
+  return userId;
 }

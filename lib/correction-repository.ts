@@ -152,6 +152,15 @@ export async function getRecentCorrectionRequests(
     .toArray();
 }
 
+export async function getCorrectionRequestById(
+  id: string,
+  db?: Db,
+): Promise<CorrectionRequestDocument | null> {
+  const database = db ?? (await getMongoDb());
+
+  return database.collection<CorrectionRequestDocument>(COLLECTION).findOne({ _id: id });
+}
+
 export async function updateCorrectionRequestStatus(
   id: string,
   status: CorrectionRequestStatus,

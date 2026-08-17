@@ -108,6 +108,20 @@ export type CorrectionRequestDocument = {
   updatedAt: string;
 };
 
+export type EditorialEventDocument = {
+  _id: MongoId;
+  type: "correction_reviewed";
+  actorId?: string;
+  monthSlug: string;
+  eventId: MongoId;
+  metadata: {
+    fromStatus: CorrectionRequestStatus;
+    toStatus: CorrectionRequestStatus;
+    correctionRequestId: MongoId;
+  };
+  createdAt: string;
+};
+
 export type ArchiveSnapshotDocument = {
   _id: MongoId;
   exhibitionId: MongoId;
