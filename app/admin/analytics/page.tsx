@@ -32,7 +32,9 @@ export default async function AnalyticsPage() {
         <nav className="flex items-center justify-between gap-4 text-sm uppercase tracking-wide">
           <Link href="/">Month in History Wall</Link>
           <div className="flex gap-4">
-            <Link href="/admin">Review</Link>
+            <Link href="/admin">Overview</Link>
+            <Link href="/admin/months">Months</Link>
+            <Link href="/admin/corrections">Corrections</Link>
             <Link href="/archive">Archive</Link>
           </div>
         </nav>

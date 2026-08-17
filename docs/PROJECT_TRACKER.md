@@ -34,6 +34,7 @@ The public homepage now presents a historical month wall instead of a reservatio
 - [x] Added a public `/search` page for cross-month event lookup by title, category, place, country, or topic.
 - [x] Added a public `/about` page explaining the product, editorial approach, sources, and corrections.
 - [x] Added a public `/corrections` page explaining the correction process and showing aggregate request counts.
+- [x] Added protected `/admin/months` and `/admin/months/[month]` pages for editorial month review.
 
 ## In Progress
 
@@ -170,3 +171,7 @@ The public homepage now presents a historical month wall instead of a reservatio
 | 2026-08-17 | `npm run test` | Passed | Existing suite remains green: 6 files, 20 tests. |
 | 2026-08-17 | `npm run seed:db -- --dry-run` | Passed | Full import preview remains green after adding the corrections page. |
 | 2026-08-17 | `npm run build` | Passed | Production route table now includes `/corrections`; build passed outside the sandbox. |
+| 2026-08-17 | `npm run lint` | Passed | Admin month list/detail pages, service, tests, and docs passed ESLint. |
+| 2026-08-17 | `npm run test` | Passed | Existing suite plus admin month detail service tests passes: 7 files, 23 tests. |
+| 2026-08-17 | `npm run seed:db -- --dry-run` | Passed | Full import preview remains green after adding admin month review pages. |
+| 2026-08-17 | `npm run build` | Passed | Production route table now includes `/admin/months` and `/admin/months/[month]`; build passed outside the sandbox. |

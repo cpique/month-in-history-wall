@@ -64,6 +64,7 @@ export default async function AdminPage() {
         <nav className="flex items-center justify-between gap-4 text-sm uppercase tracking-wide">
           <Link href="/">Month in History Wall</Link>
           <div className="flex gap-4">
+            <Link href="/admin/months">Months</Link>
             <Link href="/admin/corrections">Corrections</Link>
             <Link href="/admin/analytics">Analytics</Link>
             <Link href="/archive">Archive</Link>

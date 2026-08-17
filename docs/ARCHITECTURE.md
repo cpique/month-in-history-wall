@@ -24,6 +24,8 @@ Month in History Wall is a Next.js App Router application for browsing curated h
 - `app/about/page.tsx`: public about page explaining the product, editorial approach, sources, and corrections.
 - `app/corrections/page.tsx`: public correction policy page with process steps, request counts, and links to event-level correction forms.
 - `app/admin/page.tsx`: protected editorial operations overview for imported months, event counts, source coverage, and review queues.
+- `app/admin/months/page.tsx`: protected list of imported months with status, counts, and links to month detail.
+- `app/admin/months/[month]/page.tsx`: protected month detail page showing all events and their editorial status.
 - `app/admin/analytics/page.tsx`: protected editorial analytics dashboard for coverage health, category spread, citation density, media coverage, and review queues.
 - `app/admin/corrections/page.tsx`: protected correction review queue for public correction requests.
 - `proxy.ts`: protects `/admin` routes with Clerk middleware when Clerk keys are configured.
