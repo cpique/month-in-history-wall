@@ -31,6 +31,7 @@ The public homepage now presents a historical month wall instead of a reservatio
 - [x] Removed inherited Stripe runtime code, webhook route, checkout actions, reservation form components, and dependency.
 - [x] Removed inherited reservation/submission repositories, tests, and domain types.
 - [x] Completed a repository quality pass for stale docs, dead helpers, dependency patches, and source-control risk.
+- [x] Added a public `/search` page for cross-month event lookup by title, category, place, country, or topic.
 
 ## In Progress
 
@@ -155,3 +156,7 @@ The public homepage now presents a historical month wall instead of a reservatio
 | 2026-08-14 | `npm run test` | Passed | Active suite remains green: 5 files, 14 tests. |
 | 2026-08-14 | `npm run seed:db -- --dry-run` | Passed | Full import preview remains green after quality pass changes. |
 | 2026-08-14 | `npm run build` | Passed | Production build passed on Next 16.3.1 outside the sandbox after recurring `spawn EPERM`. |
+| 2026-08-17 | `npm run lint` | Passed | Public search page, search service, footer link, and docs passed ESLint. |
+| 2026-08-17 | `npm run test` | Passed | Existing suite plus search service tests passes: 6 files, 20 tests. |
+| 2026-08-17 | `npm run seed:db -- --dry-run` | Passed | Full import preview remains green after adding cross-month search. |
+| 2026-08-17 | `npm run build` | Passed | Production route table now includes `/search`; build passed outside the sandbox. |

@@ -33,6 +33,7 @@ export default function RootLayout({
           <footer className="border-t border-[var(--border-primary)] bg-[var(--bg-primary)] px-5 py-4 text-xs uppercase tracking-wide text-[var(--text-muted)] lg:px-8">
             <nav aria-label="Site information" className="flex flex-wrap items-center gap-x-5 gap-y-2">
               <Link href="/archive">Archive</Link>
+              <Link href="/search">Search</Link>
               <Link href="/privacy">Privacy</Link>
               <Link href="/cookies">Cookies</Link>
               <ThemeToggle />

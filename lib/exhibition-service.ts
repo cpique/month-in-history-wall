@@ -28,7 +28,7 @@ const categoryVisualClasses = [
   "bg-[#f4f1ea] text-[#171411]",
 ];
 
-function monthLabel(month: MonthDocument) {
+export function monthLabel(month: MonthDocument) {
   const date = new Date(Date.UTC(month.year, month.month - 1, 1));
   return `${monthNameFormatter.format(date)} ${month.year}`;
 }
