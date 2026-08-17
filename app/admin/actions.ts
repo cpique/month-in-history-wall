@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { insertArchiveSnapshot } from "@/lib/archive-repository";
 import { requireAdminAuth } from "@/lib/admin-auth";
+import { recordEditorialEvent } from "@/lib/editorial-event-repository";
 import type { HistoricalEventDocument, MediaKind, MonthDocument } from "@/lib/domain-types";
 import { monthEventsToExhibition } from "@/lib/exhibition-service";
 import { getMongoDb } from "@/lib/mongodb";
@@ -20,7 +21,7 @@ function inferMediaKind(medium: string): MediaKind {
 }
 
 export async function lockMonth(formData: FormData) {
-  await requireAdminAuth();
+  const actorId = await requireAdminAuth();
 
   if (!process.env.MONGODB_URI) {
     throw new Error("Archive locking requires a MongoDB connection.");
@@ -83,6 +84,12 @@ export async function lockMonth(formData: FormData) {
     { monthId: month._id, status: "published" },
     { $set: { status: "archived", updatedAt: now } },
   );
+  await recordEditorialEvent({
+    type: "month_locked",
+    actorId,
+    monthSlug: month.slug,
+    metadata: { snapshotSlug: month.slug, eventCount: events.length },
+  }, db);
   revalidatePath("/");
   revalidatePath("/archive");
   revalidatePath(`/archive/${month.slug}`);
