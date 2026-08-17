@@ -33,6 +33,7 @@ The public homepage now presents a historical month wall instead of a reservatio
 - [x] Completed a repository quality pass for stale docs, dead helpers, dependency patches, and source-control risk.
 - [x] Added a public `/search` page for cross-month event lookup by title, category, place, country, or topic.
 - [x] Added a public `/about` page explaining the product, editorial approach, sources, and corrections.
+- [x] Added a public `/corrections` page explaining the correction process and showing aggregate request counts.
 
 ## In Progress
 
@@ -165,3 +166,7 @@ The public homepage now presents a historical month wall instead of a reservatio
 | 2026-08-17 | `npm run test` | Passed | Existing suite remains green: 6 files, 20 tests. |
 | 2026-08-17 | `npm run seed:db -- --dry-run` | Passed | Full import preview remains green after adding the about page. |
 | 2026-08-17 | `npm run build` | Passed | Production route table now includes `/about`; build passed outside the sandbox. |
+| 2026-08-17 | `npm run lint` | Passed | Public corrections page, footer link, and docs passed ESLint. |
+| 2026-08-17 | `npm run test` | Passed | Existing suite remains green: 6 files, 20 tests. |
+| 2026-08-17 | `npm run seed:db -- --dry-run` | Passed | Full import preview remains green after adding the corrections page. |
+| 2026-08-17 | `npm run build` | Passed | Production route table now includes `/corrections`; build passed outside the sandbox. |

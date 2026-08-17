@@ -35,6 +35,7 @@ export default function RootLayout({
               <Link href="/archive">Archive</Link>
               <Link href="/search">Search</Link>
               <Link href="/about">About</Link>
+              <Link href="/corrections">Corrections</Link>
               <Link href="/privacy">Privacy</Link>
               <Link href="/cookies">Cookies</Link>
               <ThemeToggle />
