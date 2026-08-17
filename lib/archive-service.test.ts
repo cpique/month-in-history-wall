@@ -71,5 +71,8 @@ describe("seeded month archive mapping", () => {
     expect(exhibition.reviewNote).toBe("Published historical month");
     expect(exhibition.spaces).toHaveLength(1);
     expect(exhibition.spaces[0]?.title).toBe("Operation Blue Star");
+    expect(exhibition.spaces[0]?.eventDetailHref).toBe(
+      "/events/1984-06:operation-blue-star",
+    );
   });
 });

@@ -85,6 +85,7 @@ function statusForImportance(importanceLevel: EventImportanceLevel) {
 function eventToSpace(event: HistoricalEventDocument): ExhibitionSpace {
   return {
     id: event._id,
+    eventDetailHref: `/events/${event._id}`,
     title: event.title,
     creator: event.location || event.countries.join(", ") || event.monthSlug,
     status: statusForImportance(event.importanceLevel),

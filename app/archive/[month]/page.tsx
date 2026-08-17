@@ -122,7 +122,7 @@ export default async function ArchiveMonthPage({
 
         <ExhibitionWall
           exhibition={exhibition}
-          getPublishedHref={() => null}
+          getPublishedHref={(space) => space.eventDetailHref ?? null}
           getStatusHref={() => null}
           filterable={false}
         />

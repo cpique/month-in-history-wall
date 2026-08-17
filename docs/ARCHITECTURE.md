@@ -19,7 +19,7 @@ Month in History Wall is a Next.js App Router application for browsing curated h
 - `app/events/[eventId]/page.tsx`: public event detail route with historical metadata and source citations. It reads an individual published/archived seeded event from MongoDB when configured, then falls back to static sample data.
 - `app/api/corrections/route.ts`: public correction request endpoint for published event detail pages.
 - `app/works/[spaceId]/page.tsx`: inherited compatibility redirect to `/events/[eventId]`.
-- `app/archive/page.tsx` and `app/archive/[month]/page.tsx`: archive index and month wall routes backed by seeded `months`/`events` plus legacy locked snapshots.
+- `app/archive/page.tsx` and `app/archive/[month]/page.tsx`: archive index and month wall routes backed by seeded `months`/`events` plus legacy locked snapshots. Tiles backed by event records link to their public detail pages; legacy snapshots without event records remain non-clickable.
 - `app/search/page.tsx`: public event search across months by title, category, place, country, or topic.
 - `app/about/page.tsx`: public about page explaining the product, editorial approach, sources, and corrections.
 - `app/corrections/page.tsx`: public correction policy page with process steps, request counts, and links to event-level correction forms.

@@ -36,6 +36,7 @@ The public homepage now presents a historical month wall instead of a reservatio
 - [x] Added a public `/corrections` page explaining the correction process and showing aggregate request counts.
 - [x] Added protected `/admin/months` and `/admin/months/[month]` pages for editorial month review.
 - [x] Performed a second repository quality pass: wired Clerk middleware, consolidated duplicate auth and status helpers, deduplicated `EventImportanceLevel`, added React `cache()` to event detail lookup, fixed source list React key, and added `--reset` warning to the database seeder.
+- [x] Linked archived MongoDB-backed event tiles to their public event detail pages while preserving non-clickable legacy snapshot tiles that have no event record.
 
 ## In Progress
 

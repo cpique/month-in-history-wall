@@ -35,6 +35,8 @@ export type EventImportanceLevel = "featured" | "major" | "notable" | "signal";
 
 export type ExhibitionSpace = {
   id: string;
+  /** Present only when this tile is backed by a public historical event record. */
+  eventDetailHref?: string;
   title: string;
   creator: string;
   status: SpaceStatus;
