@@ -34,6 +34,7 @@ export default function RootLayout({
             <nav aria-label="Site information" className="flex flex-wrap items-center gap-x-5 gap-y-2">
               <Link href="/archive">Archive</Link>
               <Link href="/search">Search</Link>
+              <Link href="/about">About</Link>
               <Link href="/privacy">Privacy</Link>
               <Link href="/cookies">Cookies</Link>
               <ThemeToggle />
