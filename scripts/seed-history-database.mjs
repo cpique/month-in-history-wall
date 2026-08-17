@@ -125,6 +125,9 @@ async function main() {
     const db = client.db(process.env.MONGODB_DB ?? "month-history-museum");
 
     if (reset) {
+      console.warn(
+        "WARNING: --reset will permanently delete all months and events from the database before seeding.",
+      );
       await db.collection("events").deleteMany({});
       await db.collection("months").deleteMany({});
     }

@@ -1,4 +1,6 @@
-import type { SpaceSize, SpaceStatus } from "./exhibition-data";
+import type { EventImportanceLevel, SpaceSize, SpaceStatus } from "./exhibition-data";
+
+export type { EventImportanceLevel };
 
 export type MediaKind = "image" | "gif" | "text" | "video_preview";
 
@@ -12,8 +14,6 @@ export type EventStatus =
   | "published"
   | "needs_correction"
   | "archived";
-
-export type EventImportanceLevel = "featured" | "major" | "notable" | "signal";
 
 export type EventTileSize = "featured" | "large" | "medium" | "small";
 

@@ -2,27 +2,12 @@
 
 import { ObjectId } from "mongodb";
 import { redirect } from "next/navigation";
-import { auth } from "@clerk/nextjs/server";
 import { insertArchiveSnapshot } from "@/lib/archive-repository";
+import { requireAdminAuth } from "@/lib/admin-auth";
 import type { MediaKind } from "@/lib/domain-types";
 import { getCurrentExhibition } from "@/lib/exhibition-service";
 import { getMongoDb } from "@/lib/mongodb";
 import { getAssetKeyFromUrl } from "@/lib/media-storage";
-
-async function requireAdminAuth() {
-  if (
-    !process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY ||
-    !process.env.CLERK_SECRET_KEY
-  ) {
-    return;
-  }
-
-  const { userId } = await auth();
-
-  if (!userId) {
-    throw new Error("Unauthorized");
-  }
-}
 
 function inferMediaKind(medium: string): MediaKind {
   const normalized = medium.toLowerCase();

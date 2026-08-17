@@ -1,32 +1,9 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { auth } from "@clerk/nextjs/server";
+import { requireAdminAuth } from "@/lib/admin-auth";
 import type { CorrectionRequestStatus } from "@/lib/domain-types";
-import { updateCorrectionRequestStatus } from "@/lib/correction-repository";
-
-const statuses = new Set<CorrectionRequestStatus>([
-  "open",
-  "reviewing",
-  "accepted",
-  "rejected",
-  "closed",
-]);
-
-async function requireAdminAuth() {
-  if (
-    !process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY ||
-    !process.env.CLERK_SECRET_KEY
-  ) {
-    return;
-  }
-
-  const { userId } = await auth();
-
-  if (!userId) {
-    throw new Error("Unauthorized");
-  }
-}
+import { updateCorrectionRequestStatus, VALID_CORRECTION_STATUSES } from "@/lib/correction-repository";
 
 export async function updateCorrectionStatus(formData: FormData) {
   await requireAdminAuth();
@@ -38,7 +15,7 @@ export async function updateCorrectionStatus(formData: FormData) {
   const id = String(formData.get("id") ?? "");
   const status = String(formData.get("status") ?? "") as CorrectionRequestStatus;
 
-  if (!id.trim() || !statuses.has(status)) {
+  if (!id.trim() || !VALID_CORRECTION_STATUSES.has(status)) {
     throw new Error("Invalid correction request update.");
   }
 

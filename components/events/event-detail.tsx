@@ -217,10 +217,10 @@ export function EventDetail({
                 </p>
                 {sources.length > 0 ? (
                   <ol className="grid gap-3">
-                    {sources.map((source) => (
+                    {sources.map((source, index) => (
                       <li
                         className="border border-[var(--border-secondary)] p-3"
-                        key={source.url}
+                        key={`${source.url}-${index}`}
                       >
                         <a
                           className="font-semibold underline underline-offset-4"

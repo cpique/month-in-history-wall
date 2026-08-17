@@ -1,3 +1,4 @@
+import { cache } from "react";
 import {
   currentExhibition,
   type EventImportanceLevel,
@@ -199,7 +200,7 @@ export async function getCurrentExhibition(): Promise<Exhibition> {
   return monthEventsToExhibition(month, events);
 }
 
-export async function getPublishedEventDetailById(
+export const getPublishedEventDetailById = cache(async function getPublishedEventDetailById(
   eventId: string,
 ): Promise<PublishedEventDetail | null> {
   if (process.env.MONGODB_URI) {
@@ -235,7 +236,7 @@ export async function getPublishedEventDetailById(
   }
 
   return getStaticEventDetail(eventId);
-}
+});
 
 function getStaticEventDetail(eventId: string): PublishedEventDetail | null {
   const publishedEvents = getPublishedSpaces(currentExhibition);

@@ -35,6 +35,7 @@ The public homepage now presents a historical month wall instead of a reservatio
 - [x] Added a public `/about` page explaining the product, editorial approach, sources, and corrections.
 - [x] Added a public `/corrections` page explaining the correction process and showing aggregate request counts.
 - [x] Added protected `/admin/months` and `/admin/months/[month]` pages for editorial month review.
+- [x] Performed a second repository quality pass: wired Clerk middleware, consolidated duplicate auth and status helpers, deduplicated `EventImportanceLevel`, added React `cache()` to event detail lookup, fixed source list React key, and added `--reset` warning to the database seeder.
 
 ## In Progress
 
@@ -91,6 +92,11 @@ The public homepage now presents a historical month wall instead of a reservatio
 - What should the permanent public event detail route be: `/events/[eventId]` or `/archive/[month]/[eventSlug]` plus redirects?
 - Should the first admin view manage events directly or start as a read-only editorial review placeholder?
 - Which source quality rules are strict enough for publication in the first launch month?
+- **`detailMarkdown` is stored and transported but rendered as plain text** (`whitespace-pre-wrap`) in `event-detail.tsx`. Either add `react-markdown` (new dependency) to parse it, or rename the field to `detailText` to match actual rendering behavior.
+- **Archive wall tiles are not linked to event detail pages.** `/archive/[month]` passes `getPublishedHref={() => null}`, so locked-month tiles have no link. The product direction says tiles should link to event pages — decide whether archived events should be readable via `/events/[eventId]` even after a month is locked.
+- **`requireAdminAuth` silently bypasses auth when Clerk keys are absent.** This is intentional for local dev, but there is no log warning when keys are missing in a deployed context. Consider adding a `console.warn` so the bypass is visible in production logs if keys are ever accidentally unset.
+- **No CI pipeline.** There are no GitHub Actions workflows. A minimal `tsc --noEmit` + `vitest run` workflow would catch regressions before merge.
+- **`seed:db` with `replace: true` always drops events for every seeded month**, even without `--reset`. This is fine for full rebuilds but makes incremental event updates (e.g. adding one event to an existing month) more destructive than necessary.
 
 ## Verification Log
 
@@ -175,3 +181,5 @@ The public homepage now presents a historical month wall instead of a reservatio
 | 2026-08-17 | `npm run test` | Passed | Existing suite plus admin month detail service tests passes: 7 files, 23 tests. |
 | 2026-08-17 | `npm run seed:db -- --dry-run` | Passed | Full import preview remains green after adding admin month review pages. |
 | 2026-08-17 | `npm run build` | Passed | Production route table now includes `/admin/months` and `/admin/months/[month]`; build passed outside the sandbox. |
+| 2026-08-17 | `npm run test` (quality pass) | Passed | 7 files, 23 tests — all green after Clerk middleware wiring, auth consolidation, duplicate-type cleanup, `cache()` on event detail lookup, React key fix, and seeder warning. |
+| 2026-08-17 | `npx tsc --noEmit` (quality pass) | Passed | Zero TypeScript errors after all quality pass changes. |

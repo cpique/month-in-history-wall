@@ -7,7 +7,7 @@ import { getMongoDb } from "./mongodb";
 
 const COLLECTION = "correctionRequests";
 const MAX_MESSAGE_LENGTH = 2000;
-const VALID_STATUSES = new Set<CorrectionRequestStatus>([
+export const VALID_CORRECTION_STATUSES = new Set<CorrectionRequestStatus>([
   "open",
   "reviewing",
   "accepted",
@@ -130,7 +130,7 @@ export async function getCorrectionRequestCounts(
   };
 
   for (const result of results) {
-    if (VALID_STATUSES.has(result._id as CorrectionRequestStatus)) {
+    if (VALID_CORRECTION_STATUSES.has(result._id as CorrectionRequestStatus)) {
       counts[result._id as CorrectionRequestStatus] = result.count as number;
     }
   }
@@ -157,7 +157,7 @@ export async function updateCorrectionRequestStatus(
   status: CorrectionRequestStatus,
   db?: Db,
 ): Promise<CorrectionRequestDocument | null> {
-  if (!VALID_STATUSES.has(status)) {
+  if (!VALID_CORRECTION_STATUSES.has(status)) {
     throw new Error("Invalid correction request status.");
   }
 
