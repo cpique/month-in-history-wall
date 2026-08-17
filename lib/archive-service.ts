@@ -61,6 +61,9 @@ function snapshotSpaceToExhibitionSpace(
 ): ExhibitionSpace {
   return {
     id: snapshotSpace.slotId,
+    eventDetailHref: snapshotSpace.eventId
+      ? `/events/${snapshotSpace.eventId}`
+      : undefined,
     title: snapshotSpace.workTitle,
     creator: snapshotSpace.creatorName,
     status: snapshotSpace.status,

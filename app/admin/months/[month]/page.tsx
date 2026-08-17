@@ -2,6 +2,8 @@ import { SignInButton, UserButton } from "@clerk/nextjs";
 import { auth } from "@clerk/nextjs/server";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { lockMonth } from "@/app/admin/actions";
+import { getMonthLockBlocker } from "@/lib/month-lock";
 import { getAdminMonthDetail } from "@/lib/admin-month-service";
 import type { AdminMonthEvent } from "@/lib/admin-month-service";
 
@@ -93,6 +95,12 @@ export default async function AdminMonthDetailPage({
   if (!detail) {
     notFound();
   }
+  const lockBlocker = getMonthLockBlocker({
+    status: detail.status,
+    eventCount: detail.eventCount,
+    publishedCount: detail.publishedCount,
+    needsReviewCount: detail.needsReviewCount,
+  });
 
   return (
     <main className="min-h-screen bg-[var(--bg-primary)] px-5 py-5 text-[var(--text-primary)] lg:px-8">
@@ -159,7 +167,21 @@ export default async function AdminMonthDetailPage({
           >
             Open archive wall
           </Link>
+          {detail.status === "published" ? (
+            <form action={lockMonth}>
+              <input name="monthSlug" type="hidden" value={detail.slug} />
+              <button
+                className="border border-[var(--border-primary)] bg-[var(--text-primary)] px-3 py-2 text-sm uppercase tracking-wide text-[var(--bg-primary)] disabled:cursor-not-allowed disabled:opacity-40"
+                disabled={Boolean(lockBlocker)}
+                title={lockBlocker ?? "Lock this reviewed month into the permanent archive"}
+                type="submit"
+              >
+                Lock month
+              </button>
+            </form>
+          ) : null}
         </div>
+        {lockBlocker ? <p className="mb-5 text-sm text-[var(--text-muted)]">{lockBlocker}</p> : null}
 
         {detail.events.length === 0 ? (
           <p className="text-[var(--text-secondary)]">

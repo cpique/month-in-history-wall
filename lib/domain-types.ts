@@ -119,6 +119,7 @@ export type ArchiveSnapshotDocument = {
   monthLabel: string;
   spaces: Array<{
     slotId: string;
+    eventId?: string;
     size: SpaceSize;
     status: SpaceStatus;
     creatorName: string;

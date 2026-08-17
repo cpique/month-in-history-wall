@@ -7,6 +7,7 @@ Editorial operations live at `/admin`.
 - `/admin`: review imported months, event counts, source coverage, and review queues.
 - `/admin/analytics`: inspect editorial coverage across imported months, including category spread, citation density, media coverage, and review queues.
 - `/admin/corrections`: review public correction requests and move them through open, reviewing, accepted, rejected, or closed states.
+- `/admin/months/[month]`: review a month and lock it only after every imported event is published and no editorial work remains; locking preserves an archive snapshot and archives its events.
 - `/admin/sign-in`: Clerk sign-in page.
 - `/admin/sign-up`: Clerk sign-up page.
 
