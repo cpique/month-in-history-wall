@@ -37,6 +37,7 @@ The public homepage now presents a historical month wall instead of a reservatio
 - [x] Added protected `/admin/months` and `/admin/months/[month]` pages for editorial month review.
 - [x] Performed a second repository quality pass: wired Clerk middleware, consolidated duplicate auth and status helpers, deduplicated `EventImportanceLevel`, added React `cache()` to event detail lookup, fixed source list React key, and added `--reset` warning to the database seeder.
 - [x] Linked archived MongoDB-backed event tiles to their public event detail pages while preserving non-clickable legacy snapshot tiles that have no event record.
+- [x] Added a public share button on event detail pages that uses the Web Share API when available and falls back to copying the event link to the clipboard.
 
 ## In Progress
 
@@ -184,3 +185,7 @@ The public homepage now presents a historical month wall instead of a reservatio
 | 2026-08-17 | `npm run build` | Passed | Production route table now includes `/admin/months` and `/admin/months/[month]`; build passed outside the sandbox. |
 | 2026-08-17 | `npm run test` (quality pass) | Passed | 7 files, 23 tests — all green after Clerk middleware wiring, auth consolidation, duplicate-type cleanup, `cache()` on event detail lookup, React key fix, and seeder warning. |
 | 2026-08-17 | `npx tsc --noEmit` (quality pass) | Passed | Zero TypeScript errors after all quality pass changes. |
+| 2026-08-18 | `npm run lint` | Passed | Event share button, server-side share URL construction, and updated event detail page passed ESLint. |
+| 2026-08-18 | `npm run test` | Passed | Existing suite remains green after adding the share feature. |
+| 2026-08-18 | `npm run seed:db -- --dry-run` | Passed | Full import preview remains green after share feature changes. |
+| 2026-08-18 | `npm run build` | Passed | Production route table unchanged; build passed outside the sandbox. |

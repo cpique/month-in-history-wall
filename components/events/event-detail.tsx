@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { EventShareButton } from "./event-share-button";
 import { WorkMedia } from "@/components/exhibition/work-media";
 import type { Exhibition, ExhibitionSpace } from "@/lib/exhibition-data";
 
@@ -78,6 +79,7 @@ export function EventDetail({
   exhibition,
   nextEvent,
   previousEvent,
+  shareUrl,
   totalEvents,
 }: {
   correctionStatus?: string;
@@ -86,6 +88,7 @@ export function EventDetail({
   exhibition: Exhibition;
   nextEvent?: ExhibitionSpace;
   previousEvent?: ExhibitionSpace;
+  shareUrl?: string;
   totalEvents: number;
 }) {
   const sources = event.sources ?? [];
@@ -120,12 +123,17 @@ export function EventDetail({
           </div>
 
           <div className="mt-10 space-y-3">
-            <Link
-              className="inline-flex w-fit border border-[var(--border-primary)] px-4 py-3 text-sm uppercase tracking-wide"
-              href="/?view=published"
-            >
-              Back to published wall
-            </Link>
+            <div className="flex flex-wrap gap-3">
+              <Link
+                className="inline-flex w-fit border border-[var(--border-primary)] px-4 py-3 text-sm uppercase tracking-wide"
+                href="/?view=published"
+              >
+                Back to published wall
+              </Link>
+              {shareUrl ? (
+                <EventShareButton title={event.title} url={shareUrl} />
+              ) : null}
+            </div>
             <nav aria-label="Browse published events" className="grid grid-cols-2 gap-2">
               <EventBrowseCard
                 event={previousEvent}

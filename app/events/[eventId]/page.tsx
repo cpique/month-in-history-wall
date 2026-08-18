@@ -1,3 +1,4 @@
+import { headers } from "next/headers";
 import { notFound } from "next/navigation";
 import { EventDetail } from "@/components/events/event-detail";
 import { getPublishedEventDetailById } from "@/lib/exhibition-service";
@@ -34,6 +35,10 @@ export default async function EventDetailPage({
     notFound();
   }
 
+  const host = (await headers()).get("host") ?? "month-in-history-wall.local";
+  const protocol = host.includes("localhost") ? "http" : "https";
+  const shareUrl = `${protocol}://${host}/events/${eventId}`;
+
   return (
     <EventDetail
       correctionStatus={typeof correction === "string" ? correction : undefined}
@@ -42,6 +47,7 @@ export default async function EventDetailPage({
       exhibition={detail.exhibition}
       nextEvent={detail.publishedEvents[detail.currentIndex + 1]}
       previousEvent={detail.publishedEvents[detail.currentIndex - 1]}
+      shareUrl={shareUrl}
       totalEvents={detail.publishedEvents.length}
     />
   );
