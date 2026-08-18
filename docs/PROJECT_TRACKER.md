@@ -39,6 +39,7 @@ The public homepage now presents a historical month wall instead of a reservatio
 - [x] Linked archived MongoDB-backed event tiles to their public event detail pages while preserving non-clickable legacy snapshot tiles that have no event record.
 - [x] Added a public share button on event detail pages that uses the Web Share API when available and falls back to copying the event link to the clipboard.
 - [x] Rendered event `detailMarkdown` as real Markdown using `react-markdown` with a restricted element set and Tailwind-styled components.
+- [x] Added a GitHub Actions CI workflow that runs lint, type check, tests, and build on push and pull requests.
 
 ## In Progress
 
@@ -90,6 +91,7 @@ The public homepage now presents a historical month wall instead of a reservatio
 | 2026-08-14 | Remove reservation/submission repositories. | No active historical workflow imports them, so the runtime model now centers on months, events, sources, and legacy snapshots. |
 | 2026-08-14 | Keep legal docs aligned with the history product. | Privacy and cookie copy now describe correction requests, admin Clerk auth, sourced event records, and no public tracking/payment cookies. |
 | 2026-08-18 | Render event detail text as Markdown. | Added `react-markdown` with a restricted element set so detail pages can use links, emphasis, and lists without raw HTML or scripts. |
+| 2026-08-18 | Add GitHub Actions CI. | Workflow runs lint, type check, tests, and build on every push/PR to `main` using Node 20 and `npm ci`. |
 
 ## Open Questions
 
@@ -98,7 +100,6 @@ The public homepage now presents a historical month wall instead of a reservatio
 - Which source quality rules are strict enough for publication in the first launch month?
 - **Archive wall tiles are not linked to event detail pages.** `/archive/[month]` passes `getPublishedHref={() => null}`, so locked-month tiles have no link. The product direction says tiles should link to event pages — decide whether archived events should be readable via `/events/[eventId]` even after a month is locked.
 - **`requireAdminAuth` silently bypasses auth when Clerk keys are absent.** This is intentional for local dev, but there is no log warning when keys are missing in a deployed context. Consider adding a `console.warn` so the bypass is visible in production logs if keys are ever accidentally unset.
-- **No CI pipeline.** There are no GitHub Actions workflows. A minimal `tsc --noEmit` + `vitest run` workflow would catch regressions before merge.
 - **`seed:db` with `replace: true` always drops events for every seeded month**, even without `--reset`. This is fine for full rebuilds but makes incremental event updates (e.g. adding one event to an existing month) more destructive than necessary.
 
 ## Verification Log
@@ -195,3 +196,7 @@ The public homepage now presents a historical month wall instead of a reservatio
 | 2026-08-18 | `npm run test` | Passed | Existing suite remains green after adding Markdown rendering. |
 | 2026-08-18 | `npm run seed:db -- --dry-run` | Passed | Full import preview remains green after Markdown rendering changes. |
 | 2026-08-18 | `npm run build` | Passed | Production build passed with `react-markdown` bundled. |
+| 2026-08-18 | `npm run lint` | Passed | New GitHub Actions CI workflow passed ESLint and was validated locally. |
+| 2026-08-18 | `npx tsc --noEmit` | Passed | Zero TypeScript errors before adding the CI workflow. |
+| 2026-08-18 | `npm run test` | Passed | Existing suite remains green before adding the CI workflow. |
+| 2026-08-18 | `npm run build` | Passed | Production build passed before adding the CI workflow. |
