@@ -38,6 +38,7 @@ The public homepage now presents a historical month wall instead of a reservatio
 - [x] Performed a second repository quality pass: wired Clerk middleware, consolidated duplicate auth and status helpers, deduplicated `EventImportanceLevel`, added React `cache()` to event detail lookup, fixed source list React key, and added `--reset` warning to the database seeder.
 - [x] Linked archived MongoDB-backed event tiles to their public event detail pages while preserving non-clickable legacy snapshot tiles that have no event record.
 - [x] Added a public share button on event detail pages that uses the Web Share API when available and falls back to copying the event link to the clipboard.
+- [x] Rendered event `detailMarkdown` as real Markdown using `react-markdown` with a restricted element set and Tailwind-styled components.
 
 ## In Progress
 
@@ -88,13 +89,13 @@ The public homepage now presents a historical month wall instead of a reservatio
 | 2026-08-14 | Remove Stripe runtime path. | Public routes no longer depend on checkout, so Stripe code and dependency were removed before deeper reservation repository cleanup. |
 | 2026-08-14 | Remove reservation/submission repositories. | No active historical workflow imports them, so the runtime model now centers on months, events, sources, and legacy snapshots. |
 | 2026-08-14 | Keep legal docs aligned with the history product. | Privacy and cookie copy now describe correction requests, admin Clerk auth, sourced event records, and no public tracking/payment cookies. |
+| 2026-08-18 | Render event detail text as Markdown. | Added `react-markdown` with a restricted element set so detail pages can use links, emphasis, and lists without raw HTML or scripts. |
 
 ## Open Questions
 
 - What should the permanent public event detail route be: `/events/[eventId]` or `/archive/[month]/[eventSlug]` plus redirects?
 - Should the first admin view manage events directly or start as a read-only editorial review placeholder?
 - Which source quality rules are strict enough for publication in the first launch month?
-- **`detailMarkdown` is stored and transported but rendered as plain text** (`whitespace-pre-wrap`) in `event-detail.tsx`. Either add `react-markdown` (new dependency) to parse it, or rename the field to `detailText` to match actual rendering behavior.
 - **Archive wall tiles are not linked to event detail pages.** `/archive/[month]` passes `getPublishedHref={() => null}`, so locked-month tiles have no link. The product direction says tiles should link to event pages — decide whether archived events should be readable via `/events/[eventId]` even after a month is locked.
 - **`requireAdminAuth` silently bypasses auth when Clerk keys are absent.** This is intentional for local dev, but there is no log warning when keys are missing in a deployed context. Consider adding a `console.warn` so the bypass is visible in production logs if keys are ever accidentally unset.
 - **No CI pipeline.** There are no GitHub Actions workflows. A minimal `tsc --noEmit` + `vitest run` workflow would catch regressions before merge.
@@ -189,3 +190,8 @@ The public homepage now presents a historical month wall instead of a reservatio
 | 2026-08-18 | `npm run test` | Passed | Existing suite remains green after adding the share feature. |
 | 2026-08-18 | `npm run seed:db -- --dry-run` | Passed | Full import preview remains green after share feature changes. |
 | 2026-08-18 | `npm run build` | Passed | Production route table unchanged; build passed outside the sandbox. |
+| 2026-08-18 | `npm install react-markdown` | Added | New dependency for rendering Markdown detail text on event pages. |
+| 2026-08-18 | `npm run lint` | Passed | Markdown renderer component, updated event detail page, and docs passed ESLint. |
+| 2026-08-18 | `npm run test` | Passed | Existing suite remains green after adding Markdown rendering. |
+| 2026-08-18 | `npm run seed:db -- --dry-run` | Passed | Full import preview remains green after Markdown rendering changes. |
+| 2026-08-18 | `npm run build` | Passed | Production build passed with `react-markdown` bundled. |

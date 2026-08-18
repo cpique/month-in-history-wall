@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { EventDetailMarkdown } from "./event-detail-markdown";
 import { EventShareButton } from "./event-share-button";
 import { WorkMedia } from "@/components/exhibition/work-media";
 import type { Exhibition, ExhibitionSpace } from "@/lib/exhibition-data";
@@ -213,9 +214,7 @@ export function EventDetail({
                   <p className="text-xs uppercase tracking-wide text-[var(--text-muted)]">
                     Detail
                   </p>
-                  <div className="whitespace-pre-wrap text-base leading-7 text-[var(--text-secondary)]">
-                    {event.detailMarkdown}
-                  </div>
+                  <EventDetailMarkdown>{event.detailMarkdown}</EventDetailMarkdown>
                 </div>
               ) : null}
 
