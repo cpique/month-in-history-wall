@@ -5,9 +5,14 @@ import { getPublishedEventDetailById } from "@/lib/exhibition-service";
 
 export const dynamic = "force-dynamic";
 
+type EventDetailPageProps = {
+  params: Promise<{ eventId: string }>;
+  searchParams: Promise<{ correction?: string }>;
+};
+
 export async function generateMetadata({
   params,
-}: PageProps<"/events/[eventId]">) {
+}: EventDetailPageProps) {
   const { eventId } = await params;
   const detail = await getPublishedEventDetailById(eventId);
 
@@ -26,7 +31,7 @@ export async function generateMetadata({
 export default async function EventDetailPage({
   params,
   searchParams,
-}: PageProps<"/events/[eventId]">) {
+}: EventDetailPageProps) {
   const { eventId } = await params;
   const { correction } = await searchParams;
   const detail = await getPublishedEventDetailById(eventId);

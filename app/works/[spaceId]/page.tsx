@@ -1,8 +1,12 @@
 import { redirect } from "next/navigation";
 
+type LegacyWorkDetailPageProps = {
+  params: Promise<{ spaceId: string }>;
+};
+
 export default async function LegacyWorkDetailPage({
   params,
-}: PageProps<"/works/[spaceId]">) {
+}: LegacyWorkDetailPageProps) {
   const { spaceId } = await params;
 
   redirect(`/events/${spaceId}`);

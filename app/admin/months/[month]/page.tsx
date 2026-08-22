@@ -9,9 +9,13 @@ import type { AdminMonthEvent } from "@/lib/admin-month-service";
 
 export const dynamic = "force-dynamic";
 
+type AdminMonthDetailPageProps = {
+  params: Promise<{ month: string }>;
+};
+
 export async function generateMetadata({
   params,
-}: PageProps<"/admin/months/[month]">) {
+}: AdminMonthDetailPageProps) {
   const { month } = await params;
   const detail = await getAdminMonthDetail(month);
 
@@ -47,7 +51,7 @@ function statusLabel(status: AdminMonthEvent["status"]) {
 
 export default async function AdminMonthDetailPage({
   params,
-}: PageProps<"/admin/months/[month]">) {
+}: AdminMonthDetailPageProps) {
   const clerkEnabled = Boolean(
     process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY &&
       process.env.CLERK_SECRET_KEY,
@@ -109,6 +113,7 @@ export default async function AdminMonthDetailPage({
           <Link href="/">Month in History Wall</Link>
           <div className="flex gap-4">
             <Link href="/admin/months">Months</Link>
+            <Link href="/admin/sources">Sources</Link>
             <Link href="/admin/corrections">Corrections</Link>
             <Link href="/admin/analytics">Analytics</Link>
             <Link href="/archive">Archive</Link>

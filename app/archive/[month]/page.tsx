@@ -8,9 +8,13 @@ import {
 
 export const dynamic = "force-dynamic";
 
+type ArchiveMonthPageProps = {
+  params: Promise<{ month: string }>;
+};
+
 export async function generateMetadata({
   params,
-}: PageProps<"/archive/[month]">) {
+}: ArchiveMonthPageProps) {
   const { month } = await params;
   const exhibition = await getArchivedExhibitionBySlug(month);
 
@@ -28,7 +32,7 @@ export async function generateMetadata({
 
 export default async function ArchiveMonthPage({
   params,
-}: PageProps<"/archive/[month]">) {
+}: ArchiveMonthPageProps) {
   const { month } = await params;
   const [exhibition, summaries] = await Promise.all([
     getArchivedExhibitionBySlug(month),

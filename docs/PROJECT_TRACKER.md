@@ -42,6 +42,9 @@ The public homepage now presents a historical month wall instead of a reservatio
 - [x] Added a GitHub Actions CI workflow that runs lint, type check, tests, and build on push and pull requests.
 - [x] Added a protected `/admin/events/[eventId]` review page with full event content, sources, correction requests, and status controls.
 - [x] Added a server action to update event editorial status and record an `event_status_updated` editorial event.
+- [x] Added a protected `/admin/sources` review page with source coverage totals, type breakdown, events without sources, and links to event review.
+- [x] Added `lib/admin-source-service.ts` to aggregate sources across all events with MongoDB and static fallback.
+- [x] Replaced generated `PageProps` types with explicit local prop types so `tsc --noEmit` passes in fresh CI environments.
 
 ## In Progress
 
@@ -95,6 +98,8 @@ The public homepage now presents a historical month wall instead of a reservatio
 | 2026-08-18 | Render event detail text as Markdown. | Added `react-markdown` with a restricted element set so detail pages can use links, emphasis, and lists without raw HTML or scripts. |
 | 2026-08-18 | Add GitHub Actions CI. | Workflow runs lint, type check, tests, and build on every push/PR to `main` using Node 20 and `npm ci`. |
 | 2026-08-22 | Add admin event review page. | `/admin/events/[eventId]` gives editors full event detail, source list, correction requests, and status transitions. |
+| 2026-08-22 | Add admin source review page. | `/admin/sources` shows aggregate citation coverage, source-type mix, and events missing sources. |
+| 2026-08-22 | Replace generated `PageProps` with local prop types. | Next.js route types are generated during build; explicit prop types let `tsc --noEmit` run in fresh CI before build. |
 
 ## Open Questions
 
@@ -208,3 +213,8 @@ The public homepage now presents a historical month wall instead of a reservatio
 | 2026-08-22 | `npm run test` | Passed | Suite includes admin event detail tests: 9 files, 29 tests — all green. |
 | 2026-08-22 | `npm run build` | Passed | Production route table now includes `/admin/events/[eventId]`; build passed outside the sandbox. |
 | 2026-08-22 | `npm run seed:db -- --dry-run` | Passed | Full import preview remains green after adding admin event review pages. |
+| 2026-08-22 | `npm run lint` | Passed | Admin source service, `/admin/sources` page, nav links, prop-type replacements, and docs passed ESLint. |
+| 2026-08-22 | `npx tsc --noEmit` (without .next/types) | Passed | Zero TypeScript errors after replacing generated `PageProps` with explicit local prop types. |
+| 2026-08-22 | `npm run test` | Passed | Suite includes admin source review tests: 10 files, 33 tests — all green. |
+| 2026-08-22 | `npm run build` | Passed | Production route table now includes `/admin/sources`; build passed outside the sandbox. |
+| 2026-08-22 | `npm run seed:db -- --dry-run` | Passed | Full import preview remains green after adding admin source review pages. |

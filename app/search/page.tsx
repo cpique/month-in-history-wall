@@ -8,6 +8,10 @@ export const metadata = {
   description: "Search historical events by month, year, category, place, country, or topic.",
 };
 
+type SearchPageProps = {
+  searchParams: Promise<{ q?: string }>;
+};
+
 function SearchResultCard({
   event,
 }: {
@@ -52,7 +56,7 @@ function SearchResultCard({
   );
 }
 
-export default async function SearchPage({ searchParams }: PageProps<"/search">) {
+export default async function SearchPage({ searchParams }: SearchPageProps) {
   const { q } = await searchParams;
   const query = typeof q === "string" ? q : "";
   const normalizedQuery = query.trim();

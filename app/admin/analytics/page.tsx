@@ -34,6 +34,7 @@ export default async function AnalyticsPage() {
           <div className="flex gap-4">
             <Link href="/admin">Overview</Link>
             <Link href="/admin/months">Months</Link>
+            <Link href="/admin/sources">Sources</Link>
             <Link href="/admin/corrections">Corrections</Link>
             <Link href="/archive">Archive</Link>
           </div>

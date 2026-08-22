@@ -105,6 +105,7 @@ export default async function AdminCorrectionsPage() {
           <div className="flex gap-4">
             <Link href="/admin">Overview</Link>
             <Link href="/admin/months">Months</Link>
+            <Link href="/admin/sources">Sources</Link>
             <Link href="/admin/analytics">Analytics</Link>
             <Link href="/archive">Archive</Link>
           </div>

@@ -65,6 +65,7 @@ export default async function AdminPage() {
           <Link href="/">Month in History Wall</Link>
           <div className="flex gap-4">
             <Link href="/admin/months">Months</Link>
+            <Link href="/admin/sources">Sources</Link>
             <Link href="/admin/corrections">Corrections</Link>
             <Link href="/admin/analytics">Analytics</Link>
             <Link href="/archive">Archive</Link>

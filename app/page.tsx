@@ -6,7 +6,11 @@ import {
 import { WallFullscreenShell } from "@/components/exhibition/wall-fullscreen-shell";
 import { getCurrentExhibition } from "@/lib/exhibition-service";
 
-export default async function Home({ searchParams }: PageProps<"/">) {
+type HomePageProps = {
+  searchParams: Promise<{ q?: string; view?: string }>;
+};
+
+export default async function Home({ searchParams }: HomePageProps) {
   const { q, view } = await searchParams;
   const filter: ExhibitionWallFilter =
     view === "published" || view === "available" || view === "review" ? view : "all";
