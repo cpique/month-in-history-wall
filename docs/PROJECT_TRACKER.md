@@ -40,6 +40,8 @@ The public homepage now presents a historical month wall instead of a reservatio
 - [x] Added a public share button on event detail pages that uses the Web Share API when available and falls back to copying the event link to the clipboard.
 - [x] Rendered event `detailMarkdown` as real Markdown using `react-markdown` with a restricted element set and Tailwind-styled components.
 - [x] Added a GitHub Actions CI workflow that runs lint, type check, tests, and build on push and pull requests.
+- [x] Added a protected `/admin/events/[eventId]` review page with full event content, sources, correction requests, and status controls.
+- [x] Added a server action to update event editorial status and record an `event_status_updated` editorial event.
 
 ## In Progress
 
@@ -92,6 +94,7 @@ The public homepage now presents a historical month wall instead of a reservatio
 | 2026-08-14 | Keep legal docs aligned with the history product. | Privacy and cookie copy now describe correction requests, admin Clerk auth, sourced event records, and no public tracking/payment cookies. |
 | 2026-08-18 | Render event detail text as Markdown. | Added `react-markdown` with a restricted element set so detail pages can use links, emphasis, and lists without raw HTML or scripts. |
 | 2026-08-18 | Add GitHub Actions CI. | Workflow runs lint, type check, tests, and build on every push/PR to `main` using Node 20 and `npm ci`. |
+| 2026-08-22 | Add admin event review page. | `/admin/events/[eventId]` gives editors full event detail, source list, correction requests, and status transitions. |
 
 ## Open Questions
 
@@ -200,3 +203,8 @@ The public homepage now presents a historical month wall instead of a reservatio
 | 2026-08-18 | `npx tsc --noEmit` | Passed | Zero TypeScript errors before adding the CI workflow. |
 | 2026-08-18 | `npm run test` | Passed | Existing suite remains green before adding the CI workflow. |
 | 2026-08-18 | `npm run build` | Passed | Production build passed before adding the CI workflow. |
+| 2026-08-22 | `npm run lint` | Passed | Admin event service, review page, status action, and updated month detail link passed ESLint. |
+| 2026-08-22 | `npx tsc --noEmit` | Passed | Zero TypeScript errors after adding admin event review types and typed MongoDB queries. |
+| 2026-08-22 | `npm run test` | Passed | Suite includes admin event detail tests: 9 files, 29 tests — all green. |
+| 2026-08-22 | `npm run build` | Passed | Production route table now includes `/admin/events/[eventId]`; build passed outside the sandbox. |
+| 2026-08-22 | `npm run seed:db -- --dry-run` | Passed | Full import preview remains green after adding admin event review pages. |

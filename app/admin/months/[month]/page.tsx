@@ -211,6 +211,12 @@ export default async function AdminMonthDetailPage({
                 <div className="flex flex-wrap items-start gap-3 lg:flex-col">
                   <Link
                     className="border border-[var(--border-primary)] px-3 py-2 text-sm uppercase tracking-wide"
+                    href={`/admin/events/${event.id}`}
+                  >
+                    Review event
+                  </Link>
+                  <Link
+                    className="border border-[var(--border-secondary)] px-3 py-2 text-sm uppercase tracking-wide text-[var(--text-muted)]"
                     href={`/events/${event.id}`}
                   >
                     View public

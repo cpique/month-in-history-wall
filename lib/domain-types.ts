@@ -110,7 +110,7 @@ export type CorrectionRequestDocument = {
 
 export type EditorialEventDocument = {
   _id: MongoId;
-  type: "correction_reviewed" | "month_locked";
+  type: "correction_reviewed" | "month_locked" | "event_status_updated";
   actorId?: string;
   monthSlug: string;
   eventId?: MongoId;
