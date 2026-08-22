@@ -139,4 +139,62 @@ describe("month event exhibition mapping", () => {
 
     expect(detail).toBeNull();
   });
+
+  it("excludes current, previous, and next events from related events", () => {
+    const thirdEvent: HistoricalEventDocument = {
+      ...events[0],
+      _id: "1984-06:third",
+      slug: "third",
+      title: "Third event",
+      category: "Culture",
+      importanceLevel: "notable",
+      tileSize: "medium",
+      layout: { order: 3 },
+    };
+
+    const detail = monthEventsToPublishedEventDetail(
+      month,
+      [...events, thirdEvent],
+      "1984-06:first",
+    );
+
+    expect(detail?.relatedEvents.map((event) => event.id)).toEqual([
+      "1984-06:third",
+    ]);
+  });
+
+  it("prefers same-category events when selecting related events", () => {
+    const relatedEvents: HistoricalEventDocument[] = [
+      {
+        ...events[0],
+        _id: "1984-06:same-category",
+        slug: "same-category",
+        title: "Same category event",
+        category: "Conflict",
+        importanceLevel: "notable",
+        tileSize: "medium",
+        layout: { order: 3 },
+      },
+      {
+        ...events[0],
+        _id: "1984-06:other-category",
+        slug: "other-category",
+        title: "Other category event",
+        category: "Technology",
+        importanceLevel: "featured",
+        tileSize: "featured",
+        layout: { order: 4 },
+      },
+    ];
+
+    const detail = monthEventsToPublishedEventDetail(
+      month,
+      [...events, ...relatedEvents],
+      "1984-06:first",
+    );
+
+    const relatedIds = detail?.relatedEvents.map((event) => event.id);
+    expect(relatedIds?.[0]).toBe("1984-06:same-category");
+    expect(relatedIds).toContain("1984-06:other-category");
+  });
 });

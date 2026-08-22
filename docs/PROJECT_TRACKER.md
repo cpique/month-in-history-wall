@@ -46,6 +46,7 @@ The public homepage now presents a historical month wall instead of a reservatio
 - [x] Added `lib/admin-source-service.ts` to aggregate sources across all events with MongoDB and static fallback.
 - [x] Replaced generated `PageProps` types with explicit local prop types so `tsc --noEmit` passes in fresh CI environments.
 - [x] Added public month sharing from the homepage and archive month pages, completing the README "Share a month or event" requirement.
+- [x] Added related events to public event detail pages, surfacing same-category events from the same month while excluding current, previous, and next events.
 
 ## In Progress
 
@@ -102,6 +103,7 @@ The public homepage now presents a historical month wall instead of a reservatio
 | 2026-08-22 | Add admin source review page. | `/admin/sources` shows aggregate citation coverage, source-type mix, and events missing sources. |
 | 2026-08-22 | Replace generated `PageProps` with local prop types. | Next.js route types are generated during build; explicit prop types let `tsc --noEmit` run in fresh CI before build. |
 | 2026-08-22 | Add public month sharing. | Homepage and archive month pages share the stable `/archive/[month]` URL via the Web Share API or clipboard fallback. |
+| 2026-08-22 | Add related events to detail pages. | Same-category events from the same month are preferred; current, previous, and next events are excluded to avoid duplication. |
 
 ## Open Questions
 
@@ -225,3 +227,8 @@ The public homepage now presents a historical month wall instead of a reservatio
 | 2026-08-22 | `npm run test` | Passed | Existing suite remains green: 10 files, 33 tests. |
 | 2026-08-22 | `npm run build` | Passed | Production build passed with month share buttons on `/` and `/archive/[month]`. |
 | 2026-08-22 | `npm run seed:db -- --dry-run` | Passed | Full import preview remains green after adding month sharing. |
+| 2026-08-22 | `npm run lint` | Passed | Related events logic, event detail page, and updated service passed ESLint. |
+| 2026-08-22 | `npx tsc --noEmit` (without .next/types) | Passed | Zero TypeScript errors after adding related events to `PublishedEventDetail`. |
+| 2026-08-22 | `npm run test` | Passed | Suite includes related-event selection tests: 10 files, 35 tests — all green. |
+| 2026-08-22 | `npm run build` | Passed | Production build passed with related events on `/events/[eventId]`. |
+| 2026-08-22 | `npm run seed:db -- --dry-run` | Passed | Full import preview remains green after adding related events. |

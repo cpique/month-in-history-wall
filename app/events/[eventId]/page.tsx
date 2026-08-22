@@ -52,6 +52,7 @@ export default async function EventDetailPage({
       exhibition={detail.exhibition}
       nextEvent={detail.publishedEvents[detail.currentIndex + 1]}
       previousEvent={detail.publishedEvents[detail.currentIndex - 1]}
+      relatedEvents={detail.relatedEvents}
       shareUrl={shareUrl}
       totalEvents={detail.publishedEvents.length}
     />

@@ -80,6 +80,7 @@ export function EventDetail({
   exhibition,
   nextEvent,
   previousEvent,
+  relatedEvents,
   shareUrl,
   totalEvents,
 }: {
@@ -89,6 +90,7 @@ export function EventDetail({
   exhibition: Exhibition;
   nextEvent?: ExhibitionSpace;
   previousEvent?: ExhibitionSpace;
+  relatedEvents?: ExhibitionSpace[];
   shareUrl?: string;
   totalEvents: number;
 }) {
@@ -310,6 +312,23 @@ export function EventDetail({
                   </button>
                 </form>
               </div>
+
+              {relatedEvents && relatedEvents.length > 0 ? (
+                <div className="space-y-3 border-t border-[var(--border-tertiary)] pt-5">
+                  <p className="text-xs uppercase tracking-wide text-[var(--text-muted)]">
+                    Related events from {exhibition.monthLabel}
+                  </p>
+                  <nav aria-label="Related events" className="grid gap-2">
+                    {relatedEvents.map((relatedEvent) => (
+                      <EventBrowseCard
+                        event={relatedEvent}
+                        key={relatedEvent.id}
+                        label={relatedEvent.title}
+                      />
+                    ))}
+                  </nav>
+                </div>
+              ) : null}
             </div>
           </div>
         </section>

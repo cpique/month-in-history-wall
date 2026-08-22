@@ -148,7 +148,52 @@ export type PublishedEventDetail = {
   event: ExhibitionSpace;
   publishedEvents: ExhibitionSpace[];
   currentIndex: number;
+  relatedEvents: ExhibitionSpace[];
 };
+
+function getRelatedEvents(
+  publishedEvents: ExhibitionSpace[],
+  currentIndex: number,
+  limit: number = 4,
+): ExhibitionSpace[] {
+  const currentEvent = publishedEvents[currentIndex];
+
+  if (!currentEvent) {
+    return [];
+  }
+
+  const excludedIds = new Set([
+    currentEvent.id,
+    publishedEvents[currentIndex - 1]?.id,
+    publishedEvents[currentIndex + 1]?.id,
+  ]);
+
+  const scored = publishedEvents
+    .filter((event) => !excludedIds.has(event.id))
+    .map((event) => {
+      let score = 0;
+
+      if (event.category === currentEvent.category) {
+        score += 3;
+      }
+
+      if (event.importanceLevel === currentEvent.importanceLevel) {
+        score += 1;
+      }
+
+      return { event, score };
+    });
+
+  scored.sort((a, b) => {
+    if (b.score !== a.score) {
+      return b.score - a.score;
+    }
+
+    return a.event.title.localeCompare(b.event.title);
+  });
+
+  return scored.slice(0, limit).map((item) => item.event);
+}
 
 export function monthEventsToPublishedEventDetail(
   month: MonthDocument,
@@ -168,6 +213,7 @@ export function monthEventsToPublishedEventDetail(
     event: publishedEvents[currentIndex],
     publishedEvents,
     currentIndex,
+    relatedEvents: getRelatedEvents(publishedEvents, currentIndex),
   };
 }
 
@@ -252,6 +298,7 @@ function getStaticEventDetail(eventId: string): PublishedEventDetail | null {
     event: publishedEvents[currentIndex],
     publishedEvents,
     currentIndex,
+    relatedEvents: getRelatedEvents(publishedEvents, currentIndex),
   };
 }
 
