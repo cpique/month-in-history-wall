@@ -3,9 +3,11 @@
 import { useCallback, useState } from "react";
 
 export function EventShareButton({
+  label = "Share event",
   title,
   url,
 }: {
+  label?: string;
   title: string;
   url: string;
 }) {
@@ -38,12 +40,12 @@ export function EventShareButton({
 
   return (
     <button
-      aria-label="Share this event"
+      aria-label={label}
       className="w-fit border border-[var(--border-primary)] px-4 py-3 text-sm uppercase tracking-wide"
       onClick={handleShare}
       type="button"
     >
-      {copied ? "Link copied" : "Share event"}
+      {copied ? "Link copied" : label}
     </button>
   );
 }

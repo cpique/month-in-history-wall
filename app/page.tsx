@@ -1,9 +1,11 @@
+import { headers } from "next/headers";
 import Link from "next/link";
 import {
   ExhibitionWall,
   type ExhibitionWallFilter,
 } from "@/components/exhibition/exhibition-wall";
 import { WallFullscreenShell } from "@/components/exhibition/wall-fullscreen-shell";
+import { EventShareButton } from "@/components/events/event-share-button";
 import { getCurrentExhibition } from "@/lib/exhibition-service";
 
 type HomePageProps = {
@@ -15,6 +17,9 @@ export default async function Home({ searchParams }: HomePageProps) {
   const filter: ExhibitionWallFilter =
     view === "published" || view === "available" || view === "review" ? view : "all";
   const exhibition = await getCurrentExhibition();
+  const host = (await headers()).get("host") ?? "month-in-history-wall.local";
+  const protocol = host.includes("localhost") ? "http" : "https";
+  const shareUrl = `${protocol}://${host}/archive/${exhibition.slug}`;
 
   return (
     <main className="min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)]">
@@ -28,8 +33,13 @@ export default async function Home({ searchParams }: HomePageProps) {
               {exhibition.tagline}
             </h1>
           </div>
-          <nav className="flex flex-wrap gap-4 text-sm uppercase tracking-wide underline underline-offset-4">
+          <nav className="flex flex-wrap items-center gap-4 text-sm uppercase tracking-wide underline underline-offset-4">
             <Link href="/archive">Archive</Link>
+            <EventShareButton
+              label="Share month"
+              title={`${exhibition.monthLabel} | Month in History Wall`}
+              url={shareUrl}
+            />
           </nav>
         </header>
         <WallFullscreenShell

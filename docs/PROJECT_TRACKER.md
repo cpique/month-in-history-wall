@@ -45,6 +45,7 @@ The public homepage now presents a historical month wall instead of a reservatio
 - [x] Added a protected `/admin/sources` review page with source coverage totals, type breakdown, events without sources, and links to event review.
 - [x] Added `lib/admin-source-service.ts` to aggregate sources across all events with MongoDB and static fallback.
 - [x] Replaced generated `PageProps` types with explicit local prop types so `tsc --noEmit` passes in fresh CI environments.
+- [x] Added public month sharing from the homepage and archive month pages, completing the README "Share a month or event" requirement.
 
 ## In Progress
 
@@ -100,6 +101,7 @@ The public homepage now presents a historical month wall instead of a reservatio
 | 2026-08-22 | Add admin event review page. | `/admin/events/[eventId]` gives editors full event detail, source list, correction requests, and status transitions. |
 | 2026-08-22 | Add admin source review page. | `/admin/sources` shows aggregate citation coverage, source-type mix, and events missing sources. |
 | 2026-08-22 | Replace generated `PageProps` with local prop types. | Next.js route types are generated during build; explicit prop types let `tsc --noEmit` run in fresh CI before build. |
+| 2026-08-22 | Add public month sharing. | Homepage and archive month pages share the stable `/archive/[month]` URL via the Web Share API or clipboard fallback. |
 
 ## Open Questions
 
@@ -218,3 +220,8 @@ The public homepage now presents a historical month wall instead of a reservatio
 | 2026-08-22 | `npm run test` | Passed | Suite includes admin source review tests: 10 files, 33 tests — all green. |
 | 2026-08-22 | `npm run build` | Passed | Production route table now includes `/admin/sources`; build passed outside the sandbox. |
 | 2026-08-22 | `npm run seed:db -- --dry-run` | Passed | Full import preview remains green after adding admin source review pages. |
+| 2026-08-22 | `npm run lint` | Passed | Month share buttons, updated share component, homepage, and archive page passed ESLint. |
+| 2026-08-22 | `npx tsc --noEmit` (without .next/types) | Passed | Zero TypeScript errors after adding month share buttons to server pages. |
+| 2026-08-22 | `npm run test` | Passed | Existing suite remains green: 10 files, 33 tests. |
+| 2026-08-22 | `npm run build` | Passed | Production build passed with month share buttons on `/` and `/archive/[month]`. |
+| 2026-08-22 | `npm run seed:db -- --dry-run` | Passed | Full import preview remains green after adding month sharing. |

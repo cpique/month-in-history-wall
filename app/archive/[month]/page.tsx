@@ -1,6 +1,8 @@
+import { headers } from "next/headers";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ExhibitionWall } from "@/components/exhibition/exhibition-wall";
+import { EventShareButton } from "@/components/events/event-share-button";
 import {
   getArchivedExhibitionBySlug,
   getArchiveSummaries,
@@ -43,6 +45,10 @@ export default async function ArchiveMonthPage({
     notFound();
   }
 
+  const host = (await headers()).get("host") ?? "month-in-history-wall.local";
+  const protocol = host.includes("localhost") ? "http" : "https";
+  const shareUrl = `${protocol}://${host}/archive/${exhibition.slug}`;
+
   const archiveIndex = summaries.findIndex(
     (summary) => summary.slug === exhibition.slug,
   );
@@ -56,7 +62,14 @@ export default async function ArchiveMonthPage({
           <div className="space-y-8">
             <nav className="flex items-center justify-between gap-4 text-sm uppercase tracking-wide">
               <Link href="/archive">Archive</Link>
-              <Link href="/">Current wall</Link>
+              <div className="flex flex-wrap items-center gap-4">
+                <Link href="/">Current wall</Link>
+                <EventShareButton
+                  label="Share month"
+                  title={`${exhibition.monthLabel} Archive | Month in History Wall`}
+                  url={shareUrl}
+                />
+              </div>
             </nav>
 
             <div className="space-y-5">
